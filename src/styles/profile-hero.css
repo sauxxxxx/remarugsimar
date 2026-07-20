@@ -1,0 +1,56 @@
+.profile-overview {
+  display: grid;
+  align-items: start;
+  gap: clamp(24px, 3vw, 40px);
+  grid-template-columns: minmax(180px, 0.8fr) minmax(230px, 1.2fr);
+}
+
+.portrait {
+  position: relative;
+  display: flex;
+  height: clamp(220px, 18vw, 260px);
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+.portrait__image {
+  object-fit: contain;
+  object-position: center bottom;
+  transform: translateY(56px) scale(1.35);
+  transform-origin: center bottom;
+}
+
+.availability {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--background);
+  color: var(--muted-foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.portrait__availability {
+  position: absolute;
+  z-index: 2;
+  top: -4px;
+  left: 0;
+}
+
+.availability__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}

@@ -1,0 +1,220 @@
+.portfolio-search-trigger {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--subtle-foreground);
+  cursor: pointer;
+  transition: border-color 180ms ease-out, color 180ms ease-out;
+}
+
+.portfolio-search-trigger:hover {
+  border-color: var(--subtle-foreground);
+  color: var(--foreground);
+}
+
+.portfolio-search-trigger:focus-visible,
+.portfolio-search-option:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.portfolio-search-dialog {
+  --portfolio-search-top: clamp(20px, 14vh, 112px);
+
+  position: fixed;
+  inset: 0;
+  width: min(600px, calc(100vw - 32px));
+  max-height: min(660px, calc(100dvh - var(--portfolio-search-top) - 20px));
+  padding: 0;
+  margin: var(--portfolio-search-top) auto auto;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--foreground);
+  box-shadow: 0 24px 70px rgb(0 0 0 / 18%);
+}
+
+.portfolio-search-dialog::backdrop {
+  background: rgb(17 17 16 / 48%);
+  backdrop-filter: blur(3px);
+}
+
+.portfolio-search-dialog__content {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.portfolio-search-input {
+  display: flex;
+  min-height: 50px;
+  flex: none;
+  align-items: center;
+  gap: 11px;
+  padding: 0 14px 0 17px;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--subtle-foreground);
+}
+
+.portfolio-search-input:focus-within {
+  box-shadow: inset 0 -1px var(--foreground);
+}
+
+.portfolio-search-input input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 13px;
+}
+
+.portfolio-search-input input::placeholder {
+  color: var(--subtle-foreground);
+}
+
+.portfolio-search-input input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.portfolio-search-input kbd {
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--subtle-foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.portfolio-search-list {
+  min-height: 0;
+  max-height: min(500px, calc(100dvh - 150px));
+  padding: 10px 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--subtle-foreground) transparent;
+  scrollbar-width: thin;
+}
+
+.portfolio-search-group + .portfolio-search-group {
+  margin-top: 10px;
+}
+
+.portfolio-search-group__label {
+  margin: 0;
+  padding: 6px 10px 5px;
+  color: var(--subtle-foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.portfolio-search-option {
+  display: grid;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  gap: 11px;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  font-family: var(--font-geist-mono), monospace;
+  text-align: left;
+}
+
+.portfolio-search-option:hover,
+.portfolio-search-option[data-highlighted="true"] {
+  background: var(--surface-strong);
+  color: var(--foreground);
+}
+
+.portfolio-search-option__copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.portfolio-search-option__copy small {
+  overflow: hidden;
+  color: var(--subtle-foreground);
+  font-size: 9px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.portfolio-search-option__meta {
+  color: var(--subtle-foreground);
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.portfolio-search-empty {
+  display: grid;
+  min-height: 88px;
+  place-content: center;
+  text-align: center;
+}
+
+.portfolio-search-empty p {
+  margin: 0;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+}
+
+.portfolio-search-empty span {
+  margin-top: 4px;
+  color: var(--subtle-foreground);
+  font-size: 11px;
+}
+
+.portfolio-search-dialog__status {
+  display: flex;
+  min-height: 36px;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--subtle-foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .portfolio-search-dialog {
+    --portfolio-search-top: clamp(16px, 10vh, 70px);
+
+    width: calc(100vw - 20px);
+  }
+
+  .portfolio-search-input input {
+    font-size: 16px;
+  }
+
+  .portfolio-search-dialog__status > span:last-child {
+    display: none;
+  }
+}
