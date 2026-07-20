@@ -8,6 +8,7 @@ export type BoardCell = {
 
 export type DisplayCell = {
   active: boolean;
+  ghost: boolean;
   tech: TechKey;
 } | null;
 

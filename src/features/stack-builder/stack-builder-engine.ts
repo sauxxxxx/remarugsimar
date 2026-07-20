@@ -178,10 +178,26 @@ export function togglePause(state: GameState): GameState {
 
 export function getDisplayBoard(state: GameState): DisplayCell[][] {
   const board: DisplayCell[][] = state.board.map((row) =>
-    row.map((cell) => (cell ? { ...cell, active: false } : null)),
+    row.map((cell) => (cell ? { ...cell, active: false, ghost: false } : null)),
   );
 
   if (state.status === "gameover") return board;
+
+  let ghostRow = state.piece.row;
+  while (canPlace(state.board, state.piece, ghostRow + 1, state.piece.col)) ghostRow += 1;
+
+  if (ghostRow !== state.piece.row) {
+    for (let y = 0; y < state.piece.shape.length; y += 1) {
+      for (let x = 0; x < state.piece.shape[y].length; x += 1) {
+        if (!state.piece.shape[y][x]) continue;
+        const boardRow = ghostRow + y;
+        const boardCol = state.piece.col + x;
+        if (boardRow >= 0 && boardRow < BOARD_HEIGHT && !board[boardRow][boardCol]) {
+          board[boardRow][boardCol] = { active: false, ghost: true, tech: state.piece.tech };
+        }
+      }
+    }
+  }
 
   for (let y = 0; y < state.piece.shape.length; y += 1) {
     for (let x = 0; x < state.piece.shape[y].length; x += 1) {
@@ -189,7 +205,7 @@ export function getDisplayBoard(state: GameState): DisplayCell[][] {
       const boardRow = state.piece.row + y;
       const boardCol = state.piece.col + x;
       if (boardRow >= 0 && boardRow < BOARD_HEIGHT) {
-        board[boardRow][boardCol] = { active: true, tech: state.piece.tech };
+        board[boardRow][boardCol] = { active: true, ghost: false, tech: state.piece.tech };
       }
     }
   }

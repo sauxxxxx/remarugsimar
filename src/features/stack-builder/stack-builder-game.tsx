@@ -93,10 +93,11 @@ export function StackBuilderGame({ onClose }: StackBuilderGameProps) {
         >
           {board.flat().map((cell, index) => (
             <span
-              className={cell ? `stack-builder-cell stack-builder-cell--${cell.active ? "active" : "settled"}` : "stack-builder-cell"}
+              className={cell ? `stack-builder-cell stack-builder-cell--${cell.active ? "active" : cell.ghost ? "ghost" : "settled"}` : "stack-builder-cell"}
+              data-tech={cell?.tech}
               key={index}
             >
-              {cell ? cell.tech : ""}
+              {cell && !cell.ghost ? cell.tech : ""}
             </span>
           ))}
           {inactiveStatus && (
@@ -129,6 +130,7 @@ export function StackBuilderGame({ onClose }: StackBuilderGameProps) {
                 row.map((filled, x) => (
                   <span
                     className={filled ? "stack-builder-next__cell is-filled" : "stack-builder-next__cell"}
+                    data-tech={filled ? game.nextPiece.tech : undefined}
                     key={`${x}-${y}`}
                   >
                     {filled ? game.nextPiece.tech : ""}

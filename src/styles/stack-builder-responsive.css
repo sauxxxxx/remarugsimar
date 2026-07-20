@@ -10,6 +10,18 @@
   }
 }
 
+@keyframes stack-builder-cell-arrive {
+  from {
+    opacity: 0.55;
+    transform: translateY(-3px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 820px) {
   .stack-builder__mobile-close {
     display: inline-flex;
@@ -30,7 +42,7 @@
   }
 
   .stack-builder-board {
-    width: min(280px, calc(52dvh * 0.625));
+    width: min(292px, calc(56dvh * 0.625));
     grid-column: 1;
     grid-row: 1;
   }
@@ -87,7 +99,7 @@
   }
 
   .stack-builder-board {
-    width: min(244px, calc(50dvh * 0.625));
+    width: min(264px, calc(52dvh * 0.625));
   }
 
   .stack-builder-touch {
@@ -168,5 +180,9 @@
 
   .stack-builder-status button {
     transition: none;
+  }
+
+  .stack-builder-cell--active {
+    animation: none;
   }
 }

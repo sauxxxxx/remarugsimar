@@ -30,6 +30,10 @@
   --game-board: rgb(251 251 250 / 72%);
   --game-grid: rgb(24 24 22 / 8%);
   --game-settled: #383834;
+  --game-fe: #178f67;
+  --game-api: #3974b8;
+  --game-db: #a06a24;
+  --game-ai: #7657a6;
   --game-float-shadow: 0 28px 80px rgb(24 24 22 / 12%);
   --game-soft-shadow: 0 12px 34px rgb(24 24 22 / 9%);
   --game-overlay-base: rgb(247 247 245 / 52%);
@@ -61,6 +65,10 @@
   --game-board: rgb(22 22 21 / 74%);
   --game-grid: rgb(238 238 234 / 8%);
   --game-settled: #85857f;
+  --game-fe: #54c99c;
+  --game-api: #72a8e5;
+  --game-db: #d8a55c;
+  --game-ai: #ad8bdc;
   --game-float-shadow: 0 30px 90px rgb(0 0 0 / 42%);
   --game-soft-shadow: 0 14px 40px rgb(0 0 0 / 30%);
   --game-overlay-base: rgb(17 17 16 / 54%);
@@ -187,7 +195,7 @@
 .stack-builder-board {
   position: relative;
   display: grid;
-  width: min(300px, calc(58dvh * 0.625));
+  width: min(320px, calc(62dvh * 0.625));
   aspect-ratio: 10 / 16;
   grid-column: 2;
   grid-row: 1;
@@ -198,38 +206,97 @@
   border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
   border-radius: 2px;
   background: var(--game-board);
-  box-shadow: var(--game-float-shadow);
+  box-shadow: var(--game-float-shadow), inset 0 -18px 34px color-mix(in srgb, var(--foreground) 3%, transparent);
   backdrop-filter: blur(14px);
   transform: translateZ(0);
   animation: stack-builder-float-in 280ms ease-out both;
 }
 
+.stack-builder-board::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--game-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--game-grid) 1px, transparent 1px);
+  background-size: 10% 6.25%;
+  content: "";
+  mask-image: linear-gradient(to bottom, transparent 0%, black 13%, black 88%, transparent 100%);
+  pointer-events: none;
+}
+
+.stack-builder-board::after {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: color-mix(in srgb, var(--foreground) 28%, transparent);
+  box-shadow: 0 -8px 24px color-mix(in srgb, var(--foreground) 6%, transparent);
+  content: "";
+  pointer-events: none;
+}
+
 .stack-builder-cell {
+  position: relative;
+  z-index: 1;
   display: flex;
   min-width: 0;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid var(--game-grid);
-  border-bottom: 1px solid var(--game-grid);
   color: transparent;
-  font-size: 7px;
+  font-size: 7.5px;
   line-height: 1;
   user-select: none;
 }
 
+.stack-builder-cell[data-tech="FE"],
+.stack-builder-next__cell[data-tech="FE"] {
+  --cell-color: var(--game-fe);
+}
+
+.stack-builder-cell[data-tech="API"],
+.stack-builder-next__cell[data-tech="API"] {
+  --cell-color: var(--game-api);
+}
+
+.stack-builder-cell[data-tech="DB"],
+.stack-builder-next__cell[data-tech="DB"] {
+  --cell-color: var(--game-db);
+}
+
+.stack-builder-cell[data-tech="AI"],
+.stack-builder-next__cell[data-tech="AI"] {
+  --cell-color: var(--game-ai);
+}
+
 .stack-builder-cell--active {
-  background: var(--game-active);
+  background: var(--cell-color, var(--game-active));
   color: var(--game-board);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, white 22%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, white 24%, transparent),
+    0 0 16px color-mix(in srgb, var(--cell-color, var(--game-active)) 24%, transparent);
+  animation: stack-builder-cell-arrive 160ms ease-out both;
+}
+
+.stack-builder-cell--ghost {
+  z-index: 0;
+  margin: 2px;
+  border: 1px dashed color-mix(in srgb, var(--cell-color, var(--game-active)) 58%, transparent);
+  background: color-mix(in srgb, var(--cell-color, var(--game-active)) 7%, transparent);
 }
 
 .stack-builder-cell--settled {
-  background: var(--game-settled);
+  background: color-mix(in srgb, var(--cell-color, var(--game-settled)) 72%, var(--game-settled));
   color: var(--game-board);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, white 10%, transparent);
+  transition: background-color 180ms ease-out, box-shadow 180ms ease-out;
 }
 
 .stack-builder-status {
   position: absolute;
+  z-index: 3;
   inset: 0;
   display: flex;
   align-items: center;
@@ -320,11 +387,11 @@
 }
 
 .stack-builder-next__cell.is-filled {
-  border: 1px solid color-mix(in srgb, var(--game-active) 42%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cell-color, var(--game-active)) 42%, transparent);
   border-radius: 5px;
   background: var(--game-active-soft);
-  color: var(--game-active);
-  box-shadow: 0 7px 17px color-mix(in srgb, var(--game-active) 13%, transparent);
+  color: var(--cell-color, var(--game-active));
+  box-shadow: 0 7px 17px color-mix(in srgb, var(--cell-color, var(--game-active)) 13%, transparent);
 }
 
 .stack-builder-controls dl {
