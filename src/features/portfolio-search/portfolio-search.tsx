@@ -8,7 +8,9 @@ import {
   Home,
   Layers3,
   Mail,
+  PenLine,
   Search,
+  Wrench,
   UserRound,
 } from "lucide-react";
 import {
@@ -28,6 +30,8 @@ import {
 const GROUP_ORDER: PortfolioSearchItem["group"][] = [
   "Navigate",
   "Projects",
+  "Writing",
+  "Services",
   "Technologies",
   "Contact",
 ];
@@ -39,8 +43,10 @@ const SEARCH_ICONS = {
   game: Gamepad2,
   home: Home,
   project: FolderOpen,
+  service: Wrench,
   stack: Layers3,
   technology: Code2,
+  writing: PenLine,
 } satisfies Record<PortfolioSearchIcon, typeof Search>;
 
 type PortfolioSearchProps = {

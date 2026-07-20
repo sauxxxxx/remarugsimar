@@ -4,6 +4,10 @@ import { ProjectsPanel } from "./projects-panel";
 import { ExperiencePanel } from "./experience-panel";
 import { SectionLabel } from "./section-label";
 import { StackPanel } from "./stack-panel";
+import { ServicesPanel } from "./services-panel";
+import { TestimonialsPanel } from "./testimonials-panel";
+import { WritingPanel } from "./writing-panel";
+import { ContactPanel } from "./contact-panel";
 
 export function AboutPanel() {
   return (
@@ -25,8 +29,12 @@ export function AboutPanel() {
       </div>
 
       <ProjectsPanel />
+      <ServicesPanel />
       <ExperiencePanel />
       <StackPanel />
+      <WritingPanel />
+      <TestimonialsPanel />
+      <ContactPanel />
     </section>
   );
 }

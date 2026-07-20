@@ -1,3 +1,4 @@
+import { services, writingEntries } from "@/lib/content-data";
 import { profileLinks, projects, technologyGroups } from "@/lib/portfolio-data";
 
 export type PortfolioSearchIcon =
@@ -7,14 +8,16 @@ export type PortfolioSearchIcon =
   | "game"
   | "home"
   | "project"
+  | "service"
   | "stack"
-  | "technology";
+  | "technology"
+  | "writing";
 
 export type PortfolioSearchItem = {
   id: string;
   label: string;
   description: string;
-  group: "Navigate" | "Projects" | "Technologies" | "Contact";
+  group: "Navigate" | "Projects" | "Writing" | "Services" | "Technologies" | "Contact";
   href?: string;
   icon: PortfolioSearchIcon;
   keywords: readonly string[];
@@ -80,6 +83,39 @@ const navigationItems: PortfolioSearchItem[] = [
     meta: "G S",
     showByDefault: true,
   },
+  {
+    id: "services",
+    label: "Services",
+    description: "Ways I can help build your product or website",
+    group: "Navigate",
+    href: "/#services",
+    icon: "service",
+    keywords: ["work together", "development", "freelance"],
+    meta: "G V",
+    showByDefault: false,
+  },
+  {
+    id: "writing",
+    label: "Writing",
+    description: "Read notes on products, CRM, and AI",
+    group: "Navigate",
+    href: "/writing",
+    icon: "writing",
+    keywords: ["articles", "blog", "essays"],
+    meta: "G W",
+    showByDefault: true,
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    description: "Start a conversation about a project",
+    group: "Navigate",
+    href: "/#contact",
+    icon: "contact",
+    keywords: ["email", "hire", "freelance"],
+    meta: "G C",
+    showByDefault: false,
+  },
 ];
 
 const projectItems: PortfolioSearchItem[] = projects.map((project) => ({
@@ -87,11 +123,34 @@ const projectItems: PortfolioSearchItem[] = projects.map((project) => ({
   label: project.name,
   description: project.category,
   group: "Projects",
-  href: `/projects#${project.slug}`,
+  href: `/projects/${project.slug}`,
   icon: "project",
   keywords: [project.description, project.overview, ...project.technologies],
   meta: String(project.year),
   showByDefault: project.featured,
+}));
+
+const writingItems: PortfolioSearchItem[] = writingEntries.map((entry) => ({
+  id: `writing-${entry.slug}`,
+  label: entry.title,
+  description: entry.summary,
+  group: "Writing",
+  href: `/writing/${entry.slug}`,
+  icon: "writing",
+  keywords: [entry.category, "article", "essay"],
+  meta: entry.readingTime,
+  showByDefault: false,
+}));
+
+const serviceItems: PortfolioSearchItem[] = services.map((service) => ({
+  id: `service-${service.title.toLocaleLowerCase().replaceAll(/[^a-z0-9]+/g, "-")}`,
+  label: service.title,
+  description: service.description,
+  group: "Services",
+  href: "/#services",
+  icon: "service",
+  keywords: service.capabilities,
+  showByDefault: false,
 }));
 
 const technologies = Array.from(
@@ -140,6 +199,8 @@ export function getPortfolioSearchItems(includeGame: boolean) {
     ...navigationItems,
     ...(includeGame ? [gameItem] : []),
     ...projectItems,
+    ...writingItems,
+    ...serviceItems,
     ...technologyItems,
     ...contactItems,
   ];

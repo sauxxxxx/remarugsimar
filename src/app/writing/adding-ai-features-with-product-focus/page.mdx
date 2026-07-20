@@ -1,0 +1,44 @@
+import { ArticleShell } from "@/components/article-shell";
+import { writingEntries } from "@/lib/content-data";
+
+export const metadata = {
+  title: "Adding AI Features Without Losing Product Focus",
+  description: writingEntries[2].summary,
+  alternates: { canonical: `/writing/${writingEntries[2].slug}` },
+};
+
+<ArticleShell entry={writingEntries[2]}>
+
+AI can make a product more capable, but capability alone is not a user experience. A useful AI feature begins with a specific moment where a person needs to create, decide, organize, or understand something.
+
+## Start with the job, not the model
+
+“Add AI” is too broad to guide a product decision. A better question is: what task currently requires too much time or expertise, and which part of it can the system assist with safely?
+
+That framing creates a measurable boundary. The feature might suggest a first draft, classify incoming information, summarize a conversation, or turn a structured idea into production steps. The user still understands what the feature is for.
+
+## Keep control visible
+
+Generated output should rarely feel final by default. Users need to inspect, edit, retry, and understand the effect of their choices. Clear controls also make the product feel faster because people can recover from an imperfect result without restarting the whole workflow.
+
+Useful patterns include:
+
+- Previewing inputs before an expensive generation step.
+- Separating editable structure from generated presentation.
+- Saving versions so exploration is reversible.
+- Showing progress and meaningful failure states.
+- Asking for confirmation before publishing or sending output.
+
+## Engineer for uncertainty
+
+Model responses, latency, and provider availability can vary. The surrounding system should not pretend otherwise. Validation, timeouts, retries, queues, and durable job states are essential when AI work takes longer than a normal request.
+
+The interface should distinguish waiting, processing, failed, and completed states. The backend should preserve enough context to retry safely without duplicating work or losing the user's intent.
+
+## Measure the workflow improvement
+
+An AI feature is valuable when it improves an outcome: less time to reach a usable draft, fewer repetitive steps, clearer decisions, or new creative possibilities. Usage alone does not prove that the feature helped.
+
+Product focus means treating the model as one component in a complete workflow. The best implementation is not necessarily the one with the most impressive generation. It is the one that gives users a dependable way to move their work forward.
+
+</ArticleShell>

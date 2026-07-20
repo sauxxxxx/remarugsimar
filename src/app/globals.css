@@ -9,6 +9,8 @@
 @import "../styles/entrance-transition.css";
 @import "../styles/stack-builder.css";
 @import "../styles/stack-builder-responsive.css";
+@import "../styles/homepage-sections.css";
+@import "../styles/content-pages.css";
 
 :root {
   --background: #f7f7f5;
@@ -275,19 +277,20 @@ a:focus-visible {
 }
 
 .portfolio-navigation {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  column-gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .portfolio-navigation a {
   display: grid;
-  min-height: 34px;
+  min-height: 29px;
   align-items: center;
   gap: 8px;
   grid-template-columns: 14px minmax(0, 1fr);
   color: var(--muted-foreground);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-size: 12px;
   transition: color 180ms ease-out, transform 180ms ease-out;
 }
 

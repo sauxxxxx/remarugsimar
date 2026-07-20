@@ -37,13 +37,23 @@ export type PortfolioProject = {
   category: string;
   description: string;
   overview: string;
+  challenge: string;
+  approach: string;
+  outcome: string;
   role: string;
   contributions: readonly string[];
   technologies: readonly string[];
   year: number;
   thumbnailUrl: string;
+  screenshots: readonly ProjectScreenshot[];
   url: string;
   featured: boolean;
+};
+
+export type ProjectScreenshot = {
+  src: string;
+  alt: string;
+  caption: string;
 };
 
 export const projects: readonly PortfolioProject[] = [
@@ -55,6 +65,12 @@ export const projects: readonly PortfolioProject[] = [
       "Create story-driven animations and videos from simple ideas using AI-powered creative workflows.",
     overview:
       "A creative production platform that helps users move from an initial story idea to an organized animation and video workflow.",
+    challenge:
+      "Turning a short idea into an animated video involves many connected decisions: story structure, characters, scenes, assets, generation tasks, and final output. The product needed to keep that process understandable while AI work happened across multiple stages.",
+    approach:
+      "I helped shape a structured production workspace around projects rather than isolated AI prompts. The experience brings creation tools, reusable assets, progress states, credits, and recent work into one dashboard so users can move through the workflow without losing context.",
+    outcome:
+      "The resulting product provides a clearer path from idea to production. Complex AI operations are presented as manageable creative steps, with the surrounding application keeping projects, resources, and generation activity organized.",
     role: "Full-stack product development",
     contributions: [
       "AI-assisted creative workflows",
@@ -64,6 +80,7 @@ export const projects: readonly PortfolioProject[] = [
     technologies: ["Vue", "Node.js", "Tailwind CSS", "AI"],
     year: 2026,
     thumbnailUrl: "/projects/roarly-dashboard.webp",
+    screenshots: [],
     url: "",
     featured: true,
   },
@@ -75,6 +92,12 @@ export const projects: readonly PortfolioProject[] = [
       "Manage leads, customer relationships, communication, and sales activities in one centralized workspace.",
     overview:
       "A centralized CRM workspace designed to make business operations, customer communication, and sales activity easier to monitor and manage.",
+    challenge:
+      "Customer information, sales activity, communications, and follow-ups can quickly become fragmented across tools. The CRM needed to give teams one reliable workspace without making day-to-day actions feel buried beneath reporting complexity.",
+    approach:
+      "I worked across the application to organize leads, contacts, accounts, deals, tasks, communication, and attendance into connected workflows. Dashboard summaries provide context, while detailed modules let users move directly from an insight to the records that need attention.",
+    outcome:
+      "JoynoSync brings operational and customer activity into a shared system. Teams can understand pipeline movement, ownership, communication history, and upcoming work from a consistent interface designed to support daily decision-making.",
     role: "Full-stack application development",
     contributions: [
       "CRM dashboard and reporting",
@@ -84,6 +107,7 @@ export const projects: readonly PortfolioProject[] = [
     technologies: ["HTML", "CSS", "JavaScript", "Supabase"],
     year: 2026,
     thumbnailUrl: "/projects/joynosync-dashboard.webp",
+    screenshots: [],
     url: "",
     featured: true,
   },
@@ -95,6 +119,12 @@ export const projects: readonly PortfolioProject[] = [
       "Designed and developed a modern corporate website that showcases the company's services and strengthens its digital presence.",
     overview:
       "A corporate website for a Philippine data-center company, presenting its AI infrastructure vision, services, and business positioning.",
+    challenge:
+      "NxOne needed a credible digital presence for a technically complex and forward-looking business. The website had to explain its data-center and AI infrastructure direction clearly to potential partners without overwhelming them with industry language.",
+    approach:
+      "I organized the experience around the company's positioning, solutions, and a direct path to expert contact. The WordPress and Elementor implementation uses a responsive visual hierarchy, focused service messaging, and foundational search optimization for maintainable publishing.",
+    outcome:
+      "The finished website gives NxOne a focused corporate destination for presenting its vision and services. Visitors can understand the company's role in Philippine AI infrastructure and reach the team through a clear inquiry path.",
     role: "Website design and development",
     contributions: [
       "Responsive corporate presentation",
@@ -104,6 +134,7 @@ export const projects: readonly PortfolioProject[] = [
     technologies: ["WordPress", "Elementor", "SEO"],
     year: 2026,
     thumbnailUrl: "/projects/nxone-home.webp",
+    screenshots: [],
     url: "https://nxonedcinc.com",
     featured: true,
   },
@@ -115,6 +146,12 @@ export const projects: readonly PortfolioProject[] = [
       "Built a responsive website for a Malapascua dive resort, presenting its diving experiences, accommodations, story, and booking information.",
     overview:
       "A content-rich hospitality website that helps visitors explore thresher shark diving, resort accommodations, and travel information before booking their stay.",
+    challenge:
+      "The resort offers both a destination and a specialized diving experience, so the website needed to answer practical travel questions while still communicating the character of Malapascua and its thresher shark encounters.",
+    approach:
+      "I structured the Wix website around the information guests consider before booking: diving experiences, accommodations, the resort story, location details, and inquiry options. Responsive layouts keep photography and essential details readable across devices.",
+    outcome:
+      "The website gives prospective guests a coherent path from discovery to inquiry. Resort information and diving content now live in one branded destination that the team can continue managing through Wix.",
     role: "Wix website development",
     contributions: [
       "Responsive Wix implementation",
@@ -124,6 +161,7 @@ export const projects: readonly PortfolioProject[] = [
     technologies: ["Wix", "Responsive Design", "SEO"],
     year: 2026,
     thumbnailUrl: "/projects/sharks-tail-home.webp",
+    screenshots: [],
     url: "https://www.thesharkstail.com/",
     featured: false,
   },
@@ -135,6 +173,12 @@ export const projects: readonly PortfolioProject[] = [
       "Developed a custom website for Roarly with responsive pages, interactive frontend behavior, and database-backed functionality.",
     overview:
       "A custom-built website supporting the Roarly product with a focused presentation, responsive experience, and application-connected data features.",
+    challenge:
+      "Roarly needed a web presence that could explain the product clearly while supporting interactive and database-backed functionality beyond a conventional static marketing page.",
+    approach:
+      "I developed responsive pages with custom HTML, CSS, and JavaScript, then connected the required data features to MySQL. The interface was kept focused on product communication while leaving room for application-specific interactions.",
+    outcome:
+      "The result is a custom product website that combines marketing content with functional data-backed behavior. Its implementation can evolve alongside the wider Roarly product instead of being limited by a page-builder template.",
     role: "Full-stack website development",
     contributions: [
       "Responsive marketing pages",
@@ -144,6 +188,7 @@ export const projects: readonly PortfolioProject[] = [
     technologies: ["HTML", "CSS", "JavaScript", "MySQL"],
     year: 2026,
     thumbnailUrl: "/projects/roarly-website-home.webp",
+    screenshots: [],
     url: "",
     featured: false,
   },
@@ -155,6 +200,12 @@ export const projects: readonly PortfolioProject[] = [
       "Built a corporate website presenting Joyno Inc.'s BPO services, company philosophy, leadership, and Cebu operations.",
     overview:
       "A company website designed to communicate Joyno Inc.'s service offering, values, leadership, and commitment to creating careers in the Philippines.",
+    challenge:
+      "Joyno needed a corporate website that could establish trust with prospective clients while also communicating the company's culture, leadership, and presence in Cebu to potential team members.",
+    approach:
+      "I built the WordPress and Elementor experience around clear company, service, leadership, and career content. Reusable page sections and responsive layouts make the site easier to maintain while preserving a consistent corporate presentation.",
+    outcome:
+      "The completed website provides Joyno with a central, maintainable platform for communicating its BPO services and company identity to both business and recruitment audiences.",
     role: "WordPress website development",
     contributions: [
       "Company and service presentation",
@@ -164,6 +215,7 @@ export const projects: readonly PortfolioProject[] = [
     technologies: ["WordPress", "Elementor"],
     year: 2026,
     thumbnailUrl: "/projects/joyno-inc-home.webp",
+    screenshots: [],
     url: "https://joynoinc.com",
     featured: false,
   },

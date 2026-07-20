@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { TranslatedText } from "@/features/translation/translation-provider";
 import type { PortfolioProject } from "@/lib/portfolio-data";
 import { TechnologyTags } from "./technology-tags";
@@ -30,27 +31,17 @@ export function ExpandedProjectCard({ index, project }: ExpandedProjectCardProps
         <header className="expanded-project__header">
           <div>
             <span className="expanded-project__number">{number}</span>
-            <p className="expanded-project__category">
-              <TranslatedText text={project.category} />
-            </p>
+            <p className="expanded-project__category"><TranslatedText text={project.category} /></p>
           </div>
           <time dateTime={String(project.year)}>{project.year}</time>
         </header>
 
         <h2>
-          {project.url ? (
-            <a href={project.url} rel="noreferrer" target="_blank">
-              {project.name}
-              <span aria-hidden="true">↗</span>
-            </a>
-          ) : (
-            project.name
-          )}
+          <Link href={`/projects/${project.slug}`}>
+            {project.name}<span aria-hidden="true">↗</span>
+          </Link>
         </h2>
-
-        <p className="expanded-project__overview">
-          <TranslatedText text={project.overview} />
-        </p>
+        <p className="expanded-project__overview"><TranslatedText text={project.overview} /></p>
 
         <div className="expanded-project__details">
           <div>
@@ -61,28 +52,17 @@ export function ExpandedProjectCard({ index, project }: ExpandedProjectCardProps
             <h3><TranslatedText text="Key work" /></h3>
             <ul>
               {project.contributions.map((contribution) => (
-                <li key={contribution}>
-                  <TranslatedText text={contribution} />
-                </li>
+                <li key={contribution}><TranslatedText text={contribution} /></li>
               ))}
             </ul>
           </div>
         </div>
 
-        <TechnologyTags
-          label={`${project.name} technologies`}
-          technologies={project.technologies}
-        />
-
+        <TechnologyTags label={`${project.name} technologies`} technologies={project.technologies} />
         <div className="expanded-project__action">
           {project.url ? (
-            <a href={project.url} rel="noreferrer" target="_blank">
-              <TranslatedText text="visit website" />
-              <span aria-hidden="true">↗</span>
-            </a>
-          ) : (
-            <span><TranslatedText text="private project" /></span>
-          )}
+            <a href={project.url} rel="noreferrer" target="_blank"><TranslatedText text="visit website" /><span aria-hidden="true">↗</span></a>
+          ) : <span><TranslatedText text="private project" /></span>}
         </div>
       </div>
     </article>

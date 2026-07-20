@@ -1,0 +1,41 @@
+import { ArticleShell } from "@/components/article-shell";
+import { writingEntries } from "@/lib/content-data";
+
+export const metadata = {
+  title: "Building Business Software People Actually Use",
+  description: writingEntries[0].summary,
+  alternates: { canonical: `/writing/${writingEntries[0].slug}` },
+};
+
+<ArticleShell entry={writingEntries[0]}>
+
+Business software succeeds when it becomes part of the work, not another place people have to remember to visit. That starts with understanding the decisions, handoffs, and repeated tasks behind a request before deciding what the interface should contain.
+
+## Begin with the workflow
+
+A feature request is often a symptom. “We need a dashboard” might really mean that nobody can see which leads require attention. “We need automation” might mean that the same customer details are being copied between three systems.
+
+I start by mapping the current workflow: who begins it, what information they need, what decision comes next, and where delays or mistakes happen. This keeps the product tied to an observable problem.
+
+## Make the next action obvious
+
+Useful operational software should reduce interpretation. A user should be able to understand what changed, what needs attention, and what they can do next without studying the screen.
+
+- Give each view one clear purpose.
+- Put frequently used actions close to the information they affect.
+- Use status language that matches how the team already talks.
+- Keep exceptional cases visible instead of hiding them behind averages.
+
+## Build around real feedback
+
+Early versions do not need to cover every possible scenario. They need to support the most important path reliably. Once people use that path in real work, their questions reveal what the product model missed.
+
+The strongest feedback is usually specific: a field that arrives too late, a status that means two different things, or an action that requires an unnecessary handoff. These details are more valuable than adding a large feature list before the core flow is trusted.
+
+## Reliability is part of the experience
+
+Performance, clear error states, and predictable data matter as much as visual polish. When software supports customers, accounting, or production work, a confusing failure can cost more than a slow animation or an imperfect layout.
+
+Good business software feels calm because the engineering removes uncertainty. The goal is not simply to ship more controls. It is to help people complete important work with less friction and better information.
+
+</ArticleShell>

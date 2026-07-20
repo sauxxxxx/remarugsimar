@@ -8,6 +8,7 @@ import {
   technologyGroups,
 } from "@/lib/portfolio-data";
 import { STACK_BUILDER_COPY } from "@/features/stack-builder/stack-builder.constants";
+import { contactCopy, services, testimonialCopy, writingEntries } from "@/lib/content-data";
 
 export type LanguageOption = {
   code: string;
@@ -63,6 +64,44 @@ const interfaceCopy = [
   "private project",
 ];
 
+const extendedInterfaceCopy = [
+  "Services",
+  "Writing",
+  "Contact",
+  "services",
+  "testimonials",
+  "latest writing",
+  "contact",
+  `${services.length} ways I can help`,
+  "awaiting client approval",
+  "feedback in progress",
+  "available for selected projects",
+  "start a conversation",
+  "all writing",
+  "Writing",
+  "Notes on product engineering, CRM systems, AI features, and building useful business software.",
+  "project case study",
+  "Type",
+  "Year",
+  "Status",
+  "Live website",
+  "Private project",
+  "Overview",
+  "Technology",
+  "Next case study",
+  "Read next",
+];
+
+const caseStudyCopy = [
+  "Challenge",
+  "Approach",
+  "Outcome",
+  "My contribution",
+  "Project gallery",
+  "screenshots coming soon",
+  "Additional interface screenshots will be added here.",
+];
+
 export const TRANSLATION_SOURCE_TEXTS = Array.from(
   new Set([
     profileCopy.title,
@@ -87,6 +126,20 @@ export const TRANSLATION_SOURCE_TEXTS = Array.from(
     ...technologyGroups.map((group) => group.name),
     ...Object.values(STACK_BUILDER_COPY),
     ...interfaceCopy,
+    ...services.flatMap((service) => [
+      service.title,
+      service.description,
+      ...service.capabilities,
+    ]),
+    testimonialCopy.heading,
+    testimonialCopy.body,
+    testimonialCopy.note,
+    ...writingEntries.flatMap((entry) => [entry.title, entry.summary, entry.category]),
+    contactCopy.heading,
+    contactCopy.body,
+    ...extendedInterfaceCopy,
+    ...projects.flatMap((project) => [project.challenge, project.approach, project.outcome]),
+    ...caseStudyCopy,
   ]),
 );
 

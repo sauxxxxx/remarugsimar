@@ -1,0 +1,230 @@
+.services-panel,
+.testimonials-panel,
+.writing-panel,
+.contact-panel {
+  width: 100%;
+  max-width: 780px;
+  scroll-margin-top: 24px;
+}
+
+.services-panel > .section-label,
+.testimonials-panel > .section-label,
+.writing-panel > .section-label,
+.contact-panel > .section-label {
+  border-top: 1px solid var(--border-soft);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.service-item {
+  min-width: 0;
+  padding: 26px 24px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.service-item:nth-child(even) {
+  border-left: 1px solid var(--border-soft);
+}
+
+.service-item__number,
+.service-item li,
+.testimonials-empty__status,
+.writing-list,
+.contact-panel__eyebrow,
+.contact-panel__email,
+.contact-panel__links {
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.service-item__number,
+.testimonials-empty__status,
+.contact-panel__eyebrow {
+  color: var(--subtle-foreground);
+  font-size: 9px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.service-item h3 {
+  margin: 13px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.service-item > p {
+  margin: 10px 0 0;
+  color: var(--muted-foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.service-item ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 0;
+  margin: 16px 0 0;
+  list-style: none;
+}
+
+.service-item li {
+  color: var(--subtle-foreground);
+  font-size: 9px;
+}
+
+.service-item li::before {
+  margin-right: 6px;
+  content: "·";
+}
+
+.testimonials-empty {
+  padding: clamp(36px, 6vw, 64px) 24px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.testimonials-empty h2,
+.contact-panel__body h2 {
+  margin: 12px 0 0;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.testimonials-empty > p:not(.testimonials-empty__status),
+.contact-panel__body > p:not(.contact-panel__eyebrow) {
+  max-width: 58ch;
+  margin: 16px 0 0;
+  color: var(--muted-foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.testimonials-empty small {
+  display: block;
+  margin-top: 12px;
+  color: var(--subtle-foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+}
+
+.section-action {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  transition: color 180ms ease-out;
+}
+
+.section-action:hover {
+  color: var(--accent);
+}
+
+.writing-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.writing-list li {
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.writing-list a {
+  display: grid;
+  min-height: 104px;
+  align-items: start;
+  gap: 20px;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  padding: 23px 24px;
+  transition: background-color 180ms ease-out;
+}
+
+.writing-list a:hover {
+  background: color-mix(in srgb, var(--surface) 65%, transparent);
+}
+
+.writing-list__number,
+.writing-list__meta {
+  color: var(--subtle-foreground);
+  font-size: 9px;
+}
+
+.writing-list__content {
+  display: grid;
+  gap: 8px;
+}
+
+.writing-list__content strong {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.writing-list__content > span {
+  color: var(--muted-foreground);
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+.writing-list__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.contact-panel__body {
+  padding: clamp(38px, 7vw, 72px) 24px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.contact-panel__email {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  font-size: clamp(14px, 2vw, 18px);
+  transition: color 180ms ease-out;
+}
+
+.contact-panel__email:hover,
+.contact-panel__links a:hover {
+  color: var(--accent);
+}
+
+.contact-panel__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 22px;
+  color: var(--muted-foreground);
+  font-size: 10px;
+}
+
+@media (max-width: 560px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-item:nth-child(even) {
+    border-left: 0;
+  }
+
+  .writing-list a {
+    gap: 12px;
+    grid-template-columns: 22px minmax(0, 1fr);
+  }
+
+  .writing-list__meta {
+    grid-column: 2;
+  }
+}

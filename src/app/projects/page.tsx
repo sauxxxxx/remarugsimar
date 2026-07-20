@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ExpandedProjectCard } from "@/components/expanded-project-card";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { LanguageSelector } from "@/features/translation/language-selector";
+import { SitePageHeader } from "@/components/site-page-header";
 import { TranslatedText } from "@/features/translation/translation-provider";
-import { PortfolioSearch } from "@/features/portfolio-search/portfolio-search";
 import { projects } from "@/lib/portfolio-data";
 import { siteConfig, socialImage } from "@/lib/site-config";
 
@@ -37,19 +35,7 @@ export default function ProjectsPage() {
     <>
       <a className="skip-link" href="#all-projects">Skip to projects</a>
       <main className="projects-page">
-        <header className="projects-page__header">
-          <Link className="projects-page__back" href="/#projects">
-            <span aria-hidden="true">←</span>
-            <span><TranslatedText text="portfolio" /></span>
-          </Link>
-
-          <div className="projects-page__utilities" aria-label="Project page utilities">
-            <ThemeToggle />
-            <PortfolioSearch />
-            <LanguageSelector />
-          </div>
-        </header>
-
+        <SitePageHeader backHref="/#projects" />
         <section className="projects-page__intro" id="all-projects">
           <div className="projects-page__eyebrow">
             <span aria-hidden="true" />
@@ -57,9 +43,7 @@ export default function ProjectsPage() {
             <span>~ {projects.length}</span>
           </div>
           <h1><TranslatedText text="Projects" /></h1>
-          <p>
-            <TranslatedText text="Selected work across SaaS, CRM, AI, and the web—designed and built for real business needs." />
-          </p>
+          <p><TranslatedText text="Selected work across SaaS, CRM, AI, and the web—designed and built for real business needs." /></p>
         </section>
 
         <section aria-label="Project case studies" className="expanded-projects">

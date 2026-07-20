@@ -1,0 +1,44 @@
+import { ArticleShell } from "@/components/article-shell";
+import { writingEntries } from "@/lib/content-data";
+
+export const metadata = {
+  title: "Designing CRM Workflows for Clarity and Scale",
+  description: writingEntries[1].summary,
+  alternates: { canonical: `/writing/${writingEntries[1].slug}` },
+};
+
+<ArticleShell entry={writingEntries[1]}>
+
+A CRM is useful when it gives a team a shared understanding of every customer relationship. If the system only stores records, people still have to reconstruct the story through messages, spreadsheets, and memory.
+
+## Model the business language
+
+The data model should reflect the way the organization works. Leads, contacts, accounts, deals, and activities may sound universal, but every team defines ownership and progress differently.
+
+Before building screens, define what each record represents, which transitions are allowed, and which events must be preserved. Clear definitions prevent reports and automations from producing conflicting answers later.
+
+## Separate status from activity
+
+A lead can remain in the same stage while several important things happen. Treating stage changes as the entire history removes useful context.
+
+Keep the current state easy to scan, but preserve calls, messages, meetings, assignments, and notes as a chronological activity stream. This helps the next person understand both where the relationship stands and how it arrived there.
+
+## Design for attention
+
+Most CRM dashboards do not need to show every available number. They need to direct attention toward the work that can change an outcome.
+
+- Highlight overdue and at-risk follow-ups.
+- Keep ownership visible.
+- Explain how totals and conversion rates are calculated.
+- Let users move from a summary to the relevant records.
+- Make filters shareable and predictable.
+
+## Let growth stay manageable
+
+As data grows, permissions, validation, indexing, and audit history become product concerns rather than backend details. A fast prototype can become difficult to trust if duplicate records and inconsistent status changes are allowed to accumulate.
+
+Designing these boundaries early does not require predicting every future feature. It means protecting the information the business already depends on while leaving clear extension points for new workflows.
+
+A good CRM creates continuity. It gives each person enough context to take the next action and gives the organization reliable data for improving the process over time.
+
+</ArticleShell>

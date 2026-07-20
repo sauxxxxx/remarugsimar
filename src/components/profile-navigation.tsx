@@ -6,8 +6,11 @@ import { TranslatedText } from "@/features/translation/translation-provider";
 const navigationItems = [
   { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
+  { id: "services", label: "Services" },
   { id: "experience", label: "Experience" },
   { id: "stack", label: "Stack" },
+  { id: "writing", label: "Writing" },
+  { id: "contact", label: "Contact" },
 ] as const;
 
 type NavigationId = (typeof navigationItems)[number]["id"];
