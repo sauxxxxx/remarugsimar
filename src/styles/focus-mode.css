@@ -1,0 +1,85 @@
+.focus-mode-toggle {
+  position: fixed;
+  z-index: 30;
+  top: clamp(24px, 4.5vw, 64px);
+  right: clamp(24px, 4.5vw, 64px);
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--subtle-foreground);
+  cursor: pointer;
+  place-items: center;
+  transition: background-color 180ms ease-out, color 180ms ease-out;
+}
+
+.focus-mode-toggle:hover,
+.focus-mode-toggle[aria-pressed="true"] {
+  background: var(--surface);
+  color: var(--foreground);
+}
+
+.focus-mode-toggle:focus-visible {
+  outline: 1px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+  .portfolio-shell {
+    transition: grid-template-columns 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .profile-panel {
+    transition: opacity 180ms ease-out, transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear;
+  }
+
+  .about-panel {
+    transition: padding 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .portfolio-shell.portfolio-shell--focused {
+    grid-template-columns: 0 minmax(0, 1fr);
+  }
+
+  .portfolio-shell--focused .profile-panel {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-24px);
+    transition-delay: 0s, 0s, 280ms;
+  }
+
+  .portfolio-shell--focused .about-panel {
+    align-items: center;
+    padding-right: clamp(72px, 9vw, 144px);
+    padding-left: clamp(72px, 9vw, 144px);
+  }
+
+  .portfolio-shell--focused .about-panel > * {
+    width: 100%;
+    max-width: 880px;
+  }
+
+  .portfolio-shell--focused .about-card__body {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 767px) {
+  .focus-mode-toggle {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-shell,
+  .profile-panel,
+  .about-panel,
+  .focus-mode-toggle {
+    transition: none;
+  }
+}

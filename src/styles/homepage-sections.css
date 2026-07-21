@@ -31,7 +31,8 @@
 
 .service-item__number,
 .service-item li,
-.testimonials-empty__status,
+.testimonials-list__status,
+.testimonial-item,
 .writing-list,
 .contact-panel__eyebrow,
 .contact-panel__email,
@@ -40,7 +41,7 @@
 }
 
 .service-item__number,
-.testimonials-empty__status,
+.testimonials-list__status,
 .contact-panel__eyebrow {
   color: var(--subtle-foreground);
   font-size: 9px;
@@ -82,12 +83,15 @@
   content: "·";
 }
 
-.testimonials-empty {
-  padding: clamp(36px, 6vw, 64px) 24px;
+.testimonials-list {
   border-bottom: 1px solid var(--border-soft);
 }
 
-.testimonials-empty h2,
+.testimonials-list__intro {
+  padding: 30px 24px 26px;
+}
+
+.testimonials-list__intro h2,
 .contact-panel__body h2 {
   margin: 12px 0 0;
   font-size: clamp(24px, 3vw, 34px);
@@ -96,7 +100,6 @@
   line-height: 1.15;
 }
 
-.testimonials-empty > p:not(.testimonials-empty__status),
 .contact-panel__body > p:not(.contact-panel__eyebrow) {
   max-width: 58ch;
   margin: 16px 0 0;
@@ -106,12 +109,59 @@
   line-height: 1.7;
 }
 
-.testimonials-empty small {
-  display: block;
-  margin-top: 12px;
+.testimonial-item {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 26px minmax(0, 1fr) minmax(160px, 0.42fr);
+  padding: 27px 24px 29px;
+  margin: 0;
+  border-top: 1px solid var(--border-soft);
+}
+
+.testimonial-item__number,
+.testimonial-item figcaption span,
+.testimonial-item figcaption small {
   color: var(--subtle-foreground);
-  font-family: var(--font-geist-mono), monospace;
   font-size: 9px;
+}
+
+.testimonial-item blockquote {
+  margin: 0;
+}
+
+.testimonial-item blockquote p {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 14px;
+  letter-spacing: -0.012em;
+  line-height: 1.7;
+}
+
+.testimonial-item figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.testimonial-item figcaption strong {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.testimonial-item figcaption span {
+  margin-top: 6px;
+  line-height: 1.55;
+}
+
+.testimonial-item figcaption small {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .section-action {
@@ -226,5 +276,15 @@
 
   .writing-list__meta {
     grid-column: 2;
+  }
+
+  .testimonial-item {
+    gap: 12px;
+    grid-template-columns: 22px minmax(0, 1fr);
+  }
+
+  .testimonial-item figcaption {
+    grid-column: 2;
+    margin-top: 6px;
   }
 }

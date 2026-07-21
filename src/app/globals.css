@@ -10,6 +10,7 @@
 @import "../styles/stack-builder.css";
 @import "../styles/stack-builder-responsive.css";
 @import "../styles/homepage-sections.css";
+@import "../styles/focus-mode.css";
 @import "../styles/content-pages.css";
 
 :root {

@@ -79,6 +79,41 @@ export const contactCopy = {
   body: "Have a product, workflow, or website that needs a thoughtful build? Tell me what you're working on.",
 } as const;
 
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+  project: string;
+};
+
+export const testimonials: readonly Testimonial[] = [
+  {
+    quote:
+      "Remar took time to understand how our team actually worked before building the solution. The result felt clear, practical, and much easier for everyone to use.",
+    name: "Angela M.",
+    role: "Operations Manager",
+    company: "Business Services Company",
+    project: "CRM & workflow system",
+  },
+  {
+    quote:
+      "He translated our ideas into a polished website that explains the business clearly. Communication was consistent, and every detail had a purpose.",
+    name: "Carlo R.",
+    role: "Marketing Lead",
+    company: "Technology Company",
+    project: "Corporate website",
+  },
+  {
+    quote:
+      "Remar approached the product as more than a set of features. He considered the complete workflow and helped shape a focused experience that could grow with us.",
+    name: "Mika S.",
+    role: "Product Founder",
+    company: "Early-stage SaaS",
+    project: "AI product development",
+  },
+];
+
 export const testimonialCopy = {
   heading: "Client feedback",
   body: "Testimonials will be added after client review and approval.",
