@@ -7,18 +7,22 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 0;
+  border: 1px solid var(--border-soft);
   border-radius: 50%;
-  background: transparent;
+  background: var(--surface);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--foreground) 5%, transparent);
   color: var(--subtle-foreground);
   cursor: pointer;
   place-items: center;
-  transition: background-color 180ms ease-out, color 180ms ease-out;
+  transition: background-color 180ms ease-out, border-color 180ms ease-out,
+    box-shadow 180ms ease-out, color 180ms ease-out;
 }
 
 .focus-mode-toggle:hover,
 .focus-mode-toggle[aria-pressed="true"] {
-  background: var(--surface);
+  border-color: var(--border);
+  background: var(--surface-strong);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--foreground) 8%, transparent);
   color: var(--foreground);
 }
 
