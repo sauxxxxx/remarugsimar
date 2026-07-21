@@ -67,6 +67,48 @@
   .portfolio-shell--focused .about-card__body {
     max-width: 800px;
   }
+
+  .portfolio-shell--focused .about-card__body p {
+    font-size: 15px;
+  }
+
+  .portfolio-shell--focused .project-header h3,
+  .portfolio-shell--focused .experience-content h3,
+  .portfolio-shell--focused .service-item h3 {
+    font-size: 17px;
+  }
+
+  .portfolio-shell--focused .project-description,
+  .portfolio-shell--focused .experience-content > p,
+  .portfolio-shell--focused .contact-panel__body > p:not(.contact-panel__eyebrow) {
+    font-size: 14px;
+  }
+
+  .portfolio-shell--focused .service-item > p {
+    font-size: 13px;
+  }
+
+  .portfolio-shell--focused .testimonials-list__intro h2,
+  .portfolio-shell--focused .contact-panel__body h2 {
+    font-size: clamp(26px, 3vw, 36px);
+  }
+
+  .portfolio-shell--focused .testimonial-item blockquote p,
+  .portfolio-shell--focused .writing-list__content strong {
+    font-size: 16px;
+  }
+
+  .portfolio-shell--focused .writing-list__content > span {
+    font-size: 12px;
+  }
+
+  .portfolio-shell--focused .testimonial-item figcaption strong {
+    font-size: 14px;
+  }
+
+  .portfolio-shell--focused .contact-panel__email {
+    font-size: clamp(16px, 2vw, 20px);
+  }
 }
 
 @media (max-width: 767px) {
