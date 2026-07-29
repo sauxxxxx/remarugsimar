@@ -194,17 +194,6 @@ const gameItems: PortfolioSearchItem[] = [
     action: "open-game",
     showByDefault: true,
   },
-  {
-    id: "production-rescue",
-    label: "Production Rescue",
-    description: "Open the 2D production incident game",
-    group: "Navigate",
-    icon: "game",
-    keywords: ["game", "play", "2d", "server", "incident", "uptime"],
-    meta: "play",
-    action: "open-game",
-    showByDefault: false,
-  },
 ];
 
 export function getPortfolioSearchItems(includeGame: boolean) {
