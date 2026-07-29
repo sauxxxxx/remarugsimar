@@ -11,7 +11,6 @@ import {
   DoorClosed,
   DoorOpen,
   Flame,
-  PackageOpen,
   Pause,
   ShieldCheck,
   Siren,
@@ -23,9 +22,18 @@ import {
   PRODUCTION_RESCUE_COPY,
 } from "./production-rescue.constants";
 import { RescueInventory, RescueTopHud } from "./production-rescue-hud";
+import {
+  AmmoPickupSprite,
+  BugSprite,
+  DoorSprite,
+  PlayerSprite,
+  ProjectileSprite,
+  SystemFailureSprite,
+} from "./production-rescue-sprites";
 import type { IncidentKind, RescueSystem } from "./production-rescue.types";
 import { useProductionRescue } from "./use-production-rescue";
 import {
+  distanceBetween,
   isNearServerDoor,
   SERVER_DOOR,
   STATIC_OBSTACLES,
@@ -67,6 +75,7 @@ function SystemMarker({
       style={worldPosition(system)}
       type="button"
     >
+      <SystemFailureSprite key={system.health} system={system} />
       <span className="rescue-system-marker__pulse" />
       {incident ? (
         <span className="rescue-system-marker__alert">
@@ -164,6 +173,7 @@ export function ProductionRescueGame({ onBack }: ProductionRescueGameProps) {
         ? `${game.bugs.length} active Game Bug${game.bugs.length === 1 ? "" : "s"}`
         : "All systems stable · monitor the floor";
   const nearDoor = isNearServerDoor(game.player);
+  const nearCoffee = distanceBetween(game.player, COFFEE_STATION) <= 72;
   const DoorIcon = game.doorOpen ? DoorOpen : DoorClosed;
 
   function handleWorldClick(event: React.MouseEvent<HTMLDivElement>) {
@@ -210,7 +220,7 @@ export function ProductionRescueGame({ onBack }: ProductionRescueGameProps) {
             data-open={game.doorOpen || undefined}
             style={worldRect(SERVER_DOOR.passage)}
           >
-            <span className="rescue-server-door__panel" />
+            <DoorSprite key={game.doorOpen ? "open" : "closed"} open={game.doorOpen} />
             <span aria-hidden={!nearDoor} className="rescue-server-door__prompt">
               <DoorIcon aria-hidden="true" />
               <span><kbd>E</kbd> {game.doorOpen ? "close door" : "open door"}</span>
@@ -246,7 +256,7 @@ export function ProductionRescueGame({ onBack }: ProductionRescueGameProps) {
               key={pickup.id}
               style={worldPosition(pickup)}
             >
-              <PackageOpen aria-hidden="true" />
+              <AmmoPickupSprite />
             </span>
           ))}
 
@@ -262,7 +272,10 @@ export function ProductionRescueGame({ onBack }: ProductionRescueGameProps) {
               style={worldPosition(bug)}
               type="button"
             >
-              <Image alt="" height={128} src="/games/production-rescue/software-bug.png" width={128} />
+              <BugSprite
+                bug={bug}
+                target={game.systems.find((system) => system.id === bug.targetId)}
+              />
               <span className="rescue-bug__health">
                 <span style={{ width: `${(bug.health / 3) * 100}%` }} />
               </span>
@@ -275,23 +288,25 @@ export function ProductionRescueGame({ onBack }: ProductionRescueGameProps) {
               className="rescue-projectile"
               key={projectile.id}
               style={worldPosition(projectile)}
-            />
+            >
+              <ProjectileSprite />
+            </span>
           ))}
 
           <span
             aria-label="Remar, data center technician"
             className="rescue-player"
-            data-acting={Boolean(game.repairJob) || animation.isActing || undefined}
+            data-acting={Boolean(game.repairJob) || Boolean(animation.action) || undefined}
             data-facing={game.player.facing}
             data-moving={animation.isMoving || game.navigation.length > 0 || undefined}
             style={worldPosition(game.player)}
           >
-            <Image
-              alt=""
-              height={180}
-              priority
-              src="/games/production-rescue/developer.png"
-              width={180}
+            <PlayerSprite
+              action={animation.action}
+              game={game}
+              moving={animation.isMoving || game.navigation.length > 0}
+              nearCoffee={nearCoffee}
+              nearDoor={nearDoor}
             />
             <span className="rescue-player__shadow" />
             {game.repairJob ? (

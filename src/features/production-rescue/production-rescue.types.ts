@@ -17,6 +17,8 @@ export type WorldRect = {
 
 export type RescueTool = "ammo" | "coffee" | "gun" | "wrench";
 
+export type RescueActionAnimation = "gun" | "interact" | "wrench";
+
 export type IncidentKind = "fire" | "hardware" | "malware";
 
 export type SystemHealth = "critical" | "healthy" | "warning";

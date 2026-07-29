@@ -14,7 +14,12 @@ import {
   tickRescueGame,
   toggleRescuePause,
 } from "./production-rescue-engine";
-import type { Direction, Point, RescueTool } from "./production-rescue.types";
+import type {
+  Direction,
+  Point,
+  RescueActionAnimation,
+  RescueTool,
+} from "./production-rescue.types";
 
 const HIGH_SCORE_KEY = "production-rescue-high-score";
 
@@ -29,7 +34,17 @@ export function useProductionRescue() {
   const [highScore, setHighScore] = useState(0);
   const [showCollisionMap, setShowCollisionMap] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
-  const [isActing, setIsActing] = useState(false);
+  const [actionAnimation, setActionAnimation] =
+    useState<RescueActionAnimation | null>(null);
+
+  const triggerActionAnimation = useCallback((
+    kind: RescueActionAnimation,
+    duration = 650,
+  ) => {
+    setActionAnimation(kind);
+    if (actionTimer.current) window.clearTimeout(actionTimer.current);
+    actionTimer.current = window.setTimeout(() => setActionAnimation(null), duration);
+  }, []);
 
   const start = useCallback(() => setGame(createRescueGame("playing")), []);
   const move = useCallback((direction: Direction) => {
@@ -40,10 +55,8 @@ export function useProductionRescue() {
   }, []);
   const action = useCallback(() => {
     setGame(interact);
-    setIsActing(true);
-    if (actionTimer.current) window.clearTimeout(actionTimer.current);
-    actionTimer.current = window.setTimeout(() => setIsActing(false), 260);
-  }, []);
+    triggerActionAnimation("interact");
+  }, [triggerActionAnimation]);
   const pause = useCallback(() => setGame(toggleRescuePause), []);
   const select = useCallback((tool: RescueTool) => {
     setGame((current) => selectEquipment(current, tool));
@@ -53,11 +66,16 @@ export function useProductionRescue() {
   }, []);
   const chooseBug = useCallback((bugId: number) => {
     setGame((current) => targetBug(current, bugId));
-  }, []);
+    if (game.activeTool === "gun") triggerActionAnimation("gun", 520);
+  }, [game.activeTool, triggerActionAnimation]);
   const chooseCoffee = useCallback(() => setGame(targetCoffeeMachine), []);
   const worldClick = useCallback((point: Point) => {
     setGame((current) => navigateTo(current, point));
-  }, []);
+    if (game.activeTool === "gun") triggerActionAnimation("gun", 520);
+    if (game.activeTool === "coffee" || game.activeTool === "ammo") {
+      triggerActionAnimation("interact");
+    }
+  }, [game.activeTool, triggerActionAnimation]);
 
   useEffect(() => {
     const storedScore = Number(localStorage.getItem(HIGH_SCORE_KEY) ?? 0);
@@ -75,6 +93,14 @@ export function useProductionRescue() {
     setHighScore(game.score);
     localStorage.setItem(HIGH_SCORE_KEY, String(game.score));
   }, [game.score, highScore]);
+
+  useEffect(() => {
+    if (game.message.startsWith("Wrench strike")) {
+      triggerActionAnimation("wrench");
+    } else if (game.message === "Coffee acquired.") {
+      triggerActionAnimation("interact");
+    }
+  }, [game.message, triggerActionAnimation]);
 
   useEffect(() => {
     if (game.status !== "playing") return;
@@ -202,7 +228,7 @@ export function useProductionRescue() {
       toggleCollisionMap: () => setShowCollisionMap((current) => !current),
       worldClick,
     },
-    animation: { isActing, isMoving, showCollisionMap },
+    animation: { action: actionAnimation, isMoving, showCollisionMap },
     game,
     highScore,
   };
