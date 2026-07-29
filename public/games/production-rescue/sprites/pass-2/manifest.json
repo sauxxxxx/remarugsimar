@@ -1,0 +1,80 @@
+{
+  "version": 2,
+  "purpose": "Second-pass animation library with directional actions and smoother frame counts.",
+  "artDirection": {
+    "style": "16-bit pixel art",
+    "camera": "three-quarter top-down",
+    "lighting": "upper-left",
+    "background": "transparent",
+    "anchor": "bottom-center unless otherwise noted"
+  },
+  "sheets": {
+    "technicianLocomotion": {
+      "file": "technician-locomotion-8f.png",
+      "grid": { "columns": 8, "rows": 4 },
+      "frame": { "width": 222, "height": 222 },
+      "rows": ["walkDown", "walkLeft", "walkRight", "walkUp"]
+    },
+    "technicianRepair": {
+      "file": "technician-repair-directional.png",
+      "grid": { "columns": 6, "rows": 4 },
+      "frame": { "width": 286, "height": 229 },
+      "rows": ["repairDown", "repairLeft", "repairRight", "repairUp"]
+    },
+    "technicianGun": {
+      "file": "technician-gun-directional.png",
+      "grid": { "columns": 6, "rows": 4 },
+      "frame": { "width": 286, "height": 229 },
+      "rows": ["fireDown", "fireLeft", "fireRight", "fireUp"]
+    },
+    "technicianWrench": {
+      "file": "technician-wrench-directional.png",
+      "grid": { "columns": 6, "rows": 4 },
+      "frame": { "width": 256, "height": 256 },
+      "rows": ["attackDown", "attackLeft", "attackRight", "attackUp"]
+    },
+    "technicianInteractions": {
+      "file": "technician-interactions.png",
+      "grid": { "columns": 6, "rows": 4 },
+      "frame": { "width": 270, "height": 243 },
+      "rows": ["useDoor", "useCoffeeMachine", "collectAmmo", "drinkCoffee"]
+    },
+    "bugLocomotion": {
+      "file": "bug-locomotion-directional.png",
+      "grid": { "columns": 6, "rows": 4 },
+      "frame": { "width": 256, "height": 256 },
+      "rows": ["walkDown", "walkLeft", "walkRight", "walkUp"]
+    },
+    "bugAttack": {
+      "file": "bug-attack-directional.png",
+      "grid": { "columns": 6, "rows": 4 },
+      "frame": { "width": 256, "height": 256 },
+      "rows": ["attackDown", "attackLeft", "attackRight", "attackUp"]
+    },
+    "bugReactions": {
+      "file": "bug-reactions-8f.png",
+      "grid": { "columns": 8, "rows": 4 },
+      "frame": { "width": 222, "height": 222 },
+      "rows": ["scoutHitToDeath", "tankHitToDeath", "glitchHitToDeath", "virusHitToDeath"]
+    },
+    "equipmentFailures": {
+      "file": "equipment-failure-sequences.png",
+      "grid": { "columns": 6, "rows": 4 },
+      "frame": { "width": 296, "height": 222 },
+      "rows": ["serverFailure", "workstationFailure", "networkFailure", "coffeeMachineFailure"]
+    },
+    "impactEffects": {
+      "file": "impact-effects.png",
+      "grid": { "columns": 6, "rows": 4 },
+      "frame": { "width": 284, "height": 230 },
+      "rows": ["gunImpact", "wrenchImpact", "bugDamage", "repairComplete"]
+    },
+    "door": {
+      "file": "door-8f.png",
+      "grid": { "columns": 8, "rows": 2 },
+      "frame": { "width": 222, "height": 444 },
+      "rows": ["open", "close"],
+      "anchor": "bottom-center"
+    }
+  }
+}
