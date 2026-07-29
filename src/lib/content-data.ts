@@ -50,7 +50,7 @@ export const writingEntries: readonly WritingEntry[] = [
     category: "Product Engineering",
     publishedAt: "2026-07-20",
     displayDate: "Jul 2026",
-    readingTime: "4 min read",
+    readingTime: "2 min read",
   },
   {
     slug: "designing-crm-workflows-for-clarity",
@@ -60,7 +60,7 @@ export const writingEntries: readonly WritingEntry[] = [
     category: "CRM Systems",
     publishedAt: "2026-07-14",
     displayDate: "Jul 2026",
-    readingTime: "5 min read",
+    readingTime: "2 min read",
   },
   {
     slug: "adding-ai-features-with-product-focus",
@@ -70,13 +70,13 @@ export const writingEntries: readonly WritingEntry[] = [
     category: "AI Products",
     publishedAt: "2026-07-07",
     displayDate: "Jul 2026",
-    readingTime: "4 min read",
+    readingTime: "2 min read",
   },
 ];
 
 export const contactCopy = {
-  heading: "Let's build something useful.",
-  body: "Have a product, workflow, or website that needs a thoughtful build? Tell me what you're working on.",
+  heading: "Have a product or workflow that needs to be built?",
+  body: "Send me the problem, current process, and target timeline. I'll review the context and suggest the most practical next step.",
 } as const;
 
 export type Testimonial = {
@@ -87,32 +87,7 @@ export type Testimonial = {
   project: string;
 };
 
-export const testimonials: readonly Testimonial[] = [
-  {
-    quote:
-      "Remar took time to understand how our team actually worked before building the solution. The result felt clear, practical, and much easier for everyone to use.",
-    name: "Angela M.",
-    role: "Operations Manager",
-    company: "Business Services Company",
-    project: "CRM & workflow system",
-  },
-  {
-    quote:
-      "He translated our ideas into a polished website that explains the business clearly. Communication was consistent, and every detail had a purpose.",
-    name: "Carlo R.",
-    role: "Marketing Lead",
-    company: "Technology Company",
-    project: "Corporate website",
-  },
-  {
-    quote:
-      "Remar approached the product as more than a set of features. He considered the complete workflow and helped shape a focused experience that could grow with us.",
-    name: "Mika S.",
-    role: "Product Founder",
-    company: "Early-stage SaaS",
-    project: "AI product development",
-  },
-];
+export const testimonials: readonly Testimonial[] = [];
 
 export const testimonialCopy = {
   heading: "Client feedback",

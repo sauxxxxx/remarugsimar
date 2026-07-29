@@ -141,6 +141,11 @@ export function PortfolioSearch({ includeGame = false }: PortfolioSearchProps) {
       const target = document.getElementById(destination.hash.slice(1));
       target?.scrollIntoView({ behavior: "smooth", block: "start" });
       window.history.replaceState(null, "", destination.hash);
+      window.requestAnimationFrame(() => {
+        if (!target) return;
+        target.tabIndex = -1;
+        target.focus({ preventScroll: true });
+      });
       return;
     }
 
@@ -251,6 +256,7 @@ export function PortfolioSearch({ includeGame = false }: PortfolioSearchProps) {
                           else optionRefs.current.delete(item.id);
                         }}
                         role="option"
+                        tabIndex={-1}
                         type="button"
                       >
                         <Icon aria-hidden="true" size={14} strokeWidth={1.5} />

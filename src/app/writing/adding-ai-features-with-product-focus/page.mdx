@@ -1,11 +1,8 @@
 import { ArticleShell } from "@/components/article-shell";
+import { createArticleMetadata } from "@/lib/article-metadata";
 import { writingEntries } from "@/lib/content-data";
 
-export const metadata = {
-  title: "Adding AI Features Without Losing Product Focus",
-  description: writingEntries[2].summary,
-  alternates: { canonical: `/writing/${writingEntries[2].slug}` },
-};
+export const metadata = createArticleMetadata(writingEntries[2]);
 
 <ArticleShell entry={writingEntries[2]}>
 

@@ -15,23 +15,35 @@ export const metadata: Metadata = {
   alternates: { canonical: "/writing" },
   openGraph: {
     type: "website",
+    locale: "en_US",
     url: "/writing",
+    siteName: `${siteConfig.name} Portfolio`,
     title: `Writing — ${siteConfig.name}`,
     description,
     images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Writing — ${siteConfig.name}`,
+    description,
+    images: [socialImage.url],
   },
 };
 
 export default function WritingPage() {
   return (
-    <main className="projects-page content-page">
-      <SitePageHeader />
-      <ContentPageIntro
-        count={writingEntries.length}
-        description={description}
-        eyebrow="all writing"
-        title="Writing"
-      />
+    <>
+      <a className="skip-link" href="#all-writing">Skip to writing</a>
+      <main className="projects-page content-page">
+        <SitePageHeader />
+        <div id="all-writing" tabIndex={-1}>
+          <ContentPageIntro
+            count={writingEntries.length}
+            description={description}
+            eyebrow="all writing"
+            title="Writing"
+          />
+        </div>
       <section aria-label="All articles" className="writing-index">
         {writingEntries.map((entry, index) => (
           <article className="writing-index__item" key={entry.slug}>
@@ -52,6 +64,7 @@ export default function WritingPage() {
           </article>
         ))}
       </section>
-    </main>
+      </main>
+    </>
   );
 }

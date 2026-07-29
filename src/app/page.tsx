@@ -3,6 +3,7 @@ import { AboutPanel } from "@/components/about-panel";
 import { EntranceTransition } from "@/components/entrance-transition";
 import { FocusModeShell } from "@/components/focus-mode-shell";
 import { ProfilePanel } from "@/components/profile-panel";
+import { HomeStructuredData } from "@/components/structured-data";
 import { TranslatedText } from "@/features/translation/translation-provider";
 import { siteConfig, socialImage } from "@/lib/site-config";
 
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <HomeStructuredData />
       <EntranceTransition />
       <a className="skip-link" href="#about">
         <TranslatedText text="Skip to about" />

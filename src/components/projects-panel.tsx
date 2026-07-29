@@ -21,9 +21,20 @@ export function ProjectsPanel() {
       <ul className="projects-list">
         {selectedProjects.map((project) => (
           <li className="project-row" key={project.name}>
-            <div className="project-thumbnail">
-              <Image alt="" className="project-thumbnail__image" height={76} loading="lazy" src={project.thumbnailUrl} width={112} />
-            </div>
+            <Link
+              aria-label={`View ${project.name} case study`}
+              className="project-thumbnail"
+              href={`/projects/${project.slug}`}
+            >
+              <Image
+                alt={`${project.name} interface preview`}
+                className="project-thumbnail__image"
+                fill
+                loading="lazy"
+                sizes="(max-width: 560px) calc(100vw - 88px), 176px"
+                src={project.thumbnailUrl}
+              />
+            </Link>
             <article className="project-content">
               <header className="project-header">
                 <div>
@@ -38,6 +49,10 @@ export function ProjectsPanel() {
               </header>
               <p className="project-description"><TranslatedText text={project.description} /></p>
               <TechnologyTags label={`${project.name} technologies`} technologies={project.technologies} />
+              <Link className="project-case-study-link" href={`/projects/${project.slug}`}>
+                <TranslatedText text="project case study" />
+                <span aria-hidden="true">→</span>
+              </Link>
             </article>
           </li>
         ))}

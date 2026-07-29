@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TranslatedText } from "@/features/translation/translation-provider";
 import { type WritingEntry, writingEntries } from "@/lib/content-data";
+import { ArticleStructuredData } from "./structured-data";
 import { SitePageHeader } from "./site-page-header";
 
 type ArticleShellProps = {
@@ -13,9 +14,12 @@ export function ArticleShell({ children, entry }: ArticleShellProps) {
   const nextEntry = writingEntries[(currentIndex + 1) % writingEntries.length];
 
   return (
-    <main className="projects-page content-page article-page">
-      <SitePageHeader backHref="/writing" backLabel="all writing" />
-      <article>
+    <>
+      <a className="skip-link" href="#article-content">Skip to article</a>
+      <main className="projects-page content-page article-page">
+        <ArticleStructuredData entry={entry} />
+        <SitePageHeader backHref="/writing" backLabel="all writing" />
+        <article id="article-content" tabIndex={-1}>
         <header className="article-header">
           <p className="article-header__category"><TranslatedText text={entry.category} /></p>
           <h1><TranslatedText text={entry.title} /></h1>
@@ -32,7 +36,8 @@ export function ArticleShell({ children, entry }: ArticleShellProps) {
             <TranslatedText text={nextEntry.title} /> <span aria-hidden="true">↗</span>
           </Link>
         </footer>
-      </article>
-    </main>
+        </article>
+      </main>
+    </>
   );
 }

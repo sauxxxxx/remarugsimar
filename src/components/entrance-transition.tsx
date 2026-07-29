@@ -17,7 +17,7 @@ export function EntranceTransition() {
     setExitState(skipped ? "skipped" : "natural");
 
     if (skipped) stopAnimationRef.current?.();
-    const delay = skipped ? 280 : 720;
+    const delay = skipped ? 220 : 420;
     exitTimerRef.current = window.setTimeout(() => {
       document.documentElement.removeAttribute("data-portfolio-entrance");
       document.querySelectorAll<HTMLElement>(".portfolio-shell, .skip-link").forEach((element) => {

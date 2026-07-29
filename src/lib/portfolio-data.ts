@@ -6,29 +6,29 @@ export const profileLinks = [
     external: true,
   },
   { label: "email", href: "mailto:jarinaremar13@gmail.com", external: false },
-  { label: "resume", href: "/resume.pdf", external: true },
+  { label: "resume", href: "/resume", external: false },
 ] as const;
 
 export const profileCopy = {
-  title: "Full-Stack Developer",
+  title: "CRM & SaaS Full-Stack Developer",
   introduction:
-    "I'm a full-stack developer building SaaS products, CRM systems, AI-powered applications, and modern websites. I enjoy turning complex business problems into simple, scalable software that people actually use.",
+    "I build CRM platforms, operational SaaS products, AI-assisted workflows, and business websites for teams that need clear, maintainable software.",
   availability:
-    "Currently available for freelance projects and collaborating with startups and businesses.",
-  footer: "Building software with purpose.",
+    "Available for selected freelance builds and product collaborations.",
+  footer: "Building useful software for real operations.",
 } as const;
 
 export const profileStats = [
-  { value: "2023+", label: "Freelancing" },
-  { value: "15+", label: "Projects" },
-  { value: "5+", label: "SaaS & CRM" },
-  { value: "PH", label: "Based in Cebu" },
+  { value: "2023", label: "Freelancing since" },
+  { value: "6", label: "Selected projects" },
+  { value: "Web + mobile", label: "Product delivery" },
+  { value: "Cebu", label: "Philippines" },
 ] as const;
 
 export const aboutParagraphs = [
-  "I'm a full-stack developer from the Philippines focused on building software that helps businesses grow. My work spans SaaS platforms, CRM systems, AI-powered applications, business automation, and modern websites, taking products from initial ideas to production.",
-  "I enjoy solving real-world problems through thoughtful engineering and clean user experiences. Whether it's creating internal business tools, customer-facing web applications, or integrating AI into existing workflows, I prioritize solutions that are scalable, maintainable, and genuinely useful.",
-  "Over the past few years, I've worked with startups, local businesses, and freelance clients, delivering projects ranging from corporate websites to custom CRM systems and AI-driven products. My goal is to build software that not only looks polished but also creates measurable value for the people using it.",
+  "I'm a full-stack developer based in Cebu, Philippines. My work focuses on CRM systems, operational SaaS products, internal tools, and AI-assisted workflows.",
+  "I start with the workflow: who uses it, what decision comes next, and where time or context gets lost. Then I work across the interface, backend, data, and deployment needed to ship a dependable product.",
+  "At Joyno Inc. and through freelance projects, I've contributed to production web and mobile applications and built websites for businesses in technology, hospitality, and business services.",
 ] as const;
 
 export type PortfolioProject = {
@@ -62,7 +62,7 @@ export const projects: readonly PortfolioProject[] = [
     name: "Roarly AI",
     category: "AI Animation Studio",
     description:
-      "Create story-driven animations and videos from simple ideas using AI-powered creative workflows.",
+      "An AI-assisted production workspace for organizing story ideas, characters, assets, templates, credits, and video-generation progress.",
     overview:
       "A creative production platform that helps users move from an initial story idea to an organized animation and video workflow.",
     challenge:
@@ -89,7 +89,7 @@ export const projects: readonly PortfolioProject[] = [
     name: "JoynoSync",
     category: "Business CRM Platform",
     description:
-      "Manage leads, customer relationships, communication, and sales activities in one centralized workspace.",
+      "A CRM workspace connecting leads, contacts, deals, communications, tasks, attendance, and reporting in one operational view.",
     overview:
       "A centralized CRM workspace designed to make business operations, customer communication, and sales activity easier to monitor and manage.",
     challenge:
@@ -116,7 +116,7 @@ export const projects: readonly PortfolioProject[] = [
     name: "NxOne DC Inc.",
     category: "Corporate Website",
     description:
-      "Designed and developed a modern corporate website that showcases the company's services and strengthens its digital presence.",
+      "A WordPress corporate site explaining NxOne's data-center and AI-infrastructure direction and guiding potential partners to expert contact.",
     overview:
       "A corporate website for a Philippine data-center company, presenting its AI infrastructure vision, services, and business positioning.",
     challenge:

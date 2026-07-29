@@ -8,7 +8,7 @@
   color: #171717;
   cursor: default;
   opacity: 1;
-  transition: opacity 720ms cubic-bezier(0.4, 0, 1, 1);
+  transition: opacity 420ms cubic-bezier(0.4, 0, 1, 1);
 }
 
 html[data-portfolio-entrance="pending"],
@@ -23,7 +23,7 @@ html[data-portfolio-entrance="pending"] .portfolio-entrance {
 html[data-portfolio-entrance="pending"] .portfolio-shell {
   opacity: 0.72;
   transform: translateY(5px) scale(0.997);
-  transition: opacity 720ms ease-out, transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 420ms ease-out, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html[data-portfolio-entrance="pending"] .portfolio-entrance--exiting ~ .portfolio-shell {
@@ -37,11 +37,11 @@ html[data-portfolio-entrance="pending"] .portfolio-entrance--exiting ~ .portfoli
 }
 
 .portfolio-entrance--skipped {
-  transition-duration: 280ms;
+  transition-duration: 220ms;
 }
 
 html[data-portfolio-entrance="pending"] .portfolio-entrance--skipped ~ .portfolio-shell {
-  transition-duration: 280ms;
+  transition-duration: 220ms;
 }
 
 .portfolio-entrance__canvas {

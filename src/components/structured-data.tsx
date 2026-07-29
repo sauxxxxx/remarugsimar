@@ -1,12 +1,29 @@
-import { profileLinks, projects, selectedTechnologies } from "@/lib/portfolio-data";
+import type { WritingEntry } from "@/lib/content-data";
+import {
+  type PortfolioProject,
+  profileLinks,
+  projects,
+  selectedTechnologies,
+} from "@/lib/portfolio-data";
 import { absoluteUrl, siteConfig } from "@/lib/site-config";
 
-export function StructuredData() {
-  const websiteId = `${siteConfig.url}#website`;
-  const personId = `${siteConfig.url}#person`;
-  const profileId = `${siteConfig.url}#profile`;
+const websiteId = `${siteConfig.url}#website`;
+const personId = `${siteConfig.url}#person`;
 
-  const structuredData = {
+function StructuredDataScript({ id, value }: { id: string; value: object }) {
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(value).replaceAll("<", "\\u003c"),
+      }}
+      id={id}
+      type="application/ld+json"
+    />
+  );
+}
+
+export function StructuredData() {
+  const value = {
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -24,7 +41,7 @@ export function StructuredData() {
         name: siteConfig.name,
         url: siteConfig.url.toString(),
         email: `mailto:${siteConfig.email}`,
-        jobTitle: "Full-Stack Developer",
+        jobTitle: "CRM & SaaS Full-Stack Developer",
         description: siteConfig.description,
         sameAs: profileLinks
           .filter((link) => link.external && link.href.startsWith("http"))
@@ -38,13 +55,23 @@ export function StructuredData() {
           ...selectedTechnologies,
           "SaaS products",
           "CRM systems",
-          "AI-powered applications",
+          "AI-assisted workflows",
           "Business automation",
         ],
       },
+    ],
+  };
+
+  return <StructuredDataScript id="site-structured-data" value={value} />;
+}
+
+export function HomeStructuredData() {
+  const value = {
+    "@context": "https://schema.org",
+    "@graph": [
       {
         "@type": "ProfilePage",
-        "@id": profileId,
+        "@id": `${siteConfig.url}#profile`,
         url: siteConfig.url.toString(),
         name: siteConfig.title,
         description: siteConfig.description,
@@ -63,23 +90,98 @@ export function StructuredData() {
             "@type": "CreativeWork",
             name: project.name,
             description: project.overview,
-            url: project.url || absoluteUrl(`/projects#${project.slug}`),
+            url: absoluteUrl(`/projects/${project.slug}`),
+            image: absoluteUrl(project.thumbnailUrl),
             dateCreated: String(project.year),
             creator: { "@id": personId },
             keywords: project.technologies.join(", "),
+            ...(project.url ? { sameAs: project.url } : {}),
           },
         })),
       },
     ],
   };
 
-  return (
-    <script
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c"),
-      }}
-      id="portfolio-structured-data"
-      type="application/ld+json"
-    />
-  );
+  return <StructuredDataScript id="home-structured-data" value={value} />;
+}
+
+export function ProjectStructuredData({ project }: { project: PortfolioProject }) {
+  const canonicalUrl = absoluteUrl(`/projects/${project.slug}`);
+  const value = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${canonicalUrl}#project`,
+        url: canonicalUrl,
+        name: project.name,
+        description: project.overview,
+        image: absoluteUrl(project.thumbnailUrl),
+        dateCreated: String(project.year),
+        creator: { "@id": personId },
+        keywords: project.technologies.join(", "),
+        ...(project.url ? { sameAs: project.url } : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Projects",
+            item: absoluteUrl("/projects"),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: project.name,
+            item: canonicalUrl,
+          },
+        ],
+      },
+    ],
+  };
+
+  return <StructuredDataScript id="project-structured-data" value={value} />;
+}
+
+export function ArticleStructuredData({ entry }: { entry: WritingEntry }) {
+  const canonicalUrl = absoluteUrl(`/writing/${entry.slug}`);
+  const value = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${canonicalUrl}#article`,
+        url: canonicalUrl,
+        headline: entry.title,
+        description: entry.summary,
+        datePublished: entry.publishedAt,
+        dateModified: entry.publishedAt,
+        inLanguage: "en",
+        author: { "@id": personId },
+        publisher: { "@id": personId },
+        mainEntityOfPage: canonicalUrl,
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Writing",
+            item: absoluteUrl("/writing"),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: entry.title,
+            item: canonicalUrl,
+          },
+        ],
+      },
+    ],
+  };
+
+  return <StructuredDataScript id="article-structured-data" value={value} />;
 }

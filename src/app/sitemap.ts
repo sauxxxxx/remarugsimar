@@ -3,31 +3,37 @@ import { absoluteUrl } from "@/lib/site-config";
 import { projects } from "@/lib/portfolio-data";
 import { writingEntries } from "@/lib/content-data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+const siteUpdatedAt = new Date("2026-07-23T00:00:00.000Z");
 
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: absoluteUrl("/"),
-      lastModified,
+      lastModified: siteUpdatedAt,
       changeFrequency: "monthly",
       priority: 1,
     },
     {
       url: absoluteUrl("/projects"),
-      lastModified,
+      lastModified: siteUpdatedAt,
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: absoluteUrl("/resume"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     ...projects.map((project) => ({
       url: absoluteUrl(`/projects/${project.slug}`),
-      lastModified,
+      lastModified: siteUpdatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
     {
       url: absoluteUrl("/writing"),
-      lastModified,
+      lastModified: siteUpdatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },

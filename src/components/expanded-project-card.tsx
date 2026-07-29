@@ -23,7 +23,6 @@ export function ExpandedProjectCard({ index, project }: ExpandedProjectCardProps
           priority={index === 0}
           sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1100px) 42vw, 520px"
           src={project.thumbnailUrl}
-          unoptimized
         />
       </div>
 
@@ -61,7 +60,7 @@ export function ExpandedProjectCard({ index, project }: ExpandedProjectCardProps
         <TechnologyTags label={`${project.name} technologies`} technologies={project.technologies} />
         <div className="expanded-project__action">
           {project.url ? (
-            <a href={project.url} rel="noreferrer" target="_blank"><TranslatedText text="visit website" /><span aria-hidden="true">↗</span></a>
+            <a href={project.url} rel="noopener noreferrer" target="_blank"><TranslatedText text="visit website" /><span aria-hidden="true">↗</span></a>
           ) : <span><TranslatedText text="private project" /></span>}
         </div>
       </div>

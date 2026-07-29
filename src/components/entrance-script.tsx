@@ -18,7 +18,7 @@ const entranceScript = `
 
     window.setTimeout(function () {
       delete root.dataset.portfolioEntrance;
-    }, 8500);
+    }, 4200);
   })();
 `;
 

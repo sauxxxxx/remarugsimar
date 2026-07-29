@@ -1,11 +1,8 @@
 import { ArticleShell } from "@/components/article-shell";
+import { createArticleMetadata } from "@/lib/article-metadata";
 import { writingEntries } from "@/lib/content-data";
 
-export const metadata = {
-  title: "Designing CRM Workflows for Clarity and Scale",
-  description: writingEntries[1].summary,
-  alternates: { canonical: `/writing/${writingEntries[1].slug}` },
-};
+export const metadata = createArticleMetadata(writingEntries[1]);
 
 <ArticleShell entry={writingEntries[1]}>
 

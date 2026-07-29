@@ -24,11 +24,11 @@ type Bristle = {
 
 type ParticleSignatureOptions = { onComplete: () => void };
 
-const GATHER_START = 1000;
-const WRITE_START = 1750;
-const WRITE_END = 5400;
-const REVEAL_START = 5850;
-const EXIT_END = 6600;
+const GATHER_START = 220;
+const WRITE_START = 520;
+const WRITE_END = 2050;
+const REVEAL_START = 2250;
+const EXIT_END = 2700;
 const INK = "#171717";
 
 const clamp = (value: number, minimum = 0, maximum = 1) =>
@@ -119,7 +119,9 @@ export function startParticleSignature(
   const resize = () => {
     width = window.innerWidth;
     height = window.innerHeight;
-    const density = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelBudget = 8_000_000;
+    const budgetDensity = Math.sqrt(pixelBudget / Math.max(1, width * height));
+    const density = Math.min(window.devicePixelRatio || 1, 1.5, budgetDensity);
     [canvas, inkCanvas].forEach((surface) => {
       surface.width = Math.round(width * density);
       surface.height = Math.round(height * density);

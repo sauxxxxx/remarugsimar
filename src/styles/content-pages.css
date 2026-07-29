@@ -1,3 +1,5 @@
+@import "./resume.css";
+
 .content-page {
   --content-width: 1120px;
 }
@@ -131,6 +133,30 @@
   font-weight: 500;
 }
 
+.case-study__hero-link {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 8px 12px;
+  border: 1px solid var(--foreground);
+  border-radius: 2px;
+  background: var(--foreground);
+  color: var(--background);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  transition: border-color 180ms ease-out, background-color 180ms ease-out,
+    color 180ms ease-out, transform 180ms ease-out;
+}
+
+.case-study__hero-link:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--background);
+  transform: translateY(-1px);
+}
+
 .case-study__narrative {
   border-bottom: 1px solid var(--border);
 }
@@ -156,7 +182,7 @@
 
 .case-study__chapter > span {
   color: var(--subtle-foreground);
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .case-study__chapter h2 {
@@ -197,7 +223,7 @@
 .case-study__gallery-header p {
   margin: 0;
   color: var(--subtle-foreground);
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .case-study__gallery-header h2 {
@@ -231,7 +257,7 @@
 .case-study__gallery figcaption {
   margin-top: 10px;
   color: var(--subtle-foreground);
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .case-study__gallery-placeholder {

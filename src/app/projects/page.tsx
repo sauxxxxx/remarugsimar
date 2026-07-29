@@ -36,7 +36,7 @@ export default function ProjectsPage() {
       <a className="skip-link" href="#all-projects">Skip to projects</a>
       <main className="projects-page">
         <SitePageHeader backHref="/#projects" />
-        <section className="projects-page__intro" id="all-projects">
+        <section className="projects-page__intro" id="all-projects" tabIndex={-1}>
           <div className="projects-page__eyebrow">
             <span aria-hidden="true" />
             <TranslatedText text="all projects" />
@@ -54,7 +54,7 @@ export default function ProjectsPage() {
 
         <footer className="projects-page__footer">
           <p><TranslatedText text="Have a project in mind?" /></p>
-          <a href="mailto:jarinaremar13@gmail.com">jarinaremar13@gmail.com</a>
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
           <Link href="/">← <TranslatedText text="back to portfolio" /></Link>
         </footer>
       </main>

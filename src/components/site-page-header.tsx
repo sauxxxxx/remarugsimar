@@ -20,11 +20,11 @@ export function SitePageHeader({
         <span><TranslatedText text={backLabel} /></span>
       </Link>
 
-      <div className="projects-page__utilities" aria-label="Page utilities">
+      <nav className="projects-page__utilities" aria-label="Page utilities">
         <ThemeToggle />
         <PortfolioSearch />
         <LanguageSelector />
-      </div>
+      </nav>
     </header>
   );
 }

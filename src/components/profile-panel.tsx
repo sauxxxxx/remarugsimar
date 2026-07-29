@@ -3,6 +3,7 @@ import { TranslatedText } from "@/features/translation/translation-provider";
 import { StackBuilderLauncher } from "@/features/stack-builder/stack-builder-launcher";
 import { PortfolioSearch } from "@/features/portfolio-search/portfolio-search";
 import { profileCopy, profileLinks } from "@/lib/portfolio-data";
+import { siteConfig } from "@/lib/site-config";
 import { ProfileNavigation } from "./profile-navigation";
 import { ProfilePortrait } from "./profile-portrait";
 import { ProfileStats } from "./profile-stats";
@@ -31,12 +32,23 @@ export function ProfilePanel() {
               <TranslatedText text={profileCopy.availability} />
             </p>
 
+            <div className="profile-actions">
+              <a className="profile-actions__primary" href="#projects">
+                <TranslatedText text="Selected projects" />
+                <span aria-hidden="true">↓</span>
+              </a>
+              <a href="#contact">
+                <TranslatedText text="start a conversation" />
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+
             <nav aria-label="Profile links" className="profile-links">
               {profileLinks.map((link) => (
                 <a
                   href={link.href}
                   key={link.label}
-                  rel={link.external ? "noreferrer" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
                   target={link.external ? "_blank" : undefined}
                 >
                   <span>{link.label}</span>
@@ -60,7 +72,7 @@ export function ProfilePanel() {
             <p>
               <TranslatedText text={profileCopy.footer} />
             </p>
-            <a href="mailto:jarinaremar13@gmail.com">jarinaremar13@gmail.com</a>
+            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
           </footer>
           <ProfileNavigation />
         </div>

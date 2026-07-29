@@ -1,0 +1,166 @@
+@media (max-width: 820px) {
+  .production-rescue {
+    justify-content: flex-start;
+    padding: 60px 12px 24px;
+  }
+
+  .rescue-hud {
+    display: grid;
+    gap: 10px;
+  }
+
+  .rescue-hud__identity {
+    padding-inline: 2px;
+  }
+
+  .rescue-hud dl {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .rescue-hud dl div {
+    text-align: left;
+  }
+
+  .rescue-world {
+    aspect-ratio: 3 / 2;
+  }
+
+  .rescue-tool-station,
+  .rescue-coffee-station {
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+
+  .rescue-player {
+    transform: scale(0.82);
+  }
+
+  .rescue-bug {
+    transform: scale(0.8);
+  }
+
+  .rescue-touch {
+    display: grid;
+    width: min(560px, 100%);
+    grid-template-columns: repeat(6, 1fr);
+    gap: 7px;
+    margin-top: 12px;
+  }
+
+  .rescue-touch button {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+    border-radius: 7px;
+    background: color-mix(in srgb, var(--surface-strong) 84%, transparent);
+    color: var(--foreground);
+    cursor: pointer;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--foreground) 8%, transparent);
+    touch-action: manipulation;
+  }
+
+  .rescue-touch button:active {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .rescue-touch svg {
+    width: 15px;
+  }
+
+  .rescue-touch__action {
+    gap: 5px;
+  }
+
+  .rescue-touch__action span {
+    font-size: 7px;
+  }
+
+  .rescue-shortcuts {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .rescue-hud__identity strong {
+    font-size: 9px;
+  }
+
+  .rescue-hud dd {
+    font-size: 18px;
+  }
+
+  .rescue-world {
+    aspect-ratio: 3 / 2;
+  }
+
+  .rescue-world__background {
+    object-position: center;
+  }
+
+  .rescue-feed {
+    bottom: 8px;
+    left: 8px;
+    width: calc(100% - 16px);
+  }
+
+  .rescue-equipped {
+    top: 8px;
+    right: 8px;
+    bottom: auto;
+    min-height: 36px;
+  }
+
+  .rescue-equipped strong {
+    display: none;
+  }
+
+  .rescue-system-marker__alert span {
+    display: none;
+  }
+
+  .rescue-system-marker__alert {
+    min-width: 24px;
+    justify-content: center;
+    padding: 3px;
+  }
+
+  .rescue-system-marker {
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+
+  .rescue-tool-station > span,
+  .rescue-coffee-station > span {
+    display: none;
+  }
+
+  .rescue-status {
+    padding: 22px 18px 20px;
+  }
+
+  .rescue-status > strong {
+    font-size: 16px;
+  }
+
+  .rescue-touch {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 390px) {
+  .production-rescue {
+    padding-inline: 8px;
+  }
+
+  .rescue-world {
+    min-height: 370px;
+  }
+
+  .rescue-player {
+    transform: scale(0.68);
+  }
+}

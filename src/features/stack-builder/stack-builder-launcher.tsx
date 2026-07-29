@@ -2,6 +2,8 @@
 
 import { Gamepad2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { GameLibrary, type GameId } from "@/features/game-library/game-library";
+import { ProductionRescueGame } from "@/features/production-rescue/production-rescue-game";
 import { StackBuilderGame } from "./stack-builder-game";
 
 type PageLock = {
@@ -36,6 +38,7 @@ export function StackBuilderLauncher() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const pageLockRef = useRef<PageLock | null>(null);
+  const [activeGame, setActiveGame] = useState<GameId | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => () => {
@@ -65,6 +68,7 @@ export function StackBuilderLauncher() {
   }
 
   function openGame() {
+    setActiveGame(null);
     setIsOpen(true);
     window.requestAnimationFrame(() => {
       const dialog = dialogRef.current;
@@ -83,6 +87,7 @@ export function StackBuilderLauncher() {
       restorePage(pageLockRef.current);
       pageLockRef.current = null;
     }
+    setActiveGame(null);
     setIsOpen(false);
     window.requestAnimationFrame(() => triggerRef.current?.focus());
   }
@@ -90,22 +95,35 @@ export function StackBuilderLauncher() {
   return (
     <>
       <button
-        aria-label="Open Stack Builder game"
+        aria-label="Open portfolio games"
         className="stack-builder-trigger"
         onClick={openGame}
         ref={triggerRef}
-        title="Stack Builder"
+        title="Portfolio games"
         type="button"
       >
         <Gamepad2 aria-hidden="true" size={13} strokeWidth={1.5} />
       </button>
       <dialog
-        aria-labelledby="stack-builder-title"
-        className="stack-builder-dialog"
+        aria-labelledby="game-dialog-title"
+        className="game-dialog stack-builder-dialog"
         onClose={handleClosed}
         ref={dialogRef}
       >
-        {isOpen && <StackBuilderGame onClose={closeGame} />}
+        <h2 className="sr-only" id="game-dialog-title">Portfolio games</h2>
+        {isOpen && activeGame === null ? <GameLibrary onSelect={setActiveGame} /> : null}
+        {isOpen && activeGame === "stack-builder" ? (
+          <div className="game-stage">
+            <button className="game-back-control" onClick={() => setActiveGame(null)} type="button">
+              <span aria-hidden="true">←</span>
+              game.list
+            </button>
+            <StackBuilderGame onClose={closeGame} />
+          </div>
+        ) : null}
+        {isOpen && activeGame === "production-rescue" ? (
+          <ProductionRescueGame onBack={() => setActiveGame(null)} />
+        ) : null}
       </dialog>
     </>
   );

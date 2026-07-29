@@ -5,13 +5,12 @@ import { ExperiencePanel } from "./experience-panel";
 import { SectionLabel } from "./section-label";
 import { StackPanel } from "./stack-panel";
 import { ServicesPanel } from "./services-panel";
-import { TestimonialsPanel } from "./testimonials-panel";
 import { WritingPanel } from "./writing-panel";
 import { ContactPanel } from "./contact-panel";
 
 export function AboutPanel() {
   return (
-    <section aria-labelledby="about-heading" className="about-panel" id="about">
+    <section aria-labelledby="about-heading" className="about-panel" id="about" tabIndex={-1}>
       <div className="about-card">
         <SectionLabel note={<TranslatedText text="a brief introduction" />}>
           <TranslatedText text="about" />
@@ -33,7 +32,6 @@ export function AboutPanel() {
       <ExperiencePanel />
       <StackPanel />
       <WritingPanel />
-      <TestimonialsPanel />
       <ContactPanel />
     </section>
   );

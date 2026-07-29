@@ -172,6 +172,7 @@ export function LanguageSelector() {
                           else optionRefs.current.delete(language.code);
                         }}
                         role="option"
+                        tabIndex={-1}
                         type="button"
                       >
                         <span className="language-option__indicator" />

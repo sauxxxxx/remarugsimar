@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Remar Ugsimar — Full-Stack Developer";
+export const alt = "Remar Ugsimar — CRM & SaaS Full-Stack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -70,7 +70,7 @@ export default function OpenGraphImage() {
           }}
         >
           <div style={{ display: "flex", maxWidth: 790, flexDirection: "column" }}>
-            <span style={{ color: "#666661", fontSize: 26 }}>Full-Stack Developer</span>
+            <span style={{ color: "#666661", fontSize: 26 }}>CRM & SaaS Full-Stack Developer</span>
             <span
               style={{
                 marginTop: 18,

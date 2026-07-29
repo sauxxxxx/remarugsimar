@@ -1,0 +1,281 @@
+.rescue-world {
+  cursor: crosshair;
+}
+
+.rescue-hud,
+.rescue-stage,
+.rescue-inventory {
+  width: min(960px, calc((100dvh - 220px) * 1.5), 100%);
+}
+
+.rescue-hud dl {
+  min-width: 500px;
+  grid-template-columns: repeat(5, minmax(62px, 1fr));
+}
+
+.rescue-system-marker,
+.rescue-coffee-station,
+.rescue-bug {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.rescue-system-marker {
+  background: transparent;
+}
+
+.rescue-system-marker:focus-visible,
+.rescue-coffee-station:focus-visible,
+.rescue-bug:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+.rescue-coffee-station {
+  width: 31px;
+  min-width: 31px;
+  height: 31px;
+  border: 1px solid rgb(255 255 255 / 25%);
+  background: rgb(22 24 23 / 78%);
+  color: #f6f4ed;
+}
+
+.rescue-ammo-pickup,
+.rescue-projectile {
+  position: absolute;
+  z-index: 8;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.rescue-ammo-pickup {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 5px;
+  background: rgb(199 137 50 / 88%);
+  color: #fff8e7;
+  box-shadow: 0 7px 20px rgb(0 0 0 / 28%);
+  animation: rescue-ammo-float 1.2s ease-in-out infinite alternate;
+}
+
+.rescue-ammo-pickup svg {
+  width: 15px;
+  height: 15px;
+}
+
+.rescue-projectile {
+  width: 7px;
+  height: 7px;
+  border: 1px solid #fff8cb;
+  border-radius: 50%;
+  background: #ffc84e;
+  box-shadow: 0 0 8px 3px rgb(255 190 57 / 75%);
+}
+
+.rescue-bug__health {
+  position: absolute;
+  top: -25px;
+  left: -24px;
+  width: 48px;
+  height: 4px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 5px;
+  background: rgb(22 22 20 / 72%);
+}
+
+.rescue-bug__health > span {
+  display: block;
+  height: 100%;
+  background: #e85b51;
+  transition: width 180ms ease;
+}
+
+.rescue-repair-progress {
+  position: absolute;
+  z-index: 4;
+  bottom: 72px;
+  left: 50%;
+  width: 64px;
+  height: 7px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 65%);
+  border-radius: 10px;
+  background: rgb(20 22 21 / 78%);
+  box-shadow: 0 5px 13px rgb(0 0 0 / 25%);
+  transform: translateX(-50%);
+}
+
+.rescue-repair-progress > span {
+  display: block;
+  height: 100%;
+  background: #62c99b;
+  transition: width 100ms linear;
+}
+
+.rescue-inventory {
+  display: grid;
+  width: min(960px, 100%);
+  grid-template-columns: minmax(150px, 0.7fr) minmax(430px, 1.5fr);
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.rescue-energy {
+  display: grid;
+  gap: 6px;
+}
+
+.rescue-energy > span:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.rescue-energy small {
+  color: var(--subtle-foreground);
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rescue-energy strong {
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.rescue-energy__track {
+  display: block;
+  height: 7px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--foreground) 5%, transparent);
+}
+
+.rescue-energy__track > span {
+  display: block;
+  height: 100%;
+  background: var(--rescue-green);
+  transition: width 500ms linear, background-color 180ms ease;
+}
+
+.rescue-energy__track > span[data-low] {
+  background: var(--rescue-red);
+}
+
+.rescue-equipment {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.rescue-equipment button {
+  position: relative;
+  display: grid;
+  min-height: 48px;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 11%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface-strong) 84%, transparent);
+  color: var(--subtle-foreground);
+  font: inherit;
+  font-size: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.rescue-equipment button[data-active] {
+  border-color: color-mix(in srgb, var(--rescue-green) 70%, var(--foreground));
+  background: color-mix(in srgb, var(--rescue-green) 11%, var(--surface-strong));
+  color: var(--foreground);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--rescue-green) 18%, transparent);
+}
+
+.rescue-equipment button:focus-visible {
+  outline: 2px solid var(--rescue-green);
+  outline-offset: 2px;
+}
+
+.rescue-equipment kbd {
+  display: grid;
+  width: 17px;
+  height: 17px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--surface-strong) 70%, transparent);
+  font: inherit;
+}
+
+.rescue-equipment svg {
+  width: 13px;
+  height: 13px;
+}
+
+.rescue-equipment strong {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+@keyframes rescue-ammo-float {
+  to {
+    transform: translate(-50%, calc(-50% - 5px));
+  }
+}
+
+@media (max-width: 820px) {
+  .rescue-hud dl {
+    min-width: 0;
+  }
+
+  .rescue-inventory {
+    grid-template-columns: 1fr;
+  }
+
+  .rescue-equipment button {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 560px) {
+  .rescue-hud dl {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .rescue-equipment button {
+    grid-template-columns: auto auto 1fr;
+    padding-inline: 6px;
+  }
+
+  .rescue-equipment button > span {
+    display: none;
+  }
+
+  .rescue-equipment strong {
+    justify-self: end;
+  }
+
+  .rescue-ammo-pickup {
+    transform: translate(-50%, -50%) scale(0.78);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rescue-ammo-pickup {
+    animation: none;
+  }
+}
