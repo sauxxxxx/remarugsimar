@@ -1,10 +1,11 @@
 "use client";
 
-import { Blocks, Siren } from "lucide-react";
+import { Blocks, Bug } from "lucide-react";
 
-export type GameId = "production-rescue" | "stack-builder";
+export type GameId = "bug-hunter" | "stack-builder";
 
 type GameLibraryProps = {
+  onClose: () => void;
   onSelect: (game: GameId) => void;
 };
 
@@ -13,15 +14,15 @@ const GAMES = [
     description: "Build stable layers and keep the software stack deployable.",
     icon: Blocks,
     id: "stack-builder",
-    meta: "01 · puzzle",
+    meta: "01 / SYSTEM PUZZLE",
     title: "Stack Builder",
   },
   {
-    description: "Race across a live system and repair incidents before uptime reaches zero.",
-    icon: Siren,
-    id: "production-rescue",
-    meta: "02 · 2D rescue",
-    title: "Production Rescue",
+    description: "Defend live services, repair incidents, and keep production online.",
+    icon: Bug,
+    id: "bug-hunter",
+    meta: "02 / SYSTEM SURVIVAL",
+    title: "Bug Hunter",
   },
 ] satisfies Array<{
   description: string;
@@ -31,35 +32,39 @@ const GAMES = [
   title: string;
 }>;
 
-export function GameLibrary({ onSelect }: GameLibraryProps) {
+export function GameLibrary({ onClose, onSelect }: GameLibraryProps) {
   return (
     <section aria-labelledby="game-library-title" className="game-library">
       <header>
-        <p>game.list / 02</p>
-        <h2 id="game-library-title">Take a short break.</h2>
-        <span>Two small games about keeping software alive.</span>
+        <span>REMAR.OS / INTERACTIVE LAB</span>
+        <h2 id="game-library-title">Select a simulation.</h2>
+        <p>Two small systems games built around engineering under pressure.</p>
       </header>
-
       <div className="game-library__grid">
         {GAMES.map((game) => {
           const Icon = game.icon;
           return (
-            <button key={game.id} onClick={() => onSelect(game.id)} type="button">
-              <span className="game-library__preview" data-game={game.id}>
+            <button
+              data-game={game.id}
+              key={game.id}
+              onClick={() => onSelect(game.id)}
+              type="button"
+            >
+              <span className="game-library__preview">
                 <Icon aria-hidden="true" />
-                <i />
-                <i />
-                <i />
+                <i /><i /><i />
               </span>
-              <span className="game-library__meta">{game.meta}</span>
-              <strong>{game.title}<span aria-hidden="true">↗</span></strong>
+              <span>{game.meta}</span>
+              <strong>{game.title}<i>↗</i></strong>
               <small>{game.description}</small>
             </button>
           );
         })}
       </div>
-
-      <footer><kbd>esc</kbd> close</footer>
+      <footer>
+        <span><kbd>esc</kbd> close</span>
+        <button onClick={onClose} type="button">return to portfolio ↙</button>
+      </footer>
     </section>
   );
 }

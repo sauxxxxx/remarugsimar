@@ -13,37 +13,48 @@ export function ProfilePanel() {
   return (
     <aside aria-labelledby="profile-name" className="profile-panel">
       <div className="profile-panel__content">
-        <div className="profile-overview">
-          <ProfilePortrait />
+        <header className="profile-editorial__topline">
+          <span>01 / profile</span>
+          <div className="availability profile-editorial__availability">
+            <span aria-hidden="true" className="availability__dot" />
+            <TranslatedText text="Available for work" />
+          </div>
+        </header>
 
-          <div className="profile-summary">
-            <div className="identity">
-              <h1 id="profile-name">Remar Ugsimar</h1>
-              <p className="identity__title">
+        <div className="profile-editorial__hero">
+          <div className="profile-editorial__copy">
+            <div className="profile-editorial__identity">
+              <h1 id="profile-name">
+                <span>Remar</span>
+                <span>Ugsimar</span>
+              </h1>
+              <p>
                 <TranslatedText text={profileCopy.title} />
               </p>
             </div>
 
-            <p className="profile-intro">
-              <TranslatedText text={profileCopy.introduction} />
-            </p>
+            <div className="profile-editorial__statement">
+              <p>
+                <TranslatedText text={profileCopy.introduction} />
+              </p>
 
-            <p className="profile-availability">
-              <TranslatedText text={profileCopy.availability} />
-            </p>
+              <p>
+                <TranslatedText text={profileCopy.availability} />
+              </p>
 
-            <div className="profile-actions">
-              <a className="profile-actions__primary" href="#projects">
-                <TranslatedText text="Selected projects" />
-                <span aria-hidden="true">↓</span>
-              </a>
-              <a href="#contact">
-                <TranslatedText text="start a conversation" />
-                <span aria-hidden="true">↗</span>
-              </a>
+              <div className="profile-editorial__actions">
+                <a className="profile-editorial__action--primary" href="#projects">
+                  <TranslatedText text="Selected projects" />
+                  <span aria-hidden="true">↓</span>
+                </a>
+                <a href="#contact">
+                  <TranslatedText text="start a conversation" />
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
 
-            <nav aria-label="Profile links" className="profile-links">
+            <nav aria-label="Profile links" className="profile-editorial__socials">
               {profileLinks.map((link) => (
                 <a
                   href={link.href}
@@ -57,25 +68,23 @@ export function ProfilePanel() {
               ))}
             </nav>
           </div>
+
+          <ProfilePortrait />
         </div>
 
         <ProfileStats />
 
-        <div className="profile-lower">
-          <footer className="profile-footer">
-            <div className="profile-utilities">
-              <ThemeToggle />
-              <PortfolioSearch includeGame />
-              <LanguageSelector />
-              <StackBuilderLauncher />
-            </div>
-            <p>
-              <TranslatedText text={profileCopy.footer} />
-            </p>
-            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-          </footer>
-          <ProfileNavigation />
-        </div>
+        <ProfileNavigation />
+
+        <footer className="profile-editorial__footer">
+          <div className="profile-utilities">
+            <ThemeToggle />
+            <PortfolioSearch includeGame />
+            <LanguageSelector />
+            <StackBuilderLauncher />
+          </div>
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        </footer>
       </div>
     </aside>
   );

@@ -3,206 +3,230 @@
 }
 
 .game-library {
+  --lab-bg: #0b0f14;
+  --lab-panel: #10161d;
+  --lab-border: #27313c;
+  --lab-text: #d0d7de;
+  --lab-muted: #8b949e;
+  --lab-cyan: #58a6ff;
+  position: relative;
   display: flex;
-  width: min(860px, calc(100% - 40px));
   min-height: 100dvh;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
-  padding: max(48px, env(safe-area-inset-top)) 0 max(32px, env(safe-area-inset-bottom));
+  padding: 64px max(24px, 7vw);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 72% 20%, rgb(88 166 255 / 10%), transparent 26%),
+    linear-gradient(135deg, #0b0f14, #10161d 52%, #0b0f14);
+  color: var(--lab-text);
 }
 
-.game-library header {
-  width: min(560px, 100%);
-  margin-bottom: 38px;
+.game-library::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(88 166 255 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(88 166 255 / 4%) 1px, transparent 1px);
+  background-size: 32px 32px;
+  content: "";
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  pointer-events: none;
 }
 
+.game-library > * {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100%);
+  margin-inline: auto;
+}
+
+.game-library header > span,
 .game-library header p,
-.game-library__meta,
+.game-library__grid > button > span,
 .game-library footer {
-  color: var(--subtle-foreground);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.game-library header p {
-  margin: 0 0 12px;
+.game-library header > span {
+  color: #3fb950;
 }
 
 .game-library header h2 {
-  margin: 0;
-  font-size: clamp(28px, 4vw, 46px);
+  margin: 12px 0 0;
+  font-size: clamp(34px, 5vw, 68px);
   font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 1;
+  letter-spacing: -0.065em;
+  line-height: 0.95;
 }
 
-.game-library header > span {
-  display: block;
-  margin-top: 14px;
-  color: var(--muted-foreground);
-  font-size: 11px;
+.game-library header p {
+  max-width: 540px;
+  margin: 16px 0 0;
+  color: var(--lab-muted);
+  line-height: 1.7;
+  text-transform: none;
 }
 
 .game-library__grid {
   display: grid;
+  gap: 18px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(18px, 3vw, 30px);
+  margin-top: 42px;
 }
 
 .game-library__grid > button {
   min-width: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--foreground);
+  padding: 0 0 22px;
+  border: 1px solid var(--lab-border);
+  background: rgb(16 22 29 / 78%);
+  color: var(--lab-text);
   font: inherit;
   text-align: left;
   cursor: pointer;
+  transition: border-color 180ms ease, transform 180ms ease;
 }
 
-.game-library__grid > button:focus-visible {
-  border-radius: 2px;
-  outline: 2px solid var(--focus);
-  outline-offset: 7px;
+.game-library__grid > button:hover {
+  border-color: var(--lab-cyan);
+  transform: translateY(-4px);
+}
+
+.game-library__grid > button:focus-visible,
+.game-library footer button:focus-visible,
+.game-back-control:focus-visible {
+  outline: 2px solid var(--lab-cyan);
+  outline-offset: 4px;
 }
 
 .game-library__preview {
   position: relative;
   display: block;
-  height: clamp(180px, 27vw, 260px);
+  height: clamp(180px, 25vw, 280px);
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+  border-bottom: 1px solid var(--lab-border);
   background:
-    linear-gradient(to right, var(--game-grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--game-grid) 1px, transparent 1px),
-    color-mix(in srgb, var(--game-board) 86%, transparent);
-  background-size: 30px 30px;
-  box-shadow: var(--game-soft-shadow);
-  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    linear-gradient(rgb(88 166 255 / 8%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(88 166 255 / 8%) 1px, transparent 1px),
+    #0b0f14;
+  background-size: 28px 28px;
 }
 
-.game-library__grid > button:hover .game-library__preview {
-  border-color: color-mix(in srgb, var(--foreground) 22%, transparent);
-  box-shadow: var(--game-float-shadow);
-  transform: translateY(-4px);
+.game-library__grid > button[data-game="bug-hunter"] .game-library__preview {
+  background:
+    linear-gradient(rgb(11 15 20 / 38%), rgb(11 15 20 / 72%)),
+    url("/games/bug-hunter/system-map.webp") center / cover;
 }
 
-.game-library__preview svg {
+.game-library__preview > svg {
   position: absolute;
   z-index: 2;
   top: 50%;
   left: 50%;
-  width: 34px;
-  height: 34px;
-  padding: 9px;
-  border-radius: 8px;
-  background: var(--foreground);
-  color: var(--background);
-  box-shadow: 0 12px 32px color-mix(in srgb, var(--foreground) 18%, transparent);
+  width: 44px;
+  height: 44px;
+  padding: 11px;
+  border: 1px solid rgb(88 166 255 / 45%);
+  background: rgb(11 15 20 / 88%);
+  color: var(--lab-cyan);
+  box-shadow: 0 0 34px rgb(88 166 255 / 20%);
   transform: translate(-50%, -50%);
 }
 
-.game-library__preview i {
+.game-library__preview > i {
   position: absolute;
-  width: 30px;
-  height: 30px;
-  border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
-  background: color-mix(in srgb, var(--surface-strong) 65%, transparent);
-  box-shadow: 0 10px 28px color-mix(in srgb, var(--foreground) 8%, transparent);
+  width: 40px;
+  height: 22px;
+  border: 1px solid rgb(63 185 80 / 28%);
+  background: rgb(63 185 80 / 6%);
 }
 
-.game-library__preview i:nth-of-type(1) {
-  top: 26%;
-  left: 24%;
+.game-library__preview > i:nth-of-type(1) {
+  top: 22%;
+  left: 18%;
 }
 
-.game-library__preview i:nth-of-type(2) {
-  right: 21%;
-  bottom: 22%;
+.game-library__preview > i:nth-of-type(2) {
+  right: 17%;
+  bottom: 19%;
 }
 
-.game-library__preview i:nth-of-type(3) {
-  right: 25%;
-  top: 18%;
-  width: 18px;
-  height: 18px;
+.game-library__preview > i:nth-of-type(3) {
+  top: 14%;
+  right: 20%;
+  width: 13px;
+  height: 13px;
+  background: #3fb950;
+  box-shadow: 0 0 16px rgb(63 185 80 / 46%);
 }
 
-.game-library__preview[data-game="production-rescue"]::after {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
-  height: 1px;
-  background: var(--accent);
-  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 45%, transparent);
-  content: "";
-  opacity: 0.52;
-}
-
-.game-library__preview[data-game="production-rescue"] svg {
-  background: var(--accent);
-}
-
-.game-library__meta {
-  display: block;
-  margin-top: 18px;
-}
-
-.game-library__grid strong {
+.game-library__grid > button > span,
+.game-library__grid > button > strong,
+.game-library__grid > button > small {
   display: flex;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.game-library__grid > button > span {
+  margin-top: 18px;
+  color: var(--lab-muted);
+}
+
+.game-library__grid > button > strong {
   align-items: center;
-  gap: 8px;
-  margin-top: 7px;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-.game-library__grid strong span {
-  color: var(--subtle-foreground);
-  font-size: 11px;
-  transition: transform 180ms ease;
-}
-
-.game-library__grid > button:hover strong span {
-  transform: translate(2px, -2px);
-}
-
-.game-library__grid small {
-  display: block;
-  max-width: 42ch;
+  justify-content: space-between;
+  gap: 12px;
   margin-top: 8px;
-  color: var(--muted-foreground);
-  font-size: 10px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.game-library__grid > button > strong i {
+  color: var(--lab-cyan);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.game-library__grid > button > small {
+  max-width: 43ch;
+  margin-top: 9px;
+  color: var(--lab-muted);
+  font-size: 11px;
   line-height: 1.65;
 }
 
 .game-library footer {
-  margin-top: 34px;
-  text-transform: none;
-}
-
-.game-library footer kbd,
-.game-back-control {
-  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
-  background: color-mix(in srgb, var(--surface-strong) 74%, transparent);
-  color: var(--subtle-foreground);
-  font: inherit;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--foreground) 6%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+  color: var(--lab-muted);
 }
 
 .game-library footer kbd {
-  display: inline-flex;
-  min-width: 29px;
-  min-height: 22px;
-  align-items: center;
-  justify-content: center;
-  margin-right: 6px;
-  padding: 1px 5px;
-  border-radius: 6px;
+  padding: 4px 7px;
+  border: 1px solid var(--lab-border);
+  color: var(--lab-text);
+  font: inherit;
+}
+
+.game-library footer button,
+.game-back-control {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--lab-muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.game-library footer button:hover,
+.game-back-control:hover {
+  color: var(--lab-text);
 }
 
 .game-stage {
@@ -211,35 +235,21 @@
 
 .game-back-control {
   position: fixed;
-  z-index: 12;
-  top: max(20px, env(safe-area-inset-top));
-  left: 24px;
-  display: inline-flex;
-  min-height: 36px;
-  align-items: center;
-  gap: 8px;
+  z-index: 30;
+  top: 18px;
+  left: 20px;
   padding: 0 12px;
-  border-radius: 999px;
-  font-size: 9px;
-  cursor: pointer;
+  border: 1px solid rgb(139 148 158 / 24%);
+  background: rgb(11 15 20 / 78%);
+  color: #8b949e;
+  font-size: 10px;
   backdrop-filter: blur(12px);
-  transition: color 180ms ease, transform 180ms ease;
 }
 
-.game-back-control:hover {
-  color: var(--foreground);
-  transform: translateX(-2px);
-}
-
-@media (max-width: 640px) {
+@media (max-width: 700px) {
   .game-library {
-    width: min(440px, calc(100% - 32px));
     justify-content: flex-start;
-    padding-top: 72px;
-  }
-
-  .game-library header {
-    margin-bottom: 26px;
+    padding: 68px 18px 30px;
   }
 
   .game-library__grid {
@@ -247,19 +257,12 @@
   }
 
   .game-library__preview {
-    height: 150px;
-  }
-
-  .game-back-control {
-    top: 12px;
-    left: 12px;
+    height: 160px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .game-library__preview,
-  .game-library__grid strong span,
-  .game-back-control {
+  .game-library__grid > button {
     transition: none;
   }
 }

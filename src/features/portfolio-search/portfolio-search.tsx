@@ -121,7 +121,9 @@ export function PortfolioSearch({ includeGame = false }: PortfolioSearchProps) {
 
     if (item.action === "open-game") {
       window.requestAnimationFrame(() => {
-        document.querySelector<HTMLButtonElement>(".stack-builder-trigger")?.click();
+        window.dispatchEvent(
+          new CustomEvent("portfolio:open-game", { detail: { game: item.game } }),
+        );
       });
       return;
     }

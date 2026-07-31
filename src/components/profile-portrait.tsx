@@ -1,22 +1,17 @@
 import Image from "next/image";
-import { TranslatedText } from "@/features/translation/translation-provider";
-import profileImage from "../../my_img.png";
+import profileImage from "../../my_img-trimmed.png";
 
 export function ProfilePortrait() {
   return (
-    <div className="portrait">
+    <div className="profile-editorial__portrait">
       <Image
         alt="Remar Ugsimar"
-        className="portrait__image"
+        className="profile-editorial__portrait-image"
         fill
         priority
-        sizes="(max-width: 767px) calc(100vw - 48px), 260px"
+        sizes="(max-width: 767px) 52vw, 320px"
         src={profileImage}
       />
-      <div className="availability portrait__availability">
-        <span aria-hidden="true" className="availability__dot" />
-        <TranslatedText text="Available for work" />
-      </div>
     </div>
   );
 }

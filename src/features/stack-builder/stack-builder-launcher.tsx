@@ -1,7 +1,9 @@
 "use client";
 
 import { Gamepad2 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { BugHunterGame } from "@/features/bug-hunter/bug-hunter-game";
+import { GameLibrary, type GameId } from "@/features/game-library/game-library";
 import { StackBuilderGame } from "./stack-builder-game";
 
 type PageLock = {
@@ -36,13 +38,10 @@ export function StackBuilderLauncher() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const pageLockRef = useRef<PageLock | null>(null);
+  const [activeGame, setActiveGame] = useState<GameId | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => () => {
-    if (pageLockRef.current) restorePage(pageLockRef.current);
-  }, []);
-
-  function lockPage() {
+  const lockPage = useCallback(() => {
     if (pageLockRef.current) return;
     const { style } = document.body;
     const scrollContainer = document.querySelector<HTMLElement>(".about-panel");
@@ -62,9 +61,10 @@ export function StackBuilderLauncher() {
     style.top = `-${scrollY}px`;
     style.width = "100%";
     if (scrollContainer) scrollContainer.style.overflowY = "hidden";
-  }
+  }, []);
 
-  function openGame() {
+  const openGame = useCallback((game: GameId | null = null) => {
+    setActiveGame(game);
     setIsOpen(true);
     window.requestAnimationFrame(() => {
       const dialog = dialogRef.current;
@@ -72,7 +72,31 @@ export function StackBuilderLauncher() {
       lockPage();
       dialog.showModal();
     });
-  }
+  }, [lockPage]);
+
+  useEffect(() => () => {
+    if (pageLockRef.current) restorePage(pageLockRef.current);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      dialogRef.current?.close();
+    }
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [isOpen]);
+
+  useEffect(() => {
+    function openRequestedGame(event: Event) {
+      const requested = (event as CustomEvent<{ game?: GameId }>).detail?.game;
+      openGame(requested ?? null);
+    }
+    window.addEventListener("portfolio:open-game", openRequestedGame);
+    return () => window.removeEventListener("portfolio:open-game", openRequestedGame);
+  }, [openGame]);
 
   function closeGame() {
     dialogRef.current?.close();
@@ -83,6 +107,7 @@ export function StackBuilderLauncher() {
       restorePage(pageLockRef.current);
       pageLockRef.current = null;
     }
+    setActiveGame(null);
     setIsOpen(false);
     window.requestAnimationFrame(() => triggerRef.current?.focus());
   }
@@ -90,23 +115,44 @@ export function StackBuilderLauncher() {
   return (
     <>
       <button
-        aria-label="Open Stack Builder"
+        aria-label="Open portfolio games"
         className="stack-builder-trigger"
-        onClick={openGame}
+        onClick={() => openGame()}
         ref={triggerRef}
-        title="Play Stack Builder"
+        title="Portfolio games"
         type="button"
       >
         <Gamepad2 aria-hidden="true" size={13} strokeWidth={1.5} />
       </button>
       <dialog
         aria-labelledby="game-dialog-title"
-        className="stack-builder-dialog"
+        className="game-dialog stack-builder-dialog"
+        onCancel={(event) => {
+          event.preventDefault();
+          closeGame();
+        }}
         onClose={handleClosed}
         ref={dialogRef}
       >
-        <h2 className="sr-only" id="game-dialog-title">Stack Builder</h2>
-        {isOpen ? <StackBuilderGame onClose={closeGame} /> : null}
+        <h2 className="sr-only" id="game-dialog-title">Portfolio games</h2>
+        {isOpen && activeGame === null ? (
+          <GameLibrary onClose={closeGame} onSelect={setActiveGame} />
+        ) : null}
+        {isOpen && activeGame === "stack-builder" ? (
+          <div className="game-stage">
+            <button
+              className="game-back-control"
+              onClick={() => setActiveGame(null)}
+              type="button"
+            >
+              ← game.list
+            </button>
+            <StackBuilderGame onClose={closeGame} />
+          </div>
+        ) : null}
+        {isOpen && activeGame === "bug-hunter" ? (
+          <BugHunterGame onBack={() => setActiveGame(null)} onClose={closeGame} />
+        ) : null}
       </dialog>
     </>
   );

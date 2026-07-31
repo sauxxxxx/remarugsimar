@@ -12,7 +12,7 @@ export const profileLinks = [
 export const profileCopy = {
   title: "CRM & SaaS Full-Stack Developer",
   introduction:
-    "I build CRM platforms, operational SaaS products, AI-assisted workflows, and business websites for teams that need clear, maintainable software.",
+    "I build operational CRM systems, SaaS products, and AI-assisted workflows for real business needs.",
   availability:
     "Available for selected freelance builds and product collaborations.",
   footer: "Building useful software for real operations.",
@@ -20,9 +20,8 @@ export const profileCopy = {
 
 export const profileStats = [
   { value: "2023", label: "Freelancing since" },
-  { value: "6", label: "Selected projects" },
-  { value: "Web + mobile", label: "Product delivery" },
-  { value: "Cebu", label: "Philippines" },
+  { value: "06", label: "Selected projects" },
+  { value: "Cebu, PH", label: "Based in" },
 ] as const;
 
 export const aboutParagraphs = [

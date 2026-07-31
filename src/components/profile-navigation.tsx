@@ -76,7 +76,7 @@ export function ProfileNavigation() {
 
   return (
     <nav aria-label="Portfolio sections" className="portfolio-navigation">
-      {navigationItems.map((item) => {
+      {navigationItems.map((item, index) => {
         const isActive = activeSection === item.id;
 
         return (
@@ -85,10 +85,10 @@ export function ProfileNavigation() {
             href={`#${item.id}`}
             key={item.id}
           >
-            <span aria-hidden="true" className="portfolio-navigation__indicator">
-              {isActive ? "→" : ""}
+            <span aria-hidden="true" className="portfolio-navigation__index">
+              {String(index + 1).padStart(2, "0")}
             </span>
-            <span>
+            <span className="portfolio-navigation__label">
               <TranslatedText text={item.label} />
             </span>
           </a>

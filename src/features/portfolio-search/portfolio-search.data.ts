@@ -23,6 +23,7 @@ export type PortfolioSearchItem = {
   keywords: readonly string[];
   meta?: string;
   action?: "open-game";
+  game?: "bug-hunter" | "stack-builder";
   external?: boolean;
   showByDefault: boolean;
 };
@@ -192,7 +193,20 @@ const gameItems: PortfolioSearchItem[] = [
     keywords: ["game", "play", "tetris", "technology"],
     meta: "play",
     action: "open-game",
+    game: "stack-builder",
     showByDefault: true,
+  },
+  {
+    id: "bug-hunter",
+    label: "Bug Hunter: System Failure",
+    description: "Open the production-system survival game",
+    group: "Navigate",
+    icon: "game",
+    keywords: ["game", "play", "bugs", "debugging", "systems", "uptime"],
+    meta: "play",
+    action: "open-game",
+    game: "bug-hunter",
+    showByDefault: false,
   },
 ];
 

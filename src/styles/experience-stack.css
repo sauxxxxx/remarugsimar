@@ -188,7 +188,7 @@
   .experience-row {
     grid-template-columns: 1fr;
     gap: 14px;
-    padding: 24px;
+    padding: 24px 20px 24px 52px;
   }
 
   .experience-meta {

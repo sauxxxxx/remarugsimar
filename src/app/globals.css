@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../styles/profile-hero.css";
+@import "../styles/profile-editorial.css";
 @import "../styles/projects.css";
 @import "../styles/projects-page.css";
 @import "../styles/experience-stack.css";
@@ -9,6 +10,11 @@
 @import "../styles/entrance-transition.css";
 @import "../styles/stack-builder.css";
 @import "../styles/stack-builder-responsive.css";
+@import "../styles/game-library.css";
+@import "../styles/bug-hunter.css";
+@import "../styles/bug-hunter-world.css";
+@import "../styles/bug-hunter-hud.css";
+@import "../styles/bug-hunter-responsive.css";
 @import "../styles/homepage-sections.css";
 @import "../styles/focus-mode.css";
 @import "../styles/content-pages.css";
