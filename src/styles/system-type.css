@@ -13,7 +13,7 @@
   overflow: hidden;
   background: var(--system-bg);
   color: var(--system-fg);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-geist-pixel-square), var(--font-geist-mono), monospace;
 }
 
 :root[data-theme="dark"] .system-type { --system-error: #e06b62; }
@@ -113,8 +113,8 @@
   z-index: 5;
   top: 55%;
   left: 5%;
-  width: clamp(300px, 29vw, 440px);
-  padding: 14px 16px 12px;
+  width: clamp(280px, 25vw, 380px);
+  padding: 11px 13px 10px;
   border: 1px solid var(--system-border);
   border-left: 2px solid var(--system-accent);
   background: color-mix(in srgb, var(--system-bg) 94%, transparent);
@@ -136,15 +136,15 @@
   font-size: 8px;
   letter-spacing: 0.07em;
 }
-.system-type-input > small:first-child { margin-bottom: 10px; }
+.system-type-input > small:first-child { margin-bottom: 8px; }
 .system-type-input > small > i { display: inline-block; width: 4px; height: 4px; margin-right: 5px; background: var(--system-accent); }
 .system-type-input > small strong { color: var(--system-accent); font-weight: 500; }
-.system-type-input p { margin: 0 0 12px; font-size: clamp(18px, 1.7vw, 26px); letter-spacing: -0.035em; }
+.system-type-input p { margin: 0 0 10px; font-size: clamp(17px, 1.45vw, 22px); letter-spacing: -0.035em; }
 .system-type-input p > span { color: var(--system-fg); }
 .system-type-input p strong { color: var(--system-accent); font-weight: 500; }
 .system-type-input p b { color: var(--system-fg); font-weight: 500; opacity: 0.68; }
 .system-type-input p > i { color: var(--system-accent); font-style: normal; animation: system-caret 0.8s steps(2, end) infinite; }
-.system-type-input-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 9px; border-top: 1px solid var(--system-border); }
+.system-type-input-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 7px; border-top: 1px solid var(--system-border); }
 .system-type-input-meta > i { display: flex; height: 10px; align-items: center; gap: 3px; }
 .system-type-input-meta > i b { width: 2px; height: 3px; background: var(--system-muted); }
 .system-type-input-meta > i b:nth-child(2), .system-type-input-meta > i b:nth-child(5) { height: 7px; }
@@ -153,10 +153,10 @@
 .system-type-objective {
   position: absolute;
   z-index: 4;
-  top: calc(55% + 152px);
+  top: calc(55% + 126px);
   left: 5%;
   display: grid;
-  width: clamp(300px, 29vw, 440px);
+  width: clamp(280px, 25vw, 380px);
   gap: 5px;
   padding: 11px 14px 10px;
   border: 1px solid var(--system-border);

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GeistPixelSquare } from "geist/font/pixel";
 import { EntranceScript } from "@/components/entrance-script";
 import { StructuredData } from "@/components/structured-data";
 import { ThemeScript } from "@/components/theme-script";
@@ -80,7 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeScript />
         <EntranceScript />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${GeistPixelSquare.variable}`}>
         <StructuredData />
         <TranslationProvider>{children}</TranslationProvider>
       </body>
