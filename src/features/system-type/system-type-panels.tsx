@@ -78,21 +78,20 @@ export function SystemTypeStatePanel({ actions, state }: { actions: Actions; sta
   }
   if (state.phase === "idle") {
     return (
-      <div className="system-type-state system-type-deploy">
+      <div className="system-type-deploy">
         <div className="system-type-deploy-status">
-          <span>DEFENSE PROTOCOL / READY</span>
-          <small><i /> system online</small>
+          <span><i /> SYSTEM READY</span>
+          <small>DEFENSE PROTOCOL / 02</small>
         </div>
-        <h3>Production needs an operator.</h3>
-        <p>Identify incoming incidents and type their signatures before they breach the deployment line.</p>
-        <ol aria-label="How to play">
-          <li><b>01</b><span>lock target</span></li>
-          <li><b>02</b><span>type signature</span></li>
-          <li><b>03</b><span>contain threat</span></li>
-        </ol>
         <button autoFocus onClick={actions.start} type="button">
-          <span>enter / deploy system</span><b aria-hidden="true">→</b>
+          <span><kbd>enter</kbd><strong>deploy defense protocol</strong></span>
+          <b aria-hidden="true">&rarr;</b>
         </button>
+        <p aria-label="How to play">
+          <span>lock target</span><i>/</i>
+          <span>type signature</span><i>/</i>
+          <span>contain incident</span>
+        </p>
       </div>
     );
   }
