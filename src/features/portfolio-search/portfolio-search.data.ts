@@ -23,7 +23,7 @@ export type PortfolioSearchItem = {
   keywords: readonly string[];
   meta?: string;
   action?: "open-game";
-  game?: "bug-hunter" | "stack-builder";
+  game?: "stack-builder" | "system-type";
   external?: boolean;
   showByDefault: boolean;
 };
@@ -197,15 +197,15 @@ const gameItems: PortfolioSearchItem[] = [
     showByDefault: true,
   },
   {
-    id: "bug-hunter",
-    label: "Bug Hunter: System Failure",
-    description: "Open the production-system survival game",
+    id: "system-type",
+    label: "System.Type",
+    description: "Open the production-defense typing shooter",
     group: "Navigate",
     icon: "game",
-    keywords: ["game", "play", "bugs", "debugging", "systems", "uptime"],
+    keywords: ["game", "typing", "shooter", "developer", "production"],
     meta: "play",
     action: "open-game",
-    game: "bug-hunter",
+    game: "system-type",
     showByDefault: false,
   },
 ];

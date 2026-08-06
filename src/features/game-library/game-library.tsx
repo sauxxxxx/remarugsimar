@@ -1,8 +1,6 @@
 "use client";
 
-import { Blocks, Bug } from "lucide-react";
-
-export type GameId = "bug-hunter" | "stack-builder";
+export type GameId = "stack-builder" | "system-type";
 
 type GameLibraryProps = {
   onClose: () => void;
@@ -11,22 +9,22 @@ type GameLibraryProps = {
 
 const GAMES = [
   {
-    description: "Build stable layers and keep the software stack deployable.",
-    icon: Blocks,
+    code: "01",
+    description: "Build a stable software stack before production collapses.",
     id: "stack-builder",
-    meta: "01 / SYSTEM PUZZLE",
+    meta: "SYSTEM PUZZLE",
     title: "Stack Builder",
   },
   {
-    description: "Defend live services, repair incidents, and keep production online.",
-    icon: Bug,
-    id: "bug-hunter",
-    meta: "02 / SYSTEM SURVIVAL",
-    title: "Bug Hunter",
+    code: "02",
+    description: "Type through incoming incidents and defend the deployment layer.",
+    id: "system-type",
+    meta: "TYPING SHOOTER",
+    title: "System.Type",
   },
 ] satisfies Array<{
+  code: string;
   description: string;
-  icon: typeof Blocks;
   id: GameId;
   meta: string;
   title: string;
@@ -36,35 +34,28 @@ export function GameLibrary({ onClose, onSelect }: GameLibraryProps) {
   return (
     <section aria-labelledby="game-library-title" className="game-library">
       <header>
-        <span>REMAR.OS / INTERACTIVE LAB</span>
+        <span>GAME.LIST / 02</span>
         <h2 id="game-library-title">Select a simulation.</h2>
-        <p>Two small systems games built around engineering under pressure.</p>
+        <button onClick={onClose} type="button"><kbd>esc</kbd> close</button>
       </header>
-      <div className="game-library__grid">
-        {GAMES.map((game) => {
-          const Icon = game.icon;
-          return (
-            <button
-              data-game={game.id}
-              key={game.id}
-              onClick={() => onSelect(game.id)}
-              type="button"
-            >
-              <span className="game-library__preview">
-                <Icon aria-hidden="true" />
-                <i /><i /><i />
-              </span>
-              <span>{game.meta}</span>
-              <strong>{game.title}<i>↗</i></strong>
-              <small>{game.description}</small>
-            </button>
-          );
-        })}
+      <div className="game-library-grid">
+        {GAMES.map((game) => (
+          <button key={game.id} onClick={() => onSelect(game.id)} type="button">
+            <span>{game.code}</span>
+            <div aria-hidden="true" data-game={game.id}>
+              {game.id === "stack-builder" ? (
+                <><i /><i /><i /><i /><i /></>
+              ) : (
+                <><b /><i /><i /><i /></>
+              )}
+            </div>
+            <small>{game.meta}</small>
+            <strong>{game.title}<i>↗</i></strong>
+            <p>{game.description}</p>
+          </button>
+        ))}
       </div>
-      <footer>
-        <span><kbd>esc</kbd> close</span>
-        <button onClick={onClose} type="button">return to portfolio ↙</button>
-      </footer>
+      <footer>Two experiments in systems thinking, built for the browser.</footer>
     </section>
   );
 }

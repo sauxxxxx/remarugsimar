@@ -2,8 +2,8 @@
 
 import { Gamepad2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { BugHunterGame } from "@/features/bug-hunter/bug-hunter-game";
 import { GameLibrary, type GameId } from "@/features/game-library/game-library";
+import { SystemTypeGame } from "@/features/system-type/system-type-game";
 import { StackBuilderGame } from "./stack-builder-game";
 
 type PageLock = {
@@ -107,8 +107,8 @@ export function StackBuilderLauncher() {
       restorePage(pageLockRef.current);
       pageLockRef.current = null;
     }
-    setActiveGame(null);
     setIsOpen(false);
+    setActiveGame(null);
     window.requestAnimationFrame(() => triggerRef.current?.focus());
   }
 
@@ -126,7 +126,7 @@ export function StackBuilderLauncher() {
       </button>
       <dialog
         aria-labelledby="game-dialog-title"
-        className="game-dialog stack-builder-dialog"
+        className="stack-builder-dialog"
         onCancel={(event) => {
           event.preventDefault();
           closeGame();
@@ -140,18 +140,14 @@ export function StackBuilderLauncher() {
         ) : null}
         {isOpen && activeGame === "stack-builder" ? (
           <div className="game-stage">
-            <button
-              className="game-back-control"
-              onClick={() => setActiveGame(null)}
-              type="button"
-            >
+            <button className="game-back-control" onClick={() => setActiveGame(null)} type="button">
               ← game.list
             </button>
             <StackBuilderGame onClose={closeGame} />
           </div>
         ) : null}
-        {isOpen && activeGame === "bug-hunter" ? (
-          <BugHunterGame onBack={() => setActiveGame(null)} onClose={closeGame} />
+        {isOpen && activeGame === "system-type" ? (
+          <SystemTypeGame onBack={() => setActiveGame(null)} onClose={closeGame} />
         ) : null}
       </dialog>
     </>
