@@ -248,12 +248,13 @@
   position: absolute;
   z-index: 12;
   top: 49%;
-  left: 62%;
-  width: min(430px, calc(100% - 40px));
-  padding: 0;
+  left: 54%;
+  width: min(520px, calc(100% - 40px));
+  padding: 0 16px;
   border-top: 2px solid var(--system-accent);
   border-bottom: 1px solid var(--system-border);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--system-bg) 88%, transparent), color-mix(in srgb, var(--system-bg) 58%, transparent));
+  background: linear-gradient(90deg, color-mix(in srgb, var(--system-bg) 94%, transparent), color-mix(in srgb, var(--system-bg) 74%, transparent));
+  box-shadow: 0 20px 64px color-mix(in srgb, var(--system-fg) 7%, transparent);
   transform: translate(-50%, -50%);
   backdrop-filter: blur(3px);
   animation: system-deploy-in 520ms cubic-bezier(.2,.8,.2,1) both;
@@ -262,27 +263,29 @@
 .system-type-deploy-status > span { display: flex; align-items: center; gap: 7px; color: var(--system-accent); font-size: 8px; letter-spacing: 0.08em; }
 .system-type-deploy-status > span i { width: 5px; height: 5px; background: var(--system-accent); box-shadow: 0 0 9px color-mix(in srgb, var(--system-accent) 70%, transparent); }
 .system-type-deploy-status > small { color: var(--system-muted); font-size: 7px; letter-spacing: 0.06em; }
+.system-type-deploy-message { padding: 18px 0 16px; border-top: 1px solid var(--system-border); }
+.system-type-deploy-message h3 { margin: 0; color: var(--system-fg); font-size: clamp(21px, 1.8vw, 26px); font-weight: 500; letter-spacing: -0.025em; }
+.system-type-deploy-message p { max-width: 54ch; margin: 8px 0 0; color: var(--system-muted); font-family: var(--font-geist-mono), monospace; font-size: 9px; line-height: 1.6; }
 .system-type-deploy > button {
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-between;
   margin: 0;
-  padding: 15px 0 14px;
-  border: 0;
-  border-top: 1px solid var(--system-border);
-  background: transparent;
+  padding: 14px 12px 13px;
+  border: 1px solid var(--system-border);
+  background: color-mix(in srgb, var(--system-accent) 4%, transparent);
   color: var(--system-fg);
   cursor: pointer;
   transition: padding 180ms ease, background-color 180ms ease;
 }
 .system-type-deploy > button > span { display: flex; align-items: center; gap: 12px; }
 .system-type-deploy > button kbd { padding: 3px 6px; border: 1px solid var(--system-border); border-radius: 2px; background: var(--system-bg); color: var(--system-accent); font-size: 8px; }
-.system-type-deploy > button strong { font-size: 14px; font-weight: 500; letter-spacing: 0.015em; }
+.system-type-deploy > button strong { font-size: 16px; font-weight: 500; letter-spacing: 0.01em; }
 .system-type-deploy > button b { color: var(--system-accent); font-size: 15px; font-weight: 400; }
-.system-type-deploy > button:hover { padding-inline: 10px; background: color-mix(in srgb, var(--system-accent) 5%, transparent); }
+.system-type-deploy > button:hover { padding-inline: 17px; border-color: var(--system-accent); background: color-mix(in srgb, var(--system-accent) 8%, transparent); }
 .system-type-deploy > button:active { background: color-mix(in srgb, var(--system-accent) 9%, transparent); }
-.system-type-deploy > p { display: flex; flex-wrap: wrap; gap: 7px; margin: 0; padding: 9px 0 10px; border-top: 1px solid var(--system-border); color: var(--system-muted); font-family: var(--font-geist-mono), monospace; font-size: 8px; }
+.system-type-deploy > p { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 11px 0 12px; color: var(--system-muted); font-family: var(--font-geist-mono), monospace; font-size: 8px; }
 .system-type-deploy > p i { color: var(--system-accent); font-style: normal; }
 
 .system-type-footer {

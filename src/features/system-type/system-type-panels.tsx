@@ -83,6 +83,10 @@ export function SystemTypeStatePanel({ actions, state }: { actions: Actions; sta
           <span><i /> SYSTEM READY</span>
           <small>DEFENSE PROTOCOL / 02</small>
         </div>
+        <div className="system-type-deploy-message">
+          <h3>Production line ready.</h3>
+          <p>Authorize defense and type incident signatures before they reach the core.</p>
+        </div>
         <button autoFocus onClick={actions.start} type="button">
           <span><kbd>enter</kbd><strong>deploy defense protocol</strong></span>
           <b aria-hidden="true">&rarr;</b>
