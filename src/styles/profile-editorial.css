@@ -193,7 +193,7 @@
   display: grid;
   min-height: clamp(360px, 47vh, 420px);
   align-items: stretch;
-  gap: 12px;
+  gap: clamp(24px, 2vw, 32px);
   grid-template-columns: minmax(215px, 1fr) minmax(232px, 268px);
   margin-top: clamp(18px, 2.5vh, 28px);
 }
@@ -320,40 +320,46 @@
   transform: translateY(-2px);
 }
 
-.profile-editorial__portrait {
+.profile-editorial__portrait-stage {
   position: relative;
   z-index: 1;
   isolation: isolate;
   width: clamp(232px, 18vw, 268px);
-  height: clamp(332px, 43vh, 386px);
+  height: calc(clamp(332px, 43vh, 386px) + 28px);
   align-self: end;
   justify-self: end;
-  margin-left: 0;
-  overflow: hidden;
-  border-radius: 9px;
+  transform: translateX(8px);
 }
 
-.profile-editorial__portrait::after {
+.profile-editorial__portrait-stage::before {
   position: absolute;
   z-index: -2;
-  inset: 5% 0 0 5%;
-  border: 1px solid var(--border-soft);
+  inset: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border-soft));
   border-radius: 9px;
-  background: var(--surface);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
   content: "";
 }
 
-.profile-editorial__portrait::before {
+.profile-editorial__portrait-stage::after {
   position: absolute;
   z-index: -1;
   right: -12%;
-  bottom: 0;
+  bottom: 14px;
   width: 82%;
   aspect-ratio: 1;
   border-radius: 50% 50% 8px 50%;
-  background: color-mix(in srgb, var(--accent) 64%, var(--surface));
+  background: color-mix(in srgb, var(--accent) 62%, var(--surface));
   content: "";
   pointer-events: none;
+}
+
+.profile-editorial__portrait {
+  position: absolute;
+  z-index: 1;
+  inset: 14px 0;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .profile-editorial__portrait-image {
@@ -365,8 +371,12 @@
   transition: filter 420ms ease-out, opacity 420ms ease-out;
 }
 
-:root[data-theme="dark"] .profile-editorial__portrait::before {
-  background: color-mix(in srgb, var(--accent) 42%, var(--surface));
+:root[data-theme="dark"] .profile-editorial__portrait-stage::before {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
+:root[data-theme="dark"] .profile-editorial__portrait-stage::after {
+  background: color-mix(in srgb, var(--accent) 40%, var(--surface));
 }
 
 :root[data-theme="dark"] .profile-editorial__portrait-image {
@@ -409,7 +419,7 @@
   .profile-editorial__hero { min-height: 335px; margin-top: 18px; }
   .profile-editorial__identity h1 { font-size: clamp(48px, 4.1vw, 60px); }
   .profile-editorial__statement { gap: 11px; margin-top: 22px; }
-  .profile-editorial__portrait { width: clamp(210px, 17vw, 242px); height: 318px; }
+  .profile-editorial__portrait-stage { width: clamp(210px, 17vw, 242px); height: 346px; }
   .profile-panel .stats-grid { margin-top: 10px; }
 }
 
@@ -430,7 +440,7 @@
   .profile-editorial__rail-footer p { display: none; }
   .profile-editorial__hero { min-height: 330px; grid-template-columns: minmax(210px, 1fr) minmax(160px, .78fr); }
   .profile-editorial__identity h1 { font-size: clamp(44px, 5.2vw, 58px); }
-  .profile-editorial__portrait { width: clamp(180px, 20vw, 220px); height: 330px; }
+  .profile-editorial__portrait-stage { width: clamp(180px, 20vw, 220px); height: 358px; }
 }
 
 @media (max-width: 767px) {
@@ -446,8 +456,9 @@
   .profile-editorial__identity { position: relative; z-index: 2; width: 62%; }
   .profile-editorial__identity h1 { font-size: clamp(42px, 13vw, 58px); }
   .profile-editorial__identity > p { margin-top: 14px; font-size: 10px; }
-  .profile-editorial__portrait { position: absolute; z-index: 1; top: 6px; right: -10px; width: 52%; height: 260px; margin: 0; }
-  .profile-editorial__statement { max-width: none; margin-top: 150px; }
+  .profile-editorial__portrait-stage { position: absolute; z-index: 1; top: 0; right: -10px; width: 52%; height: 288px; margin: 0; }
+  .profile-editorial__portrait-stage { transform: none; }
+  .profile-editorial__statement { max-width: none; margin-top: 188px; }
   .profile-editorial__statement > p { max-width: 48ch; font-size: 11px; }
   .profile-editorial__actions { width: 100%; max-width: 360px; }
   .profile-editorial__actions a { min-height: 44px; }

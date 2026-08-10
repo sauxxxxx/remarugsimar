@@ -1,48 +1,106 @@
 .profile-companion {
+  position: relative;
   display: flex;
-  min-height: 86px;
+  width: min(100%, 310px);
+  height: 72px;
   align-items: center;
-  gap: 12px;
-  margin-top: 12px;
+  margin-top: 10px;
+  overflow: visible;
 }
 
 .profile-companion__raven {
-  width: 82px;
-  height: 76px;
-  flex: 0 0 auto;
+  position: absolute;
+  z-index: 2;
+  bottom: 3px;
+  left: 1px;
+  width: 64px;
+  height: 70px;
   padding: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
+  transform: translateX(0);
+  transition: transform 1400ms cubic-bezier(.45, 0, .2, 1);
+}
+
+.profile-companion__raven[data-perch="far"] {
+  transform: translateX(42px);
 }
 
 .profile-companion__crow-sprite {
   display: block;
   width: 100%;
   height: 100%;
-  background-image: url("/profile/crow-sprite-sheet.png");
+  background-image: url("/profile/crow-animation-atlas.png");
   background-repeat: no-repeat;
   background-position: 0 0;
-  background-size: 400% 100%;
+  background-size: 1500% 100%;
   image-rendering: pixelated;
-  animation: companion-crow-idle 5.6s steps(1, end) infinite;
-  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+  animation: companion-crow-idle 5.8s steps(1, end) infinite;
+  filter: contrast(1.03);
+  transform-origin: 50% 88%;
 }
 
 :root[data-theme="dark"] .profile-companion__crow-sprite {
-  background-image: url("/profile/crow-sprite-sheet-dark.png");
+  filter: brightness(1.45) contrast(.94);
 }
 
-.profile-companion__raven:hover .profile-companion__crow-sprite,
-.profile-companion__raven:focus-visible .profile-companion__crow-sprite {
-  transform: translateY(-3px);
+.profile-companion__raven[data-motion="walk"] .profile-companion__crow-sprite {
+  animation: companion-crow-walk 1.4s steps(1, end) infinite;
+}
+
+.profile-companion__raven[data-motion="peck"] .profile-companion__crow-sprite {
+  animation: companion-crow-peck 1.1s steps(1, end) infinite;
+}
+
+.profile-companion__raven[data-motion="hop"] .profile-companion__crow-sprite {
+  animation: companion-crow-hop .9s steps(1, end) both;
+}
+
+.profile-companion__raven[data-motion="fly"] .profile-companion__crow-sprite {
+  animation: companion-crow-fly 1.7s steps(1, end) both;
+}
+
+.profile-companion__system-rail {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  left: 0;
+  height: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.profile-companion__system-rail::before,
+.profile-companion__system-rail::after,
+.profile-companion__system-rail i {
+  position: absolute;
+  top: -3px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--background);
+  content: "";
+}
+
+.profile-companion__system-rail::before { left: 4px; }
+.profile-companion__system-rail::after { right: 0; }
+.profile-companion__system-rail i:nth-child(1) { left: 25%; }
+.profile-companion__system-rail i:nth-child(2) { left: 50%; }
+.profile-companion__system-rail i:nth-child(3) { left: 75%; }
+.profile-companion__system-rail i:nth-child(4) {
+  left: calc(100% - 5px);
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .profile-companion__bubble {
   position: relative;
-  max-width: 220px;
-  margin-bottom: 2px;
-  padding: 9px 12px;
+  z-index: 3;
+  max-width: 224px;
+  margin: 0 0 19px 72px;
+  padding: 8px 11px;
   border: 1px solid var(--border);
   border-radius: 3px;
   background: var(--surface);
@@ -50,8 +108,17 @@
   font-family: var(--font-geist-mono), monospace;
   font-size: 9.5px;
   line-height: 1.4;
-  animation: companion-message-in 220ms ease-out both;
-  transition: border-color 180ms ease-out, color 180ms ease-out;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: border-color 180ms ease-out, color 180ms ease-out,
+    opacity 220ms ease-out, transform 220ms ease-out;
+}
+
+.profile-companion[data-bubble-open="true"] .profile-companion__bubble {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .profile-companion__bubble::before {
@@ -73,26 +140,47 @@
   color: var(--accent);
 }
 
-@keyframes companion-message-in {
-  from { opacity: 0; transform: translateY(3px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes companion-crow-idle {
+  0%, 54%, 100% { background-position: 0 0; }
+  56%, 61% { background-position: 7.143% 0; }
+  76%, 82% { background-position: 14.286% 0; }
+  94%, 97% { background-position: 21.429% 0; }
 }
 
-@keyframes companion-crow-idle {
-  0%, 56%, 100% { background-position: 0 0; }
-  58%, 62% { background-position: 33.333% 0; }
-  78%, 84% { background-position: 66.667% 0; }
-  94%, 97% { background-position: 100% 0; }
+@keyframes companion-crow-walk {
+  0%, 100% { background-position: 28.571% 0; }
+  34% { background-position: 35.714% 0; }
+  67% { background-position: 42.857% 0; }
+}
+
+@keyframes companion-crow-peck {
+  0%, 100% { background-position: 50% 0; }
+  45%, 72% { background-position: 57.143% 0; }
+}
+
+@keyframes companion-crow-hop {
+  0%, 100% { background-position: 64.286% 0; transform: translateY(0); }
+  40%, 62% { background-position: 71.429% 0; transform: translateY(-9px); }
+}
+
+@keyframes companion-crow-fly {
+  0% { background-position: 78.571% 0; transform: translateY(0); }
+  25% { background-position: 85.714% 0; transform: translateY(-15px); }
+  52% { background-position: 92.857% 0; transform: translateY(-20px); }
+  78% { background-position: 100% 0; transform: translateY(-11px); }
+  100% { background-position: 28.571% 0; transform: translateY(0); }
 }
 
 @media (min-width: 1181px) and (max-height: 760px) {
-  .profile-companion { min-height: 64px; margin-top: 4px; }
-  .profile-companion__raven { width: 68px; height: 62px; }
+  .profile-companion { height: 58px; margin-top: 3px; }
+  .profile-companion__raven { width: 58px; height: 64px; }
+  .profile-companion__bubble { margin-left: 66px; }
 }
 
 @media (max-width: 767px) {
-  .profile-companion { margin-top: 14px; }
-  .profile-companion__raven { width: 76px; height: 70px; }
+  .profile-companion { width: min(100%, 300px); height: 68px; margin-top: 12px; }
+  .profile-companion__raven { width: 62px; height: 68px; }
+  .profile-companion__bubble { max-width: 210px; margin-left: 70px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
