@@ -1,5 +1,4 @@
 import Image from "next/image";
-import profileImage from "../../my_img-trimmed.png";
 
 export function ProfilePortrait() {
   return (
@@ -10,7 +9,7 @@ export function ProfilePortrait() {
         fill
         priority
         sizes="(max-width: 767px) 52vw, 320px"
-        src={profileImage}
+        src="/profile/remar-half-body.png"
       />
     </div>
   );

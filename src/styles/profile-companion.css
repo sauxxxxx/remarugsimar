@@ -1,0 +1,104 @@
+.profile-companion {
+  display: flex;
+  min-height: 86px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.profile-companion__raven {
+  width: 82px;
+  height: 76px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.profile-companion__crow-sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url("/profile/crow-sprite-sheet.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 400% 100%;
+  image-rendering: pixelated;
+  animation: companion-crow-idle 5.6s steps(1, end) infinite;
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+}
+
+:root[data-theme="dark"] .profile-companion__crow-sprite {
+  background-image: url("/profile/crow-sprite-sheet-dark.png");
+}
+
+.profile-companion__raven:hover .profile-companion__crow-sprite,
+.profile-companion__raven:focus-visible .profile-companion__crow-sprite {
+  transform: translateY(-3px);
+}
+
+.profile-companion__bubble {
+  position: relative;
+  max-width: 220px;
+  margin-bottom: 2px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--foreground);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9.5px;
+  line-height: 1.4;
+  animation: companion-message-in 220ms ease-out both;
+  transition: border-color 180ms ease-out, color 180ms ease-out;
+}
+
+.profile-companion__bubble::before {
+  position: absolute;
+  bottom: -6px;
+  left: 13px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  content: "";
+  transform: skewY(-28deg);
+}
+
+.profile-companion__bubble:hover,
+.profile-companion__bubble:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@keyframes companion-message-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes companion-crow-idle {
+  0%, 56%, 100% { background-position: 0 0; }
+  58%, 62% { background-position: 33.333% 0; }
+  78%, 84% { background-position: 66.667% 0; }
+  94%, 97% { background-position: 100% 0; }
+}
+
+@media (min-width: 1181px) and (max-height: 760px) {
+  .profile-companion { min-height: 64px; margin-top: 4px; }
+  .profile-companion__raven { width: 68px; height: 62px; }
+}
+
+@media (max-width: 767px) {
+  .profile-companion { margin-top: 14px; }
+  .profile-companion__raven { width: 76px; height: 70px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-companion__crow-sprite,
+  .profile-companion__bubble {
+    animation: none;
+    transition: none;
+  }
+}

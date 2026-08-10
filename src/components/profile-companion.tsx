@@ -16,27 +16,12 @@ const sectionGuidance: Record<PortfolioSectionId, { href: string; message: strin
   writing: { href: "#writing", message: "Read the field notes." },
 };
 
-const ravenReplies = [
+const crowReplies = [
   "No bugs on my watch.",
   "The projects are worth exploring.",
   "Still debugging.",
-  "You found the portfolio raven.",
+  "You found the portfolio crow.",
 ] as const;
-
-function PixelRaven() {
-  return (
-    <svg aria-hidden="true" shapeRendering="crispEdges" viewBox="0 0 104 88">
-      <path
-        d="M43 8h18v4h8v6h17v7H66v8h-7v9h-5v17h-7v11h-8v-7H26v-5H13v-7h10v-9h5V25h7V13h8V8Z"
-        fill="currentColor"
-      />
-      <path d="M30 33h22v6h-7v6h-8v5H25v-7h5V33Z" fill="var(--background)" />
-      <path d="M54 16h4v4h-4z" fill="var(--accent)" />
-      <path d="M38 69h4v12h-9v-4h5V69Zm12-5h4v17h9v4H49V64Z" fill="currentColor" />
-      <path d="M24 84h46" fill="none" stroke="currentColor" strokeWidth="2" />
-    </svg>
-  );
-}
 
 export function ProfileCompanion() {
   const activeSection = useActivePortfolioSection();
@@ -44,7 +29,7 @@ export function ProfileCompanion() {
   const [replyIndex, setReplyIndex] = useState(-1);
   const replyTimer = useRef<number | null>(null);
   const guidance = sectionGuidance[activeSection];
-  const message = interactionMessage ?? (replyIndex >= 0 ? ravenReplies[replyIndex] : guidance.message);
+  const message = interactionMessage ?? (replyIndex >= 0 ? crowReplies[replyIndex] : guidance.message);
 
   useEffect(() => {
     const panel = document.querySelector<HTMLElement>(".profile-panel");
@@ -86,9 +71,9 @@ export function ProfileCompanion() {
     if (replyTimer.current) window.clearTimeout(replyTimer.current);
   }, []);
 
-  function askRaven() {
+  function askCrow() {
     setInteractionMessage(null);
-    setReplyIndex((current) => (current + 1) % ravenReplies.length);
+    setReplyIndex((current) => (current + 1) % crowReplies.length);
     if (replyTimer.current) window.clearTimeout(replyTimer.current);
     replyTimer.current = window.setTimeout(() => setReplyIndex(-1), 4200);
   }
@@ -96,13 +81,13 @@ export function ProfileCompanion() {
   return (
     <div className="profile-companion">
       <button
-        aria-label="Ask the portfolio raven for guidance"
+        aria-label="Ask the portfolio crow for guidance"
         className="profile-companion__raven"
         data-companion-message="Ask me where to go next."
-        onClick={askRaven}
+        onClick={askCrow}
         type="button"
       >
-        <PixelRaven />
+        <span aria-hidden="true" className="profile-companion__crow-sprite" />
       </button>
       <a
         aria-live="polite"
