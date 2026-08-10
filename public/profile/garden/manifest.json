@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "designCanvas": {
+    "width": 960,
+    "height": 240,
+    "renderScale": 0.5
+  },
+  "palette": {
+    "graphite": "#15191f",
+    "stone": "#343b45",
+    "emerald": "#167d5a",
+    "cyan": "#56e8ee",
+    "magenta": "#c8459f"
+  },
+  "layers": {
+    "background": {
+      "src": "/profile/garden/garden-background.png",
+      "width": 960,
+      "height": 240
+    },
+    "ground": {
+      "src": "/profile/garden/garden-ground.png",
+      "width": 960,
+      "height": 160,
+      "walkSurfaceY": 68
+    }
+  },
+  "platforms": {
+    "atlas": "/profile/garden/platforms-atlas.png",
+    "columns": 3,
+    "rows": 1,
+    "cellWidth": 320,
+    "cellHeight": 320,
+    "cells": [
+      {
+        "id": "small",
+        "src": "/profile/garden/platform-small.png",
+        "column": 0,
+        "surfaceY": 221
+      },
+      {
+        "id": "medium",
+        "src": "/profile/garden/platform-medium.png",
+        "column": 1,
+        "surfaceY": 132
+      },
+      {
+        "id": "tall",
+        "src": "/profile/garden/platform-tall.png",
+        "column": 2,
+        "surfaceY": 7
+      }
+    ]
+  },
+  "waterfall": {
+    "src": "/profile/garden/waterfall-atlas.png",
+    "columns": 8,
+    "rows": 1,
+    "cellWidth": 96,
+    "cellHeight": 256,
+    "frames": 8,
+    "fps": 8
+  },
+  "props": {
+    "src": "/profile/garden/props-atlas.png",
+    "columns": 4,
+    "rows": 2,
+    "cellWidth": 160,
+    "cellHeight": 256,
+    "cells": [
+      "flower-cluster",
+      "tall-flower",
+      "hanging-vine",
+      "trailing-vine",
+      "moss-patch",
+      "crystal-cluster",
+      "rock-cluster",
+      "petals-and-particles"
+    ]
+  },
+  "crow": {
+    "src": "/profile/garden/crow-atlas.png",
+    "columns": 4,
+    "rows": 4,
+    "cellWidth": 128,
+    "cellHeight": 128,
+    "groundedBaselineY": 115,
+    "animations": {
+      "idle": { "row": 0, "frames": 4, "fps": 3 },
+      "walk": { "row": 1, "frames": 4, "fps": 7 },
+      "action": {
+        "row": 2,
+        "frames": ["peck-down", "peck-up", "hop", "land"],
+        "fps": 6
+      },
+      "flight": {
+        "row": 3,
+        "frames": ["takeoff", "wings-up", "glide", "wings-down"],
+        "fps": 8
+      }
+    }
+  }
+}
