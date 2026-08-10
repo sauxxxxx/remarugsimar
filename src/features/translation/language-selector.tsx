@@ -97,6 +97,7 @@ export function LanguageSelector() {
       <button
         aria-label={`Choose portfolio language. Current language: ${activeLanguage.name}`}
         className="language-trigger"
+        data-companion-message="Which language do you prefer?"
         onClick={openDialog}
         title={`Language: ${activeLanguage.name}`}
         type="button"

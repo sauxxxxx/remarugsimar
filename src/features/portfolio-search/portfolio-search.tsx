@@ -184,6 +184,7 @@ export function PortfolioSearch({ includeGame = false }: PortfolioSearchProps) {
         aria-keyshortcuts="Control+K Meta+K"
         aria-label="Search portfolio"
         className="portfolio-search-trigger"
+        data-companion-message="Looking for something?"
         onClick={openDialog}
         title="Search portfolio (Ctrl/⌘ K)"
         type="button"

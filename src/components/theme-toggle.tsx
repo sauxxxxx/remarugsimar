@@ -81,6 +81,7 @@ export function ThemeToggle() {
         aria-label="Use light theme"
         aria-pressed={theme === "light"}
         className="theme-toggle__button"
+        data-companion-message="Back to daylight."
         disabled={isTransitioning}
         onClick={(event) => transitionTo("light", event)}
         type="button"
@@ -91,6 +92,7 @@ export function ThemeToggle() {
         aria-label="Use dark theme"
         aria-pressed={theme === "dark"}
         className="theme-toggle__button"
+        data-companion-message="Night shift activated."
         disabled={isTransitioning}
         onClick={(event) => transitionTo("dark", event)}
         type="button"

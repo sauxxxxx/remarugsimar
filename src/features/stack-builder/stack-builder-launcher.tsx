@@ -117,6 +117,7 @@ export function StackBuilderLauncher() {
       <button
         aria-label="Open portfolio games"
         className="stack-builder-trigger"
+        data-companion-message="Need a short break?"
         onClick={() => openGame()}
         ref={triggerRef}
         title="Portfolio games"

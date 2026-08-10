@@ -1,90 +1,54 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  BriefcaseBusiness,
+  FolderOpen,
+  Grid2X2,
+  Home,
+  Layers3,
+  PenLine,
+  Send,
+} from "lucide-react";
 import { TranslatedText } from "@/features/translation/translation-provider";
+import { portfolioSections, useActivePortfolioSection } from "./use-active-portfolio-section";
 
-const navigationItems = [
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "services", label: "Services" },
-  { id: "experience", label: "Experience" },
-  { id: "stack", label: "Stack" },
-  { id: "writing", label: "Writing" },
-  { id: "contact", label: "Contact" },
-] as const;
+const navigationIcons = {
+  about: Home,
+  contact: Send,
+  experience: BriefcaseBusiness,
+  projects: FolderOpen,
+  services: Grid2X2,
+  stack: Layers3,
+  writing: PenLine,
+} as const;
 
-type NavigationId = (typeof navigationItems)[number]["id"];
+const navigationMessages = {
+  about: "Meet the developer.",
+  contact: "Ready to discuss a project?",
+  experience: "Follow the work timeline.",
+  projects: "See what Remar has shipped.",
+  services: "See how Remar can help.",
+  stack: "Inspect the toolkit.",
+  writing: "Read the field notes.",
+} as const;
 
 export function ProfileNavigation() {
-  const [activeSection, setActiveSection] = useState("about");
-
-  useEffect(() => {
-    let animationFrame = 0;
-    const contentPanel = document.querySelector<HTMLElement>(".about-panel");
-
-    function updateActiveSection() {
-      const panelHasIndependentScroll =
-        contentPanel !== null &&
-        ["auto", "scroll"].includes(
-          window.getComputedStyle(contentPanel).overflowY,
-        );
-      const panelTop = contentPanel?.getBoundingClientRect().top ?? 0;
-      const scrollPosition = panelHasIndependentScroll
-        ? contentPanel.scrollTop
-        : window.scrollY;
-      const viewportHeight = panelHasIndependentScroll
-        ? contentPanel.clientHeight
-        : window.innerHeight;
-      const activationPoint = scrollPosition + viewportHeight * 0.3;
-      let nextSection: NavigationId = navigationItems[0].id;
-
-      for (const item of navigationItems) {
-        const section = document.getElementById(item.id);
-        if (!section) continue;
-
-        const sectionTop = panelHasIndependentScroll
-          ? section === contentPanel
-            ? 0
-            : section.getBoundingClientRect().top - panelTop + scrollPosition
-          : section.getBoundingClientRect().top + window.scrollY;
-        if (sectionTop <= activationPoint) nextSection = item.id;
-      }
-
-      setActiveSection(nextSection);
-    }
-
-    function scheduleUpdate() {
-      if (animationFrame) return;
-      animationFrame = window.requestAnimationFrame(() => {
-        updateActiveSection();
-        animationFrame = 0;
-      });
-    }
-
-    updateActiveSection();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-    contentPanel?.addEventListener("scroll", scheduleUpdate, { passive: true });
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-      contentPanel?.removeEventListener("scroll", scheduleUpdate);
-    };
-  }, []);
+  const activeSection = useActivePortfolioSection();
 
   return (
     <nav aria-label="Portfolio sections" className="portfolio-navigation">
-      {navigationItems.map((item, index) => {
+      {portfolioSections.map((item, index) => {
         const isActive = activeSection === item.id;
+        const Icon = navigationIcons[item.id];
 
         return (
           <a
             aria-current={isActive ? "location" : undefined}
+            data-companion-message={navigationMessages[item.id]}
             href={`#${item.id}`}
             key={item.id}
           >
+            <Icon aria-hidden="true" className="portfolio-navigation__icon" size={15} strokeWidth={1.45} />
             <span aria-hidden="true" className="portfolio-navigation__index">
               {String(index + 1).padStart(2, "0")}
             </span>
