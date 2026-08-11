@@ -25,13 +25,20 @@ const crowShortcuts = [
 ] as const;
 
 type CrowMotion = "fly" | "hop" | "idle" | "peck" | "walk";
-type CrowLocation = "ground-left" | "ground-right" | "perch-left";
+type CrowLocation =
+  | "ground-left"
+  | "ground-right"
+  | "perch-middle"
+  | "perch-small"
+  | "perch-tall";
 type CrowFacing = "left" | "right";
 
-const locationOrder: Record<CrowLocation, number> = {
-  "ground-left": 0,
-  "perch-left": 1,
-  "ground-right": 2,
+const locationX: Record<CrowLocation, number> = {
+  "ground-left": 8,
+  "ground-right": 42,
+  "perch-small": 27.4,
+  "perch-middle": 49,
+  "perch-tall": 74,
 };
 
 const motionDuration: Record<Exclude<CrowMotion, "idle">, number> = {
@@ -60,7 +67,7 @@ export function ProfileCompanion() {
     target: CrowLocation,
     nextMotion: Extract<CrowMotion, "fly" | "walk">,
   ) => {
-    setFacing(locationOrder[target] < locationOrder[location] ? "left" : "right");
+    setFacing(locationX[target] < locationX[location] ? "left" : "right");
     setMotion(nextMotion);
     setLocation(target);
   }, [location]);
@@ -89,21 +96,26 @@ export function ProfileCompanion() {
   useEffect(() => {
     if (reducedMotion || isBubbleOpen || motion !== "idle") return;
 
+    const isPerched = location.startsWith("perch-");
     const timer = window.setTimeout(() => {
       const roll = Math.random();
 
-      if (location === "perch-left") {
+      if (location === "perch-small") {
+        moveCrow("perch-middle", "fly");
+      } else if (location === "perch-middle") {
+        moveCrow("perch-tall", "fly");
+      } else if (location === "perch-tall") {
         moveCrow(Math.random() > 0.5 ? "ground-left" : "ground-right", "fly");
-      } else if (roll < 0.42) {
+      } else if (roll < 0.38) {
         moveCrow(location === "ground-left" ? "ground-right" : "ground-left", "walk");
-      } else if (roll < 0.72) {
+      } else if (roll < 0.62) {
         setMotion("peck");
-      } else if (roll < 0.91) {
+      } else if (roll < 0.78) {
         setMotion("hop");
       } else {
-        moveCrow("perch-left", "fly");
+        moveCrow("perch-small", "fly");
       }
-    }, 7000 + Math.random() * 5000);
+    }, (isPerched ? 4200 : 6500) + Math.random() * (isPerched ? 2600 : 4000));
 
     return () => window.clearTimeout(timer);
   }, [isBubbleOpen, location, motion, moveCrow, reducedMotion]);
@@ -160,39 +172,47 @@ export function ProfileCompanion() {
       onPointerEnter={() => setIsEngaged(true)}
       onPointerLeave={() => setIsEngaged(false)}
     >
-      <div aria-hidden="true" className="profile-companion__world">
-        <span className="profile-companion__garden-scene" />
-        <span className="profile-companion__waterfall profile-companion__waterfall--left" />
-        <span className="profile-companion__waterfall profile-companion__waterfall--right" />
-      </div>
+      <div className="profile-companion__stage">
+        <div aria-hidden="true" className="profile-companion__rigging">
+          <span className="profile-companion__chain profile-companion__chain--small" />
+          <span className="profile-companion__chain profile-companion__chain--middle" />
+          <span className="profile-companion__chain profile-companion__chain--tall" />
+        </div>
 
-      <div
-        className="profile-companion__actor"
-        data-facing={facing}
-        data-location={location}
-        data-motion={motion}
-      >
-        <button
-          aria-label="Ask the portfolio crow for guidance"
-          className="profile-companion__raven"
-          data-companion-message="Ask me where to go next."
-          onClick={askCrow}
-          type="button"
+        <div aria-hidden="true" className="profile-companion__world">
+          <span className="profile-companion__garden-scene" />
+          <span className="profile-companion__waterfall profile-companion__waterfall--left" />
+          <span className="profile-companion__waterfall profile-companion__waterfall--right" />
+        </div>
+
+        <div
+          className="profile-companion__actor"
+          data-facing={facing}
+          data-location={location}
+          data-motion={motion}
         >
-          <span aria-hidden="true" className="profile-companion__crow-lift">
-            <span className="profile-companion__crow-sprite" />
-          </span>
-        </button>
-        <a
-          aria-hidden={!isBubbleOpen}
-          aria-live="polite"
-          className="profile-companion__bubble"
-          href={guidance.href}
-          key={message}
-          tabIndex={isBubbleOpen ? 0 : -1}
-        >
-          {message}
-        </a>
+          <button
+            aria-label="Ask the portfolio crow for guidance"
+            className="profile-companion__raven"
+            data-companion-message="Ask me where to go next."
+            onClick={askCrow}
+            type="button"
+          >
+            <span aria-hidden="true" className="profile-companion__crow-lift">
+              <span className="profile-companion__crow-sprite" />
+            </span>
+          </button>
+          <a
+            aria-hidden={!isBubbleOpen}
+            aria-live="polite"
+            className="profile-companion__bubble"
+            href={guidance.href}
+            key={message}
+            tabIndex={isBubbleOpen ? 0 : -1}
+          >
+            {message}
+          </a>
+        </div>
       </div>
     </div>
   );

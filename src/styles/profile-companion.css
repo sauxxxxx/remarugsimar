@@ -1,10 +1,18 @@
 .profile-companion {
+  --rigging-height: 52px;
   position: relative;
   width: 100%;
   max-width: 480px;
-  aspect-ratio: 1200 / 349;
-  margin-top: 8px;
+  padding-top: var(--rigging-height);
+  margin-top: 0;
   isolation: isolate;
+  overflow: visible;
+}
+
+.profile-companion__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1200 / 349;
   overflow: visible;
 }
 
@@ -13,6 +21,65 @@
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+}
+
+.profile-companion__rigging {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.profile-companion__chain {
+  --chain-depth: 0%;
+  position: absolute;
+  top: calc(var(--rigging-height) * -1);
+  width: 7px;
+  height: calc(var(--rigging-height) + var(--chain-depth));
+  background-image: radial-gradient(
+    ellipse at center,
+    transparent 31%,
+    color-mix(in srgb, var(--foreground) 48%, var(--border)) 35% 49%,
+    transparent 53%
+  );
+  background-position: center top;
+  background-size: 7px 10px;
+  background-repeat: repeat-y;
+  filter: drop-shadow(1px 0 0 var(--background));
+  opacity: .68;
+  transform-origin: 50% 0;
+}
+
+.profile-companion__chain::after {
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin: auto;
+  border: 1px solid color-mix(in srgb, var(--foreground) 54%, var(--border));
+  background: var(--background);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.profile-companion__chain--small {
+  --chain-depth: 44.3%;
+  left: 30.2%;
+  animation: companion-chain-sway 5.6s ease-in-out infinite;
+}
+
+.profile-companion__chain--middle {
+  --chain-depth: 24.8%;
+  left: 55%;
+  animation: companion-chain-sway 6.4s -2.1s ease-in-out infinite reverse;
+}
+
+.profile-companion__chain--tall {
+  left: 80.7%;
+  animation: companion-chain-sway 5.9s -3.4s ease-in-out infinite;
 }
 
 .profile-companion__world::before {
@@ -53,25 +120,50 @@
 
 .profile-companion__waterfall {
   z-index: 2;
-  width: 4.5%;
+  width: 7%;
   aspect-ratio: 3 / 8;
   background-image: url("/profile/garden/waterfall-atlas.png");
   background-position: 0 0;
   background-size: 800% 100%;
   animation: companion-waterfall 1s steps(1, end) infinite;
-  filter: saturate(.82) brightness(.95);
-  opacity: .9;
+  filter: saturate(.72) brightness(.98);
+  opacity: .84;
+}
+
+.profile-companion__waterfall::before {
+  position: absolute;
+  top: -2px;
+  right: 17%;
+  left: 17%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #8ef2f3 28% 72%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 44%, transparent);
+  content: "";
+  opacity: .76;
+}
+
+.profile-companion__waterfall::after {
+  position: absolute;
+  right: 4%;
+  bottom: -3px;
+  left: 4%;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #8ef2f3 0 16%, #55dfe5 18% 34%, transparent 68%);
+  content: "";
+  opacity: .68;
+  animation: companion-waterfall-splash .72s steps(2, end) infinite alternate;
 }
 
 .profile-companion__waterfall--left {
   top: 44.3%;
-  left: 36.9%;
+  left: 34.1%;
   height: 33.7%;
 }
 
 .profile-companion__waterfall--right {
   top: 24.8%;
-  left: 63.9%;
+  left: 61%;
   height: 53.2%;
   animation-delay: -375ms;
 }
@@ -93,9 +185,19 @@
   top: 39.5%;
 }
 
-.profile-companion__actor[data-location="perch-left"] {
+.profile-companion__actor[data-location="perch-small"] {
   left: 27.4%;
   top: 5.9%;
+}
+
+.profile-companion__actor[data-location="perch-middle"] {
+  left: 49%;
+  top: -13.4%;
+}
+
+.profile-companion__actor[data-location="perch-tall"] {
+  left: 74%;
+  top: -38.3%;
 }
 
 .profile-companion__actor[data-motion="fly"] {
@@ -244,6 +346,16 @@
   87.5%, 100% { background-position: 100% 0; }
 }
 
+@keyframes companion-waterfall-splash {
+  from { transform: scaleX(.78); opacity: .45; }
+  to { transform: scaleX(1.05); opacity: .78; }
+}
+
+@keyframes companion-chain-sway {
+  0%, 100% { transform: rotate(-.35deg); }
+  50% { transform: rotate(.35deg); }
+}
+
 @keyframes companion-crow-idle {
   0%, 56%, 100% { background-position: 0 0; }
   58%, 64% { background-position: 33.333% 0; }
@@ -287,13 +399,14 @@
 }
 
 @media (min-width: 1181px) and (max-height: 760px) {
-  .profile-companion { max-width: 430px; margin-top: 2px; }
+  .profile-companion { --rigging-height: 46px; max-width: 430px; }
 }
 
 @media (max-width: 767px) {
   .profile-companion {
+    --rigging-height: 46px;
     width: min(100%, 430px);
-    margin-top: 12px;
+    margin-top: 0;
   }
 
   .profile-companion__bubble {
@@ -304,9 +417,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .profile-companion__actor,
+  .profile-companion__chain,
   .profile-companion__crow-lift,
   .profile-companion__crow-sprite,
   .profile-companion__waterfall,
+  .profile-companion__waterfall::after,
   .profile-companion__bubble {
     animation: none;
     transition: none;

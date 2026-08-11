@@ -13,7 +13,14 @@
     "perches": [
       { "id": "ground-left", "x": 96, "surfaceY": 272 },
       { "id": "ground-right", "x": 504, "surfaceY": 272 },
-      { "id": "perch-left", "x": 329, "surfaceY": 155 }
+      { "id": "perch-small", "x": 329, "surfaceY": 155 },
+      { "id": "perch-middle", "x": 588, "surfaceY": 87 },
+      { "id": "perch-tall", "x": 888, "surfaceY": 0 }
+    ],
+    "chainAnchors": [
+      { "id": "small", "x": 362, "surfaceY": 155 },
+      { "id": "middle", "x": 660, "surfaceY": 87 },
+      { "id": "tall", "x": 968, "surfaceY": 0 }
     ],
     "waterfalls": [
       { "id": "left", "sourceX": 443, "sourceY": 155, "targetY": 272 },
