@@ -1,0 +1,119 @@
+.profile-companion__water-system {
+  position: absolute;
+  z-index: 2;
+  width: 5.1%;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+.profile-companion__water-system--left {
+  top: 44.3%;
+  left: 33.55%;
+  height: 34.1%;
+}
+
+.profile-companion__water-system--right {
+  top: 24.6%;
+  left: 60.5%;
+  height: 53.8%;
+}
+
+.profile-companion__waterfall,
+.profile-companion__water-foreground,
+.profile-companion__water-mist {
+  position: absolute;
+  display: block;
+  inset: 0;
+}
+
+.profile-companion__waterfall,
+.profile-companion__water-foreground {
+  background-image: url("/profile/garden/waterfall-atlas-v2.png");
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 800% 100%;
+  image-rendering: pixelated;
+  animation: companion-waterfall-v2 1.12s steps(1, end) infinite;
+}
+
+.profile-companion__waterfall {
+  z-index: 1;
+  filter: saturate(.82) brightness(.96);
+  opacity: .98;
+}
+
+.profile-companion__water-foreground {
+  z-index: 3;
+  clip-path: inset(78% -30% -8% -30%);
+  filter: saturate(.9) brightness(1.08);
+  opacity: .72;
+  transform: scaleX(1.16);
+  transform-origin: 50% 100%;
+  animation-name: companion-waterfall-v2, companion-waterfall-impact;
+  animation-duration: 1.12s, .56s;
+  animation-timing-function: steps(1, end), steps(2, end);
+  animation-iteration-count: infinite;
+}
+
+.profile-companion__water-mist {
+  z-index: 0;
+  top: auto;
+  right: -65%;
+  bottom: -3%;
+  left: -65%;
+  height: 20%;
+  background:
+    radial-gradient(circle at 34% 68%, color-mix(in srgb, #dffeff 58%, transparent) 0 2%, transparent 3%),
+    radial-gradient(circle at 65% 52%, color-mix(in srgb, #8feaed 46%, transparent) 0 2%, transparent 3%),
+    radial-gradient(ellipse at center, color-mix(in srgb, #8feaed 18%, transparent), transparent 66%);
+  opacity: .48;
+  animation: companion-waterfall-mist 1.7s steps(3, end) infinite;
+}
+
+.profile-companion__water-system--right .profile-companion__waterfall,
+.profile-companion__water-system--right .profile-companion__water-foreground {
+  animation-delay: -.43s, -.16s;
+}
+
+.profile-companion__water-system--right .profile-companion__water-mist {
+  animation-delay: -.8s;
+}
+
+:root[data-theme="dark"] .profile-companion__waterfall {
+  filter: saturate(.76) brightness(1.08);
+  opacity: .9;
+}
+
+:root[data-theme="dark"] .profile-companion__water-foreground {
+  filter: saturate(.84) brightness(1.14);
+}
+
+@keyframes companion-waterfall-v2 {
+  0% { background-position: 0 0; }
+  12.5% { background-position: 14.286% 0; }
+  25% { background-position: 28.571% 0; }
+  37.5% { background-position: 42.857% 0; }
+  50% { background-position: 57.143% 0; }
+  62.5% { background-position: 71.429% 0; }
+  75% { background-position: 85.714% 0; }
+  87.5%, 100% { background-position: 100% 0; }
+}
+
+@keyframes companion-waterfall-impact {
+  0%, 100% { transform: scaleX(.92); opacity: .58; }
+  50% { transform: scaleX(1.2); opacity: .82; }
+}
+
+@keyframes companion-waterfall-mist {
+  0% { transform: translate3d(-2%, 1px, 0) scaleX(.9); opacity: .34; }
+  50% { transform: translate3d(3%, -1px, 0) scaleX(1.08); opacity: .54; }
+  100% { transform: translate3d(-1%, -2px, 0) scaleX(.96); opacity: .28; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-companion__waterfall,
+  .profile-companion__water-foreground,
+  .profile-companion__water-mist {
+    animation: none;
+  }
+}

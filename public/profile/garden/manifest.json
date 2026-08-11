@@ -6,7 +6,7 @@
     "renderScale": 0.5
   },
   "compositeScene": {
-    "src": "/profile/garden/garden-scene-v2.webp",
+    "src": "/profile/garden/garden-scene-v3.webp",
     "width": 1200,
     "height": 349,
     "walkSurfaceY": 272,
@@ -75,7 +75,7 @@
     ]
   },
   "waterfall": {
-    "src": "/profile/garden/waterfall-atlas.png",
+    "src": "/profile/garden/waterfall-atlas-v2.png",
     "columns": 8,
     "rows": 1,
     "cellWidth": 96,

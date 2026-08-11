@@ -100,8 +100,7 @@
   opacity: .48;
 }
 
-.profile-companion__garden-scene,
-.profile-companion__waterfall {
+.profile-companion__garden-scene {
   position: absolute;
   display: block;
   background-repeat: no-repeat;
@@ -111,61 +110,11 @@
 .profile-companion__garden-scene {
   z-index: 1;
   inset: 0;
-  background-image: url("/profile/garden/garden-scene-v2.webp");
+  background-image: url("/profile/garden/garden-scene-v3.webp");
   background-position: center;
   background-size: 100% 100%;
   filter: saturate(.74) contrast(.95) brightness(1.04);
   opacity: .94;
-}
-
-.profile-companion__waterfall {
-  z-index: 2;
-  width: 7%;
-  aspect-ratio: 3 / 8;
-  background-image: url("/profile/garden/waterfall-atlas.png");
-  background-position: 0 0;
-  background-size: 800% 100%;
-  animation: companion-waterfall 1s steps(1, end) infinite;
-  filter: saturate(.72) brightness(.98);
-  opacity: .84;
-}
-
-.profile-companion__waterfall::before {
-  position: absolute;
-  top: -2px;
-  right: 17%;
-  left: 17%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #8ef2f3 28% 72%, transparent);
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--accent) 44%, transparent);
-  content: "";
-  opacity: .76;
-}
-
-.profile-companion__waterfall::after {
-  position: absolute;
-  right: 4%;
-  bottom: -3px;
-  left: 4%;
-  height: 7px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, #8ef2f3 0 16%, #55dfe5 18% 34%, transparent 68%);
-  content: "";
-  opacity: .68;
-  animation: companion-waterfall-splash .72s steps(2, end) infinite alternate;
-}
-
-.profile-companion__waterfall--left {
-  top: 44.3%;
-  left: 34.1%;
-  height: 33.7%;
-}
-
-.profile-companion__waterfall--right {
-  top: 24.8%;
-  left: 61%;
-  height: 53.2%;
-  animation-delay: -375ms;
 }
 
 .profile-companion__actor {
@@ -254,11 +203,6 @@
   opacity: .96;
 }
 
-:root[data-theme="dark"] .profile-companion__waterfall {
-  filter: brightness(1.08) saturate(.7);
-  opacity: .82;
-}
-
 :root[data-theme="dark"] .profile-companion__crow-sprite {
   filter: brightness(1.28) contrast(.96);
 }
@@ -335,22 +279,6 @@
   color: var(--accent);
 }
 
-@keyframes companion-waterfall {
-  0% { background-position: 0 0; }
-  12.5% { background-position: 14.286% 0; }
-  25% { background-position: 28.571% 0; }
-  37.5% { background-position: 42.857% 0; }
-  50% { background-position: 57.143% 0; }
-  62.5% { background-position: 71.429% 0; }
-  75% { background-position: 85.714% 0; }
-  87.5%, 100% { background-position: 100% 0; }
-}
-
-@keyframes companion-waterfall-splash {
-  from { transform: scaleX(.78); opacity: .45; }
-  to { transform: scaleX(1.05); opacity: .78; }
-}
-
 @keyframes companion-chain-sway {
   0%, 100% { transform: rotate(-.35deg); }
   50% { transform: rotate(.35deg); }
@@ -420,8 +348,6 @@
   .profile-companion__chain,
   .profile-companion__crow-lift,
   .profile-companion__crow-sprite,
-  .profile-companion__waterfall,
-  .profile-companion__waterfall::after,
   .profile-companion__bubble {
     animation: none;
     transition: none;
