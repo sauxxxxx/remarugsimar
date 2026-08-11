@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   type PortfolioSectionId,
   useActivePortfolioSection,
@@ -25,6 +25,14 @@ const crowShortcuts = [
 ] as const;
 
 type CrowMotion = "fly" | "hop" | "idle" | "peck" | "walk";
+type CrowLocation = "ground-left" | "ground-right" | "perch-left";
+type CrowFacing = "left" | "right";
+
+const locationOrder: Record<CrowLocation, number> = {
+  "ground-left": 0,
+  "perch-left": 1,
+  "ground-right": 2,
+};
 
 const motionDuration: Record<Exclude<CrowMotion, "idle">, number> = {
   fly: 1700,
@@ -38,7 +46,8 @@ export function ProfileCompanion() {
   const [interactionMessage, setInteractionMessage] = useState<string | null>(null);
   const [shortcutIndex, setShortcutIndex] = useState(-1);
   const [motion, setMotion] = useState<CrowMotion>("idle");
-  const [farPerch, setFarPerch] = useState(false);
+  const [location, setLocation] = useState<CrowLocation>("ground-left");
+  const [facing, setFacing] = useState<CrowFacing>("right");
   const [isEngaged, setIsEngaged] = useState(false);
   const [isPromptVisible, setIsPromptVisible] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -46,6 +55,15 @@ export function ProfileCompanion() {
   const guidance = shortcutIndex >= 0 ? crowShortcuts[shortcutIndex] : contextualGuide;
   const message = interactionMessage ?? guidance.message;
   const isBubbleOpen = Boolean(interactionMessage) || isEngaged || isPromptVisible;
+
+  const moveCrow = useCallback((
+    target: CrowLocation,
+    nextMotion: Extract<CrowMotion, "fly" | "walk">,
+  ) => {
+    setFacing(locationOrder[target] < locationOrder[location] ? "left" : "right");
+    setMotion(nextMotion);
+    setLocation(target);
+  }, [location]);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -63,33 +81,32 @@ export function ProfileCompanion() {
   }, [activeSection]);
 
   useEffect(() => {
-    if (reducedMotion) {
-      setMotion("idle");
-      return;
-    }
+    if (motion === "idle") return;
+    const timer = window.setTimeout(() => setMotion("idle"), motionDuration[motion]);
+    return () => window.clearTimeout(timer);
+  }, [motion]);
 
-    if (motion !== "idle") {
-      const timer = window.setTimeout(() => setMotion("idle"), motionDuration[motion]);
-      return () => window.clearTimeout(timer);
-    }
+  useEffect(() => {
+    if (reducedMotion || isBubbleOpen || motion !== "idle") return;
 
     const timer = window.setTimeout(() => {
       const roll = Math.random();
-      if (roll < 0.47) {
-        setFarPerch((current) => !current);
-        setMotion("walk");
-      } else if (roll < 0.78) {
+
+      if (location === "perch-left") {
+        moveCrow(Math.random() > 0.5 ? "ground-left" : "ground-right", "fly");
+      } else if (roll < 0.42) {
+        moveCrow(location === "ground-left" ? "ground-right" : "ground-left", "walk");
+      } else if (roll < 0.72) {
         setMotion("peck");
-      } else if (roll < 0.94) {
+      } else if (roll < 0.91) {
         setMotion("hop");
       } else {
-        setFarPerch((current) => !current);
-        setMotion("fly");
+        moveCrow("perch-left", "fly");
       }
-    }, 8000 + Math.random() * 6000);
+    }, 7000 + Math.random() * 5000);
 
     return () => window.clearTimeout(timer);
-  }, [motion, reducedMotion]);
+  }, [isBubbleOpen, location, motion, moveCrow, reducedMotion]);
 
   useEffect(() => {
     const panel = document.querySelector<HTMLElement>(".profile-panel");
@@ -103,9 +120,7 @@ export function ProfileCompanion() {
 
     function showMessage(event: Event) {
       const target = findMessageTarget(event.target);
-      if (target?.dataset.companionMessage) {
-        setInteractionMessage(target.dataset.companionMessage);
-      }
+      if (target?.dataset.companionMessage) setInteractionMessage(target.dataset.companionMessage);
     }
 
     function clearMessage(event: FocusEvent | PointerEvent) {
@@ -145,30 +160,41 @@ export function ProfileCompanion() {
       onPointerEnter={() => setIsEngaged(true)}
       onPointerLeave={() => setIsEngaged(false)}
     >
-      <span aria-hidden="true" className="profile-companion__system-rail">
-        <i /><i /><i /><i />
-      </span>
-      <button
-        aria-label="Ask the portfolio crow for guidance"
-        className="profile-companion__raven"
-        data-companion-message="Ask me where to go next."
+      <div aria-hidden="true" className="profile-companion__world">
+        <span className="profile-companion__waterfall profile-companion__waterfall--left" />
+        <span className="profile-companion__waterfall profile-companion__waterfall--right" />
+        <span className="profile-companion__garden-background" />
+        <span className="profile-companion__garden-ground" />
+      </div>
+
+      <div
+        className="profile-companion__actor"
+        data-facing={facing}
+        data-location={location}
         data-motion={motion}
-        data-perch={farPerch ? "far" : "near"}
-        onClick={askCrow}
-        type="button"
       >
-        <span aria-hidden="true" className="profile-companion__crow-sprite" />
-      </button>
-      <a
-        aria-hidden={!isBubbleOpen}
-        aria-live="polite"
-        className="profile-companion__bubble"
-        href={guidance.href}
-        key={message}
-        tabIndex={isBubbleOpen ? 0 : -1}
-      >
-        {message}
-      </a>
+        <button
+          aria-label="Ask the portfolio crow for guidance"
+          className="profile-companion__raven"
+          data-companion-message="Ask me where to go next."
+          onClick={askCrow}
+          type="button"
+        >
+          <span aria-hidden="true" className="profile-companion__crow-lift">
+            <span className="profile-companion__crow-sprite" />
+          </span>
+        </button>
+        <a
+          aria-hidden={!isBubbleOpen}
+          aria-live="polite"
+          className="profile-companion__bubble"
+          href={guidance.href}
+          key={message}
+          tabIndex={isBubbleOpen ? 0 : -1}
+        >
+          {message}
+        </a>
+      </div>
     </div>
   );
 }

@@ -1,109 +1,195 @@
 .profile-companion {
   position: relative;
-  display: flex;
-  width: min(100%, 310px);
-  height: 72px;
-  align-items: center;
-  margin-top: 10px;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 48 / 13;
+  margin-top: 8px;
+  isolation: isolate;
   overflow: visible;
+}
+
+.profile-companion__world {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.profile-companion__garden-background,
+.profile-companion__garden-ground,
+.profile-companion__waterfall {
+  position: absolute;
+  display: block;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.profile-companion__garden-background {
+  z-index: 1;
+  inset: 0 0 7.7%;
+  background-image: url("/profile/garden/garden-background.png");
+  background-position: center bottom;
+  background-size: 100% 100%;
+  filter: saturate(.88) contrast(1.02);
+}
+
+.profile-companion__garden-ground {
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 61.55%;
+  background-image: url("/profile/garden/garden-ground.png");
+  background-position: center bottom;
+  background-size: 100% 100%;
+  filter: saturate(.9) contrast(1.02);
+}
+
+.profile-companion__waterfall {
+  z-index: 3;
+  width: 4.15%;
+  aspect-ratio: 3 / 8;
+  background-image: url("/profile/garden/waterfall-atlas.png");
+  background-position: 0 0;
+  background-size: 800% 100%;
+  animation: companion-waterfall 1s steps(1, end) infinite;
+  filter: saturate(.82) brightness(.95);
+  opacity: .9;
+}
+
+.profile-companion__waterfall--left {
+  top: 30%;
+  left: 42%;
+  height: 42%;
+}
+
+.profile-companion__waterfall--right {
+  top: 6%;
+  left: 79.5%;
+  height: 66%;
+  animation-delay: -375ms;
+}
+
+.profile-companion__actor {
+  position: absolute;
+  z-index: 5;
+  width: 12.5%;
+  aspect-ratio: 1;
+  left: 7%;
+  top: 46%;
+  transition-property: left, top;
+  transition-duration: 1400ms;
+  transition-timing-function: cubic-bezier(.45, 0, .2, 1);
+}
+
+.profile-companion__actor[data-location="ground-right"] {
+  left: 35%;
+  top: 46%;
+}
+
+.profile-companion__actor[data-location="perch-left"] {
+  left: 27.5%;
+  top: 11%;
+}
+
+.profile-companion__actor[data-motion="fly"] {
+  transition-duration: 1700ms;
+  transition-timing-function: cubic-bezier(.35, 0, .25, 1);
 }
 
 .profile-companion__raven {
   position: absolute;
-  z-index: 2;
-  bottom: 3px;
-  left: 1px;
-  width: 64px;
-  height: 70px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   padding: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
-  transform: translateX(0);
-  transition: transform 1400ms cubic-bezier(.45, 0, .2, 1);
 }
 
-.profile-companion__raven[data-perch="far"] {
-  transform: translateX(42px);
+.profile-companion__raven:focus-visible {
+  border-radius: 50%;
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
 }
 
+.profile-companion__crow-lift,
 .profile-companion__crow-sprite {
   display: block;
   width: 100%;
   height: 100%;
-  background-image: url("/profile/crow-animation-atlas.png");
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: 1500% 100%;
-  image-rendering: pixelated;
-  animation: companion-crow-idle 5.8s steps(1, end) infinite;
-  filter: contrast(1.03);
+}
+
+.profile-companion__crow-lift {
   transform-origin: 50% 88%;
 }
 
+.profile-companion__crow-sprite {
+  background-image: url("/profile/garden/crow-atlas.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 400% 400%;
+  image-rendering: pixelated;
+  animation: companion-crow-idle 5.8s steps(1, end) infinite;
+  filter: contrast(1.04);
+  transform: scaleX(1);
+  transform-origin: 50% 88%;
+}
+
+.profile-companion__actor[data-facing="left"] .profile-companion__crow-sprite {
+  transform: scaleX(-1);
+}
+
+:root[data-theme="dark"] .profile-companion__garden-background,
+:root[data-theme="dark"] .profile-companion__garden-ground {
+  filter: brightness(1.18) saturate(.78) contrast(.96);
+}
+
+:root[data-theme="dark"] .profile-companion__waterfall {
+  filter: brightness(1.08) saturate(.7);
+  opacity: .82;
+}
+
 :root[data-theme="dark"] .profile-companion__crow-sprite {
-  filter: brightness(1.45) contrast(.94);
+  filter: brightness(1.28) contrast(.96);
 }
 
-.profile-companion__raven[data-motion="walk"] .profile-companion__crow-sprite {
-  animation: companion-crow-walk 1.4s steps(1, end) infinite;
+.profile-companion__actor[data-motion="walk"] .profile-companion__crow-sprite {
+  animation: companion-crow-walk .72s steps(1, end) infinite;
 }
 
-.profile-companion__raven[data-motion="peck"] .profile-companion__crow-sprite {
-  animation: companion-crow-peck 1.1s steps(1, end) infinite;
+.profile-companion__actor[data-motion="peck"] .profile-companion__crow-sprite {
+  animation: companion-crow-peck 1.1s steps(1, end) both;
 }
 
-.profile-companion__raven[data-motion="hop"] .profile-companion__crow-sprite {
-  animation: companion-crow-hop .9s steps(1, end) both;
+.profile-companion__actor[data-motion="hop"] .profile-companion__crow-sprite {
+  animation: companion-crow-hop-frames .9s steps(1, end) both;
 }
 
-.profile-companion__raven[data-motion="fly"] .profile-companion__crow-sprite {
-  animation: companion-crow-fly 1.7s steps(1, end) both;
+.profile-companion__actor[data-motion="hop"] .profile-companion__crow-lift {
+  animation: companion-crow-hop-lift .9s ease-in-out both;
 }
 
-.profile-companion__system-rail {
-  position: absolute;
-  right: 0;
-  bottom: 8px;
-  left: 0;
-  height: 10px;
-  border-top: 1px solid var(--border);
+.profile-companion__actor[data-motion="fly"] .profile-companion__crow-sprite {
+  animation: companion-crow-fly-frames .5s steps(1, end) infinite;
 }
 
-.profile-companion__system-rail::before,
-.profile-companion__system-rail::after,
-.profile-companion__system-rail i {
-  position: absolute;
-  top: -3px;
-  width: 5px;
-  height: 5px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background: var(--background);
-  content: "";
-}
-
-.profile-companion__system-rail::before { left: 4px; }
-.profile-companion__system-rail::after { right: 0; }
-.profile-companion__system-rail i:nth-child(1) { left: 25%; }
-.profile-companion__system-rail i:nth-child(2) { left: 50%; }
-.profile-companion__system-rail i:nth-child(3) { left: 75%; }
-.profile-companion__system-rail i:nth-child(4) {
-  left: calc(100% - 5px);
-  border-color: var(--accent);
-  background: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+.profile-companion__actor[data-motion="fly"] .profile-companion__crow-lift {
+  animation: companion-crow-flight-lift 1.7s ease-in-out both;
 }
 
 .profile-companion__bubble {
-  position: relative;
-  z-index: 3;
-  max-width: 224px;
-  margin: 0 0 19px 72px;
+  position: absolute;
+  z-index: 7;
+  top: 9%;
+  left: 82%;
+  width: max-content;
+  max-width: min(224px, 65vw);
   padding: 8px 11px;
   border: 1px solid var(--border);
-  border-radius: 3px;
-  background: var(--surface);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
   color: var(--foreground);
   font-family: var(--font-geist-mono), monospace;
   font-size: 9.5px;
@@ -113,6 +199,7 @@
   transform: translateY(4px);
   transition: border-color 180ms ease-out, color 180ms ease-out,
     opacity 220ms ease-out, transform 220ms ease-out;
+  backdrop-filter: blur(5px);
 }
 
 .profile-companion[data-bubble-open="true"] .profile-companion__bubble {
@@ -123,15 +210,15 @@
 
 .profile-companion__bubble::before {
   position: absolute;
-  bottom: -6px;
-  left: 13px;
+  top: 50%;
+  left: -6px;
   width: 10px;
   height: 10px;
   border-bottom: 1px solid var(--border);
   border-left: 1px solid var(--border);
   background: var(--surface);
   content: "";
-  transform: skewY(-28deg);
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .profile-companion__bubble:hover,
@@ -140,51 +227,80 @@
   color: var(--accent);
 }
 
+@keyframes companion-waterfall {
+  0% { background-position: 0 0; }
+  12.5% { background-position: 14.286% 0; }
+  25% { background-position: 28.571% 0; }
+  37.5% { background-position: 42.857% 0; }
+  50% { background-position: 57.143% 0; }
+  62.5% { background-position: 71.429% 0; }
+  75% { background-position: 85.714% 0; }
+  87.5%, 100% { background-position: 100% 0; }
+}
+
 @keyframes companion-crow-idle {
-  0%, 54%, 100% { background-position: 0 0; }
-  56%, 61% { background-position: 7.143% 0; }
-  76%, 82% { background-position: 14.286% 0; }
-  94%, 97% { background-position: 21.429% 0; }
+  0%, 56%, 100% { background-position: 0 0; }
+  58%, 64% { background-position: 33.333% 0; }
+  76%, 83% { background-position: 66.667% 0; }
+  94%, 97% { background-position: 100% 0; }
 }
 
 @keyframes companion-crow-walk {
-  0%, 100% { background-position: 28.571% 0; }
-  34% { background-position: 35.714% 0; }
-  67% { background-position: 42.857% 0; }
+  0%, 100% { background-position: 0 33.333%; }
+  25% { background-position: 33.333% 33.333%; }
+  50% { background-position: 66.667% 33.333%; }
+  75% { background-position: 100% 33.333%; }
 }
 
 @keyframes companion-crow-peck {
-  0%, 100% { background-position: 50% 0; }
-  45%, 72% { background-position: 57.143% 0; }
+  0%, 18%, 100% { background-position: 33.333% 66.667%; }
+  40%, 72% { background-position: 0 66.667%; }
 }
 
-@keyframes companion-crow-hop {
-  0%, 100% { background-position: 64.286% 0; transform: translateY(0); }
-  40%, 62% { background-position: 71.429% 0; transform: translateY(-9px); }
+@keyframes companion-crow-hop-frames {
+  0%, 100% { background-position: 100% 66.667%; }
+  34%, 66% { background-position: 66.667% 66.667%; }
 }
 
-@keyframes companion-crow-fly {
-  0% { background-position: 78.571% 0; transform: translateY(0); }
-  25% { background-position: 85.714% 0; transform: translateY(-15px); }
-  52% { background-position: 92.857% 0; transform: translateY(-20px); }
-  78% { background-position: 100% 0; transform: translateY(-11px); }
-  100% { background-position: 28.571% 0; transform: translateY(0); }
+@keyframes companion-crow-hop-lift {
+  0%, 100% { transform: translateY(0); }
+  48% { transform: translateY(-9px); }
+}
+
+@keyframes companion-crow-fly-frames {
+  0%, 100% { background-position: 0 100%; }
+  25% { background-position: 33.333% 100%; }
+  50% { background-position: 66.667% 100%; }
+  75% { background-position: 100% 100%; }
+}
+
+@keyframes companion-crow-flight-lift {
+  0%, 100% { transform: translateY(0); }
+  38% { transform: translateY(-13px); }
+  72% { transform: translateY(-8px); }
 }
 
 @media (min-width: 1181px) and (max-height: 760px) {
-  .profile-companion { height: 58px; margin-top: 3px; }
-  .profile-companion__raven { width: 58px; height: 64px; }
-  .profile-companion__bubble { margin-left: 66px; }
+  .profile-companion { max-width: 430px; margin-top: 2px; }
 }
 
 @media (max-width: 767px) {
-  .profile-companion { width: min(100%, 300px); height: 68px; margin-top: 12px; }
-  .profile-companion__raven { width: 62px; height: 68px; }
-  .profile-companion__bubble { max-width: 210px; margin-left: 70px; }
+  .profile-companion {
+    width: min(100%, 430px);
+    margin-top: 12px;
+  }
+
+  .profile-companion__bubble {
+    max-width: 190px;
+    font-size: 9px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .profile-companion__actor,
+  .profile-companion__crow-lift,
   .profile-companion__crow-sprite,
+  .profile-companion__waterfall,
   .profile-companion__bubble {
     animation: none;
     transition: none;
