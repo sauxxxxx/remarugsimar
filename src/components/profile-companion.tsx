@@ -161,10 +161,9 @@ export function ProfileCompanion() {
       onPointerLeave={() => setIsEngaged(false)}
     >
       <div aria-hidden="true" className="profile-companion__world">
+        <span className="profile-companion__garden-scene" />
         <span className="profile-companion__waterfall profile-companion__waterfall--left" />
         <span className="profile-companion__waterfall profile-companion__waterfall--right" />
-        <span className="profile-companion__garden-background" />
-        <span className="profile-companion__garden-ground" />
       </div>
 
       <div

@@ -5,6 +5,21 @@
     "height": 240,
     "renderScale": 0.5
   },
+  "compositeScene": {
+    "src": "/profile/garden/garden-scene-v2.webp",
+    "width": 1200,
+    "height": 349,
+    "walkSurfaceY": 272,
+    "perches": [
+      { "id": "ground-left", "x": 96, "surfaceY": 272 },
+      { "id": "ground-right", "x": 504, "surfaceY": 272 },
+      { "id": "perch-left", "x": 329, "surfaceY": 155 }
+    ],
+    "waterfalls": [
+      { "id": "left", "sourceX": 443, "sourceY": 155, "targetY": 272 },
+      { "id": "right", "sourceX": 767, "sourceY": 87, "targetY": 272 }
+    ]
+  },
   "palette": {
     "graphite": "#15191f",
     "stone": "#343b45",

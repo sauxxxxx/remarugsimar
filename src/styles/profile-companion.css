@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 480px;
-  aspect-ratio: 48 / 13;
+  aspect-ratio: 1200 / 349;
   margin-top: 8px;
   isolation: isolate;
   overflow: visible;
@@ -15,8 +15,25 @@
   pointer-events: none;
 }
 
-.profile-companion__garden-background,
-.profile-companion__garden-ground,
+.profile-companion__world::before {
+  position: absolute;
+  z-index: 0;
+  right: 3%;
+  bottom: 2%;
+  left: 3%;
+  height: 38%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    transparent 70%
+  );
+  content: "";
+  filter: blur(10px);
+  opacity: .48;
+}
+
+.profile-companion__garden-scene,
 .profile-companion__waterfall {
   position: absolute;
   display: block;
@@ -24,30 +41,19 @@
   image-rendering: pixelated;
 }
 
-.profile-companion__garden-background {
+.profile-companion__garden-scene {
   z-index: 1;
-  inset: 0 0 7.7%;
-  background-image: url("/profile/garden/garden-background.png");
-  background-position: center bottom;
+  inset: 0;
+  background-image: url("/profile/garden/garden-scene-v2.webp");
+  background-position: center;
   background-size: 100% 100%;
-  filter: saturate(.88) contrast(1.02);
-}
-
-.profile-companion__garden-ground {
-  z-index: 2;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 61.55%;
-  background-image: url("/profile/garden/garden-ground.png");
-  background-position: center bottom;
-  background-size: 100% 100%;
-  filter: saturate(.9) contrast(1.02);
+  filter: saturate(.74) contrast(.95) brightness(1.04);
+  opacity: .94;
 }
 
 .profile-companion__waterfall {
-  z-index: 3;
-  width: 4.15%;
+  z-index: 2;
+  width: 4.5%;
   aspect-ratio: 3 / 8;
   background-image: url("/profile/garden/waterfall-atlas.png");
   background-position: 0 0;
@@ -58,15 +64,15 @@
 }
 
 .profile-companion__waterfall--left {
-  top: 30%;
-  left: 42%;
-  height: 42%;
+  top: 44.3%;
+  left: 36.9%;
+  height: 33.7%;
 }
 
 .profile-companion__waterfall--right {
-  top: 6%;
-  left: 79.5%;
-  height: 66%;
+  top: 24.8%;
+  left: 63.9%;
+  height: 53.2%;
   animation-delay: -375ms;
 }
 
@@ -75,21 +81,21 @@
   z-index: 5;
   width: 12.5%;
   aspect-ratio: 1;
-  left: 7%;
-  top: 46%;
+  left: 8%;
+  top: 39.5%;
   transition-property: left, top;
   transition-duration: 1400ms;
   transition-timing-function: cubic-bezier(.45, 0, .2, 1);
 }
 
 .profile-companion__actor[data-location="ground-right"] {
-  left: 35%;
-  top: 46%;
+  left: 42%;
+  top: 39.5%;
 }
 
 .profile-companion__actor[data-location="perch-left"] {
-  left: 27.5%;
-  top: 11%;
+  left: 27.4%;
+  top: 5.9%;
 }
 
 .profile-companion__actor[data-motion="fly"] {
@@ -141,9 +147,9 @@
   transform: scaleX(-1);
 }
 
-:root[data-theme="dark"] .profile-companion__garden-background,
-:root[data-theme="dark"] .profile-companion__garden-ground {
-  filter: brightness(1.18) saturate(.78) contrast(.96);
+:root[data-theme="dark"] .profile-companion__garden-scene {
+  filter: brightness(1.18) saturate(.68) contrast(.92);
+  opacity: .96;
 }
 
 :root[data-theme="dark"] .profile-companion__waterfall {
