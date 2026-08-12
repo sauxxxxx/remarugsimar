@@ -171,13 +171,49 @@
 
 .profile-editorial__topline {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
   color: var(--foreground);
   font-family: var(--font-geist-mono), monospace;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.profile-editorial__version-switch {
+  display: flex;
+  overflow: hidden;
+  margin-left: auto;
+  border: 1px solid var(--foreground);
+  border-radius: 999px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.profile-editorial__version-switch a,
+.profile-editorial__version-switch span {
+  display: grid;
+  min-width: 42px;
+  min-height: 44px;
+  place-items: center;
+}
+
+.profile-editorial__version-switch a {
+  color: var(--muted-foreground);
+  transition: background-color 180ms ease-out, color 180ms ease-out;
+}
+
+.profile-editorial__version-switch a:hover,
+.profile-editorial__version-switch a:focus-visible {
+  background: var(--border-soft);
+  color: var(--foreground);
+}
+
+.profile-editorial__version-switch span {
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .profile-editorial__topline i {

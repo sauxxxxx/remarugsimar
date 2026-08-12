@@ -4,6 +4,7 @@ import { TranslatedText } from "@/features/translation/translation-provider";
 import { StackBuilderLauncher } from "@/features/stack-builder/stack-builder-launcher";
 import { PortfolioSearch } from "@/features/portfolio-search/portfolio-search";
 import { profileCopy, profileLinks } from "@/lib/portfolio-data";
+import { PortfolioVersionSwitch } from "./portfolio-version-switch";
 import { ProfileCompanion } from "./profile-companion";
 import { ProfileNavigation } from "./profile-navigation";
 import { ProfilePortrait } from "./profile-portrait";
@@ -50,6 +51,10 @@ export function ProfilePanel() {
           <header className="profile-editorial__topline">
             <span>01 / profile</span>
             <i aria-hidden="true" />
+            <PortfolioVersionSwitch
+              className="profile-editorial__version-switch"
+              currentVersion="v1"
+            />
           </header>
 
           <div className="profile-editorial__hero">

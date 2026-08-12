@@ -442,3 +442,15 @@ a:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+html:has(.v2-portfolio-page),
+body:has(.v2-portfolio-page) {
+  height: auto;
+  overflow: auto;
+  background: #efede6;
+}
+
+html[data-v2-entrance="pending"],
+html[data-v2-entrance="pending"] body {
+  overflow: hidden !important;
+}
