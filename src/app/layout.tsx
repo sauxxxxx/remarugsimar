@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Bebas_Neue,
+  Geist,
+  Geist_Mono,
+  Instrument_Serif,
+} from "next/font/google";
 import { GeistPixelSquare } from "geist/font/pixel";
 import { EntranceScript } from "@/components/entrance-script";
 import { StructuredData } from "@/components/structured-data";
@@ -17,6 +22,21 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas-neue",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -81,7 +101,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeScript />
         <EntranceScript />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${GeistPixelSquare.variable}`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${instrumentSerif.variable} ${GeistPixelSquare.variable}`}
+      >
         <StructuredData />
         <TranslationProvider>{children}</TranslationProvider>
       </body>

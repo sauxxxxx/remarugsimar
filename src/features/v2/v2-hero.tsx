@@ -1,27 +1,8 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { PortfolioVersionSwitch } from "@/components/portfolio-version-switch";
+import { V2HeroArtwork } from "./v2-hero-artwork";
 import styles from "./v2-hero.module.css";
-
-function OrbitMark() {
-  return (
-    <div aria-hidden="true" className={styles.orbitMark}>
-      <svg viewBox="0 0 120 120">
-        <defs>
-          <path
-            d="M 60,60 m -43,0 a 43,43 0 1,1 86,0 a 43,43 0 1,1 -86,0"
-            id="v2-orbit-path"
-          />
-        </defs>
-        <text>
-          <textPath href="#v2-orbit-path">BUILD • LEARN • SHIP • REPEAT • </textPath>
-        </text>
-      </svg>
-      <span>✳</span>
-    </div>
-  );
-}
 
 export function V2Hero() {
   return (
@@ -76,20 +57,7 @@ export function V2Hero() {
             </Link>
           </div>
 
-          <div className={styles.portraitStage}>
-            <div aria-hidden="true" className={styles.paperShape} />
-            <div className={styles.portraitFrame}>
-              <Image
-                alt="Remar Ugsimar wearing a black shirt in a monochrome editorial portrait"
-                className={styles.portrait}
-                fill
-                priority
-                sizes="(max-width: 767px) 92vw, 52vw"
-                src="/v2/remar-editorial-portrait.webp"
-              />
-            </div>
-            <OrbitMark />
-          </div>
+          <V2HeroArtwork />
         </div>
 
         <footer className={styles.heroFooter}>

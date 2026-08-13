@@ -443,10 +443,16 @@ a:focus-visible {
   }
 }
 
-html:has(.v2-portfolio-page),
-body:has(.v2-portfolio-page) {
+html:has(.v2-portfolio-page) {
   height: auto;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #efede6;
+}
+
+body:has(.v2-portfolio-page) {
+  min-height: 100%;
+  overflow: visible;
   background: #efede6;
 }
 

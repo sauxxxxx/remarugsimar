@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { V2Entrance } from "@/features/v2/v2-entrance";
 import { V2EntranceBoot } from "@/features/v2/v2-entrance-boot";
-import { V2Hero } from "@/features/v2/v2-hero";
+import { V2ScrollExperience } from "@/features/v2/v2-scroll-experience";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function PortfolioV2Page() {
     <>
       <V2EntranceBoot />
       <V2Entrance />
-      <V2Hero />
+      <V2ScrollExperience />
     </>
   );
 }

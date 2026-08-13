@@ -1,0 +1,77 @@
+.track {
+  position: relative;
+  height: 500vh;
+  min-height: 3400px;
+  background: #050607;
+}
+
+.stickyViewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #f2eee5;
+  isolation: isolate;
+}
+
+.heroLayer,
+.projectEntryLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  will-change: transform, opacity, border-radius;
+}
+
+.heroLayer {
+  z-index: 1;
+  transform-origin: center top;
+}
+
+.projectEntryLayer {
+  z-index: 2;
+  background: #050607;
+  transform-origin: center bottom;
+}
+
+.reducedMotion {
+  height: auto;
+  min-height: 0;
+}
+
+.reducedMotion .stickyViewport {
+  position: relative;
+  height: auto;
+  overflow: visible;
+}
+
+.reducedMotion .heroLayer,
+.reducedMotion .projectEntryLayer {
+  position: relative;
+  height: 100dvh;
+}
+
+@media (max-width: 720px) {
+  .track {
+    height: auto;
+    min-height: 0;
+    background: #050607;
+  }
+
+  .stickyViewport {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .heroLayer,
+  .projectEntryLayer {
+    position: relative;
+    height: auto;
+    min-height: 100dvh;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
