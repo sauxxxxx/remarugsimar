@@ -1,0 +1,48 @@
+.sharksTailCopy {
+  --project-copy-width: min(28vw, 365px);
+  --project-copy-tablet-width: 34vw;
+  --project-title-size: clamp(50px, 5.4vw, 84px);
+}
+
+.roarlyCopy {
+  --project-copy-width: min(29vw, 375px);
+  --project-copy-tablet-width: 35vw;
+  --project-title-size: clamp(52px, 5.6vw, 88px);
+}
+
+.joynoIncCopy {
+  --project-copy-width: min(28vw, 360px);
+  --project-copy-tablet-width: 34vw;
+  --project-title-size: clamp(58px, 6.2vw, 96px);
+}
+
+.browserVisual {
+  --device-stage-width: min(59vw, 875px);
+  --device-stage-width-compact: 59vw;
+  --device-offset-x: -0.2vw;
+  --device-offset-x-compact: 1.5vw;
+  --device-offset-y: 18px;
+  --device-offset-y-compact: 35px;
+}
+
+.laptopVisual {
+  --device-stage-width: min(55vw, 815px);
+  --device-stage-width-compact: 55vw;
+  --device-offset-x: -0.3vw;
+  --device-offset-x-compact: 2.5vw;
+  --device-offset-y: 6px;
+  --device-offset-y-compact: 18px;
+}
+
+.monitorVisual {
+  --device-stage-width: min(56vw, 830px);
+  --device-stage-width-compact: 56vw;
+  --device-offset-x: -1.3vw;
+  --device-offset-x-compact: 1.3vw;
+  --device-offset-y: 16px;
+  --device-offset-y-compact: 42px;
+}
+
+.deviceImage {
+  object-fit: contain;
+}

@@ -1,0 +1,35 @@
+.deviceStage {
+  position: absolute;
+  z-index: 3;
+  top: clamp(50px, 7vh, 72px);
+  left: 50%;
+  width: var(--device-stage-width, min(62vw, 920px));
+  aspect-ratio: 3 / 2;
+  filter: drop-shadow(0 30px 35px rgba(0, 0, 0, 0.46));
+  transform-origin: 88% 12%;
+  transform-style: preserve-3d;
+  translate:
+    calc(-46% + var(--device-offset-x, 0px))
+    var(--device-offset-y, 0px);
+  will-change: transform, opacity;
+}
+
+@media (max-width: 980px) {
+  .deviceStage {
+    top: clamp(94px, 14vh, 112px);
+    left: 54%;
+    width: var(--device-stage-width-compact, 65vw);
+    translate:
+      calc(-18% + var(--device-offset-x-compact, 0px))
+      var(--device-offset-y-compact, 0px);
+  }
+}
+
+@media (max-width: 720px) {
+  .deviceStage {
+    top: 50%;
+    left: 46%;
+    width: 112vw;
+    translate: -18% 0;
+  }
+}

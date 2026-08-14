@@ -1,7 +1,7 @@
 .track {
   position: relative;
-  height: 500vh;
-  min-height: 3400px;
+  height: calc(var(--v2-scroll-units, 5) * 100vh);
+  min-height: calc(var(--v2-scroll-units, 5) * 680px);
   background: #050607;
 }
 

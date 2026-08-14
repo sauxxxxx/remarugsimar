@@ -18,17 +18,28 @@
   content: "";
   mix-blend-mode: soft-light;
   opacity: 0.11;
+  animation: noiseShift 420ms steps(2, end) infinite;
   pointer-events: none;
 }
 
 .atmosphere {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   inset: 0;
   background:
     linear-gradient(118deg, transparent 55%, rgba(59, 63, 72, 0.28) 56%, transparent 80%),
-    radial-gradient(circle at 67% 39%, rgba(51, 55, 65, 0.26), transparent 36%),
-    #050607;
+    radial-gradient(circle at 67% 39%, rgba(51, 55, 65, 0.21), transparent 36%);
+  pointer-events: none;
+}
+
+.darkVeil {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.55;
+  mix-blend-mode: normal;
+  pointer-events: none;
 }
 
 .sectionHeader {
@@ -94,6 +105,7 @@
 
 .rock {
   z-index: 2;
+  mix-blend-mode: screen;
   object-fit: cover;
   object-position: center bottom;
   pointer-events: none;
@@ -148,6 +160,14 @@
   border-radius: 999px;
 }
 
+@keyframes noiseShift {
+  0% { transform: translate3d(-1.5%, -1%, 0); }
+  25% { transform: translate3d(1%, -2%, 0); }
+  50% { transform: translate3d(-0.5%, 1.5%, 0); }
+  75% { transform: translate3d(2%, 0.5%, 0); }
+  100% { transform: translate3d(-1.5%, -1%, 0); }
+}
+
 @media (max-width: 720px) {
   .section {
     min-height: 100dvh;
@@ -155,6 +175,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .darkVeil {
+    display: none;
+  }
+
+  .section::after,
+  .sectionHeader a svg {
+    animation: none;
+  }
+
   .sectionHeader a svg {
     transition: none;
   }

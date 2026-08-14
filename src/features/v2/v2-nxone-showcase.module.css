@@ -1,0 +1,19 @@
+.projectCopy {
+  --project-copy-width: min(29vw, 370px);
+  --project-copy-tablet-width: 34vw;
+  --project-description-width: 34ch;
+  --project-title-size: clamp(54px, 5.8vw, 88px);
+}
+
+.monitorScene {
+  --device-stage-width: min(58vw, 860px);
+  --device-stage-width-compact: 58vw;
+  --device-offset-x: -0.65vw;
+  --device-offset-x-compact: 1.5vw;
+  --device-offset-y: 16px;
+  --device-offset-y-compact: 43px;
+}
+
+.monitorImage {
+  object-fit: contain;
+}
