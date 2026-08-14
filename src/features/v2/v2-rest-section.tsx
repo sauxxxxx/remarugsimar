@@ -1,18 +1,16 @@
 import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
 import { experiences } from "@/lib/portfolio-data";
-import {
-  Bot,
-  CloudCog,
-  Database,
-  Globe2,
-  Plus,
-} from "lucide-react";
+import { Bot, CloudCog, Database, Globe2 } from "lucide-react";
 import { motion, type MotionValue, useTransform } from "motion/react";
 import Image from "next/image";
+import type { ReactNode } from "react";
 import {
-  getContactRevealUnit,
-  getRestRevealUnit,
-  getRestSettleUnit,
+  getExperienceRevealUnit,
+  getExperienceSettleUnit,
+  getExperimentsRevealUnit,
+  getExperimentsSettleUnit,
+  getWhatIDoRevealUnit,
+  getWhatIDoSettleUnit,
 } from "./v2-scroll-timeline";
 import styles from "./v2-rest-section.module.css";
 
@@ -23,82 +21,64 @@ type V2RestSectionProps = {
   scrollUnits: number;
 };
 
+type PanelShellProps = {
+  children: ReactNode;
+  className?: string;
+  id: string;
+  label: string;
+  number: string;
+  panelPosition: string;
+  progress: MotionValue<number>;
+  revealUnit: number;
+  scrollUnits: number;
+};
+
 const capabilities = [
   {
     title: "CRM systems",
-    copy: "Custom CRM solutions that streamline business operations.",
+    copy: "Customer, pipeline, communication, and reporting workflows built around daily operations.",
     Icon: Database,
   },
   {
     title: "SaaS platforms",
-    copy: "Scalable products built for growth and dependable performance.",
+    copy: "Scalable product foundations designed for dependable growth and maintainable releases.",
     Icon: CloudCog,
   },
   {
     title: "AI integrations",
-    copy: "Practical AI features that automate and improve real workflows.",
+    copy: "Practical AI features that automate repetitive work without removing human control.",
     Icon: Bot,
   },
   {
     title: "Web applications",
-    copy: "Fast, modern interfaces backed by production-ready systems.",
+    copy: "Responsive interfaces connected to production-ready services, data, and deployment.",
     Icon: Globe2,
   },
 ] as const;
 
 const experiments = [
-  {
-    title: "Interface motion",
-    subtitle: "Scroll study",
-    image: "/projects/roarly-dashboard.webp",
-  },
-  {
-    title: "Data density",
-    subtitle: "Dashboard study",
-    image: "/projects/joynosync-dashboard.webp",
-  },
-  {
-    title: "Editorial depth",
-    subtitle: "3D browser study",
-    image: "/projects/nxone-home.webp",
-  },
-  {
-    title: "Visual pacing",
-    subtitle: "Loading concept",
-    image: "/projects/sharks-tail-home.webp",
-  },
+  { title: "Interface motion", subtitle: "Scroll study", image: "/projects/roarly-dashboard.webp" },
+  { title: "Data density", subtitle: "Dashboard study", image: "/projects/joynosync-dashboard.webp" },
+  { title: "Editorial depth", subtitle: "3D browser study", image: "/projects/nxone-home.webp" },
+  { title: "Visual pacing", subtitle: "Loading concept", image: "/projects/sharks-tail-home.webp" },
 ] as const;
 
-export function V2RestSection({
+function PanelShell({
+  children,
+  className = "",
+  id,
+  label,
+  number,
+  panelPosition,
   progress,
-  projectCount,
-  reduceMotion,
+  revealUnit,
   scrollUnits,
-}: V2RestSectionProps) {
-  const revealUnit = getRestRevealUnit(projectCount);
-  const settleUnit = getRestSettleUnit(projectCount);
-  const contactRevealUnit = getContactRevealUnit(projectCount);
+}: PanelShellProps) {
   const at = (unit: number) => unit / scrollUnits;
-  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], [0, 1]);
-  const sectionOpacity = useTransform(
+  const clipPath = useTransform(
     progress,
-    [
-      at(revealUnit - 0.12),
-      at(revealUnit + 0.16),
-      at(contactRevealUnit - 0.08),
-      at(contactRevealUnit + 0.58),
-    ],
-    [0, 1, 1, 0],
-  );
-  const sectionScale = useTransform(
-    progress,
-    [at(revealUnit - 0.1), at(settleUnit), at(contactRevealUnit + 0.55)],
-    [1.018, 1, 0.975],
-  );
-  const sectionY = useTransform(
-    progress,
-    [at(contactRevealUnit - 0.08), at(contactRevealUnit + 0.58)],
-    ["0vh", "-5vh"],
+    [at(revealUnit - 0.12), at(revealUnit + 0.5)],
+    ["inset(100% 0 0 0)", "inset(0% 0 0 0)"],
   );
   const pointerEvents = useTransform(
     progress,
@@ -108,107 +88,187 @@ export function V2RestSection({
 
   return (
     <motion.section
-      aria-label="Capabilities, experiments, and experience"
-      className={`${styles.section} ${reduceMotion ? styles.reducedMotion : ""}`}
-      id="v2-rest"
-      style={{ opacity: sectionOpacity, pointerEvents, scale: sectionScale, y: sectionY }}
+      aria-labelledby={`${id}-heading`}
+      className={`${styles.panel} ${className}`}
+      id={id}
+      style={{ clipPath, pointerEvents }}
     >
       <div aria-hidden="true" className={styles.noise} />
+      <header className={styles.header}>
+        <h2 id={`${id}-heading`}><span>{number}</span> {label}</h2>
+        <p>The rest <i>{panelPosition}</i></p>
+      </header>
+      {children}
+    </motion.section>
+  );
+}
 
-      <ScrollAnimatedContent
-        className={styles.introReveal}
-        end={0.18}
-        progress={revealProgress}
-        start={0}
+export function V2RestSection({
+  progress,
+  projectCount,
+  reduceMotion,
+  scrollUnits,
+}: V2RestSectionProps) {
+  const whatRevealUnit = getWhatIDoRevealUnit(projectCount);
+  const whatSettleUnit = getWhatIDoSettleUnit(projectCount);
+  const experimentsRevealUnit = getExperimentsRevealUnit(projectCount);
+  const experimentsSettleUnit = getExperimentsSettleUnit(projectCount);
+  const experienceRevealUnit = getExperienceRevealUnit(projectCount);
+  const experienceSettleUnit = getExperienceSettleUnit(projectCount);
+  const at = (unit: number) => unit / scrollUnits;
+  const whatProgress = useTransform(progress, [at(whatRevealUnit), at(whatSettleUnit)], [0, 1]);
+  const experimentsProgress = useTransform(
+    progress,
+    [at(experimentsRevealUnit), at(experimentsSettleUnit)],
+    [0, 1],
+  );
+  const experienceProgress = useTransform(
+    progress,
+    [at(experienceRevealUnit), at(experienceSettleUnit)],
+    [0, 1],
+  );
+
+  return (
+    <div
+      aria-label="Capabilities, experiments, and experience"
+      className={`${styles.sequence} ${reduceMotion ? styles.reducedMotion : ""}`}
+      id="v2-rest"
+    >
+      <PanelShell
+        className={styles.whatPanel}
+        id="v2-what-i-do"
+        label="What I do"
+        number="04"
+        panelPosition="01 / 03"
+        progress={progress}
+        revealUnit={whatRevealUnit}
+        scrollUnits={scrollUnits}
       >
-        <header className={styles.header}>
-          <p><span>04</span> The rest</p>
-          <p>What I do <i /> Experiments <i /> Experience</p>
-        </header>
-      </ScrollAnimatedContent>
+        <div className={styles.whatLayout}>
+          <ScrollAnimatedContent
+            className={styles.whatIntro}
+            distance={24}
+            end={0.55}
+            progress={whatProgress}
+            start={0.08}
+          >
+            <p className={styles.kicker}>Capabilities</p>
+            <h3>Systems made for <em>real work.</em></h3>
+            <p className={styles.whatCopy}>
+              I connect interface, backend, data, and deployment around the workflow people
+              actually need to complete.
+            </p>
+          </ScrollAnimatedContent>
 
-      <div className={styles.content}>
-        <ScrollAnimatedContent
-          className={styles.capabilitiesReveal}
-          distance={18}
-          end={0.47}
-          progress={revealProgress}
-          start={0.12}
-        >
-          <section aria-labelledby="v2-capabilities-heading" className={styles.block}>
-            <div className={styles.blockHeading}>
-              <span>04</span>
-              <h2 id="v2-capabilities-heading">What I do</h2>
-              <Plus aria-hidden="true" size={14} strokeWidth={1.4} />
-            </div>
-            <div className={styles.capabilities}>
-              {capabilities.map(({ Icon, copy, title }) => (
-                <article className={styles.capability} key={title}>
-                  <Icon aria-hidden="true" size={18} strokeWidth={1.25} />
+          <div className={styles.capabilities}>
+            {capabilities.map(({ Icon, copy, title }, index) => (
+              <ScrollAnimatedContent
+                className={styles.capabilityReveal}
+                distance={18}
+                end={0.58 + index * 0.11}
+                key={title}
+                progress={whatProgress}
+                start={0.22 + index * 0.09}
+              >
+                <article className={styles.capability}>
+                  <span>0{index + 1}</span>
+                  <Icon aria-hidden="true" size={22} strokeWidth={1.15} />
                   <h3>{title}</h3>
                   <p>{copy}</p>
                 </article>
-              ))}
-            </div>
-          </section>
-        </ScrollAnimatedContent>
+              </ScrollAnimatedContent>
+            ))}
+          </div>
+        </div>
+      </PanelShell>
 
-        <ScrollAnimatedContent
-          className={styles.experimentsReveal}
-          distance={22}
-          end={0.75}
-          progress={revealProgress}
-          start={0.34}
-        >
-          <section aria-labelledby="v2-experiments-heading" className={styles.block}>
-            <div className={styles.blockHeading}>
-              <span>05</span>
-              <h2 id="v2-experiments-heading">Experiments &amp; playground</h2>
-              <Plus aria-hidden="true" size={14} strokeWidth={1.4} />
-            </div>
-            <div className={styles.experiments}>
-              {experiments.map((experiment) => (
-                <article className={styles.experiment} key={experiment.title}>
-                  <Image
-                    alt=""
-                    fill
-                    sizes="25vw"
-                    src={experiment.image}
-                  />
-                  <div className={styles.experimentShade} />
-                  <p>{experiment.title}<span>{experiment.subtitle}</span></p>
-                </article>
-              ))}
-            </div>
-          </section>
-        </ScrollAnimatedContent>
+      <PanelShell
+        className={styles.experimentsPanel}
+        id="v2-experiments"
+        label="Experiments & playground"
+        number="05"
+        panelPosition="02 / 03"
+        progress={progress}
+        revealUnit={experimentsRevealUnit}
+        scrollUnits={scrollUnits}
+      >
+        <div className={styles.experimentsIntro}>
+          <ScrollAnimatedContent end={0.48} progress={experimentsProgress} start={0.06}>
+            <p className={styles.kicker}>Playground</p>
+            <h3>Small studies.<br />Useful discoveries.</h3>
+          </ScrollAnimatedContent>
+          <ScrollAnimatedContent end={0.62} progress={experimentsProgress} start={0.22}>
+            <p>Motion, depth, pacing, and information density explored outside client constraints.</p>
+          </ScrollAnimatedContent>
+        </div>
 
-        <ScrollAnimatedContent
-          className={styles.experienceReveal}
-          distance={24}
-          end={1}
-          progress={revealProgress}
-          start={0.58}
-        >
-          <section aria-labelledby="v2-experience-heading" className={styles.block}>
-            <div className={styles.blockHeading}>
-              <span>06</span>
-              <h2 id="v2-experience-heading">Experience</h2>
-              <Plus aria-hidden="true" size={14} strokeWidth={1.4} />
-            </div>
-            <ol className={styles.experienceList}>
-              {experiences.map((experience) => (
-                <li key={`${experience.company}-${experience.role}`}>
+        <div className={styles.experiments}>
+          {experiments.map((experiment, index) => (
+            <ScrollAnimatedContent
+              className={styles.experimentReveal}
+              distance={30}
+              end={0.66 + index * 0.08}
+              key={experiment.title}
+              progress={experimentsProgress}
+              start={0.25 + index * 0.08}
+            >
+              <article className={styles.experiment}>
+                <Image alt="" fill sizes="25vw" src={experiment.image} />
+                <div aria-hidden="true" className={styles.experimentShade} />
+                <span>0{index + 1}</span>
+                <p>{experiment.title}<small>{experiment.subtitle}</small></p>
+              </article>
+            </ScrollAnimatedContent>
+          ))}
+        </div>
+      </PanelShell>
+
+      <PanelShell
+        className={styles.experiencePanel}
+        id="v2-experience"
+        label="Experience"
+        number="06"
+        panelPosition="03 / 03"
+        progress={progress}
+        revealUnit={experienceRevealUnit}
+        scrollUnits={scrollUnits}
+      >
+        <div className={styles.experienceLayout}>
+          <ScrollAnimatedContent
+            className={styles.experienceIntro}
+            distance={22}
+            end={0.48}
+            progress={experienceProgress}
+            start={0.06}
+          >
+            <p className={styles.kicker}>Selected timeline</p>
+            <h3>Building across product, platform, and web.</h3>
+          </ScrollAnimatedContent>
+
+          <ol className={styles.experienceList}>
+            {experiences.map((experience, index) => (
+              <ScrollAnimatedContent
+                className={styles.experienceReveal}
+                distance={20}
+                end={0.62 + index * 0.13}
+                key={`${experience.company}-${experience.role}`}
+                progress={experienceProgress}
+                start={0.2 + index * 0.11}
+              >
+                <li>
+                  <span className={styles.experienceIndex}>0{index + 1}</span>
                   <time dateTime={experience.dateTime}>{experience.period}</time>
-                  <strong>{experience.role}</strong>
-                  <span>{experience.company}</span>
+                  <div>
+                    <strong>{experience.role}</strong>
+                    <span>{experience.company}</span>
+                  </div>
                   <p>{experience.description}</p>
                 </li>
-              ))}
-            </ol>
-          </section>
-        </ScrollAnimatedContent>
-      </div>
-    </motion.section>
+              </ScrollAnimatedContent>
+            ))}
+          </ol>
+        </div>
+      </PanelShell>
+    </div>
   );
 }

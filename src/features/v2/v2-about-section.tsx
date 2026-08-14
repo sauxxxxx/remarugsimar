@@ -6,8 +6,8 @@ import Link from "next/link";
 import {
   getAboutRevealUnit,
   getAboutSettleUnit,
-  getRestRevealUnit,
-  getRestSettleUnit,
+  getWhatIDoRevealUnit,
+  getWhatIDoSettleUnit,
 } from "./v2-scroll-timeline";
 import styles from "./v2-about-section.module.css";
 
@@ -26,8 +26,8 @@ export function V2AboutSection({
 }: V2AboutSectionProps) {
   const revealUnit = getAboutRevealUnit(projectCount);
   const settleUnit = getAboutSettleUnit(projectCount);
-  const restRevealUnit = getRestRevealUnit(projectCount);
-  const restSettleUnit = getRestSettleUnit(projectCount);
+  const restRevealUnit = getWhatIDoRevealUnit(projectCount);
+  const restSettleUnit = getWhatIDoSettleUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
   const revealProgress = useTransform(
     progress,
