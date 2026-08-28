@@ -1,8 +1,7 @@
 import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
-import { ArrowRight } from "lucide-react";
+import { AtSign, Instagram, Linkedin } from "lucide-react";
 import { motion, type MotionValue, useTransform } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   getAboutRevealUnit,
   getAboutSettleUnit,
@@ -18,6 +17,17 @@ type V2AboutSectionProps = {
   scrollUnits: number;
 };
 
+const aboutSocials = [
+  { href: "https://www.instagram.com/", icon: Instagram, label: "Instagram" },
+  { href: "https://www.threads.net/", icon: AtSign, label: "Threads" },
+  { href: "https://x.com/", icon: null, label: "X" },
+  {
+    href: "https://www.linkedin.com/in/ugsimar-remar-756a8a3a7/",
+    icon: Linkedin,
+    label: "LinkedIn",
+  },
+] as const;
+
 export function V2AboutSection({
   progress,
   projectCount,
@@ -26,21 +36,17 @@ export function V2AboutSection({
 }: V2AboutSectionProps) {
   const revealUnit = getAboutRevealUnit(projectCount);
   const settleUnit = getAboutSettleUnit(projectCount);
-  const restRevealUnit = getWhatIDoRevealUnit(projectCount);
-  const restSettleUnit = getWhatIDoSettleUnit(projectCount);
+  const nextRevealUnit = getWhatIDoRevealUnit(projectCount);
+  const nextSettleUnit = getWhatIDoSettleUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
-  const revealProgress = useTransform(
-    progress,
-    [at(revealUnit), at(settleUnit)],
-    [0, 1],
-  );
+  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], [0, 1]);
   const sectionOpacity = useTransform(
     progress,
     [
       at(revealUnit - 0.12),
       at(revealUnit + 0.08),
-      at(restRevealUnit - 0.1),
-      at(restSettleUnit - 0.55),
+      at(nextRevealUnit - 0.1),
+      at(nextSettleUnit - 0.55),
     ],
     [0, 1, 1, 0],
   );
@@ -49,31 +55,29 @@ export function V2AboutSection({
     [at(revealUnit - 0.02), at(revealUnit)],
     ["none", "auto"],
   );
-  const copyOpacity = useTransform(revealProgress, [0.1, 0.46], [0, 1]);
-  const copyY = useTransform(revealProgress, [0.08, 0.72], ["5vh", "0vh"]);
+  const copyOpacity = useTransform(revealProgress, [0.08, 0.44], [0, 1]);
+  const copyY = useTransform(revealProgress, [0.08, 0.74], ["5vh", "0vh"]);
   const copyFilter = useTransform(
     revealProgress,
     [0.08, 0.62],
     ["blur(18px)", "blur(0px)"],
   );
-  const paperClip = useTransform(
+  const slabClip = useTransform(
     revealProgress,
-    [0, 0.34, 0.74, 1],
-    [
-      "polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%)",
-      "polygon(68% 100%, 100% 100%, 100% 24%, 88% 40%)",
-      "polygon(8% 100%, 100% 100%, 100% 0%, 38% 0%)",
-      "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-    ],
+    [0.04, 0.7],
+    ["inset(0 0 0 100%)", "inset(0 0 0 0%)"],
   );
-  const paperShadeOpacity = useTransform(revealProgress, [0.18, 0.82], [0.82, 0]);
-  const portraitX = useTransform(revealProgress, [0.14, 1], ["3vw", "0vw"]);
-  const portraitY = useTransform(revealProgress, [0.14, 0.92], ["25vh", "0vh"]);
-  const portraitOpacity = useTransform(revealProgress, [0.14, 0.58], [0, 1]);
-  const portraitScale = useTransform(revealProgress, [0.14, 1], [1.06, 1]);
+  const seamOpacity = useTransform(revealProgress, [0.08, 0.38, 0.92], [0, 1, 0.72]);
+  const seamScale = useTransform(revealProgress, [0.08, 0.72], [0.12, 1]);
+  const portraitX = useTransform(revealProgress, [0.18, 1], ["4.5vw", "0vw"]);
+  const portraitY = useTransform(revealProgress, [0.18, 1], ["8vh", "0vh"]);
+  const portraitOpacity = useTransform(revealProgress, [0.18, 0.6], [0, 1]);
+  const portraitScale = useTransform(revealProgress, [0.18, 1], [1.045, 1]);
+  const landscapeOpacity = useTransform(revealProgress, [0, 0.28], [0.4, 1]);
+  const landscapeY = useTransform(revealProgress, [0, 1], ["5vh", "0vh"]);
   const sectionY = useTransform(
     progress,
-    [at(restRevealUnit - 0.1), at(restSettleUnit - 0.45)],
+    [at(nextRevealUnit - 0.1), at(nextSettleUnit - 0.45)],
     ["0vh", "-8vh"],
   );
 
@@ -85,48 +89,22 @@ export function V2AboutSection({
       style={{ opacity: sectionOpacity, pointerEvents, y: sectionY }}
     >
       <motion.div
-        className={styles.copyPanel}
-        style={{ filter: copyFilter, opacity: copyOpacity, y: copyY }}
+        aria-hidden="true"
+        className={styles.landscape}
+        style={{ opacity: landscapeOpacity, y: landscapeY }}
       >
-        <div className={styles.copy}>
-          <ScrollAnimatedContent end={0.2} progress={revealProgress} start={0}>
-            <p className={styles.eyebrow}><span>03</span> About me</p>
-          </ScrollAnimatedContent>
-
-          <ScrollAnimatedContent distance={18} end={0.48} progress={revealProgress} start={0.12}>
-            <h2>
-              I enjoy the balance between <em>design</em> and <em>code.</em>
-            </h2>
-          </ScrollAnimatedContent>
-
-          <ScrollAnimatedContent end={0.67} progress={revealProgress} start={0.34}>
-            <p className={styles.bodyCopy}>
-              Curious by nature. Disciplined by choice. Always learning. Always building.
-            </p>
-          </ScrollAnimatedContent>
-
-          <ScrollAnimatedContent distance={10} end={0.82} progress={revealProgress} start={0.55}>
-            <p aria-label="Remar" className={styles.signature}>Remar.</p>
-          </ScrollAnimatedContent>
-
-          <ScrollAnimatedContent end={1} progress={revealProgress} start={0.72}>
-            <Link className={styles.readMore} href="/resume">
-              Read more
-              <ArrowRight aria-hidden="true" size={16} strokeWidth={1.5} />
-            </Link>
-          </ScrollAnimatedContent>
-        </div>
+        <Image alt="" fill priority sizes="100vw" src="/v2/closing-rock-valley-v2.webp" />
       </motion.div>
+      <div aria-hidden="true" className={styles.haze} />
 
-      <motion.div className={styles.visualPanel} style={{ clipPath: paperClip }}>
-        <div aria-hidden="true" className={styles.paperTexture} />
+      <motion.div aria-hidden="true" className={styles.visualPanel} style={{ clipPath: slabClip }}>
+        <div className={styles.slabTexture} />
+        <div className={styles.limeDust} />
         <motion.div
-          aria-hidden="true"
-          className={styles.paperShade}
-          style={{ opacity: paperShadeOpacity }}
+          className={styles.seam}
+          style={{ opacity: seamOpacity, scaleY: seamScale }}
         />
         <motion.div
-          aria-hidden="true"
           className={styles.portraitFrame}
           style={{
             opacity: portraitOpacity,
@@ -139,13 +117,66 @@ export function V2AboutSection({
             alt=""
             className={styles.portrait}
             height={1537}
-            sizes="(max-width: 1100px) 58vw, 760px"
+            priority
+            sizes="(max-width: 1100px) 48vw, 700px"
             src="/v2/remar-profile-side-cutout-v2.png"
             width={1023}
           />
         </motion.div>
-        <div aria-hidden="true" className={styles.portraitMark}>✳</div>
       </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        className={styles.foreground}
+        style={{ opacity: landscapeOpacity, y: landscapeY }}
+      >
+        <Image alt="" fill priority sizes="100vw" src="/v2/closing-rock-valley-v2.webp" />
+      </motion.div>
+
+      <motion.div
+        className={styles.copy}
+        style={{ filter: copyFilter, opacity: copyOpacity, y: copyY }}
+      >
+        <ScrollAnimatedContent end={0.24} progress={revealProgress} start={0.02}>
+          <p className={styles.eyebrow}><span>03</span> About me</p>
+        </ScrollAnimatedContent>
+
+        <div className={styles.statement}>
+          <ScrollAnimatedContent distance={18} end={0.58} progress={revealProgress} start={0.16}>
+            <h2 aria-label="I design and build systems that solve real problems.">
+              <span>I design and build</span>
+              <span>systems that</span>
+              <em>solve real problems.</em>
+            </h2>
+          </ScrollAnimatedContent>
+
+          <ScrollAnimatedContent end={0.82} progress={revealProgress} start={0.42}>
+            <div className={styles.bodyCopy}>
+              <i aria-hidden="true" />
+              <p>
+                I connect interface, backend, data, and deployment around the workflow people
+                actually need to complete.
+              </p>
+            </div>
+
+            <nav aria-label="Social profiles" className={styles.socials}>
+              {aboutSocials.map(({ href, icon: Icon, label }) => (
+                <a
+                  aria-label={label}
+                  href={href}
+                  key={label}
+                  rel="noreferrer"
+                  target="_blank"
+                  title={label}
+                >
+                  {Icon ? <Icon aria-hidden="true" strokeWidth={1.7} /> : <span aria-hidden="true">X</span>}
+                </a>
+              ))}
+            </nav>
+          </ScrollAnimatedContent>
+        </div>
+      </motion.div>
+      <div aria-hidden="true" className={styles.noise} />
     </motion.section>
   );
 }

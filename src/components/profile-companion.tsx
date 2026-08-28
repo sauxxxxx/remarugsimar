@@ -182,12 +182,10 @@ export function ProfileCompanion() {
         <div aria-hidden="true" className="profile-companion__world">
           <span className="profile-companion__garden-scene" />
           <span className="profile-companion__water-system profile-companion__water-system--left">
-            <span className="profile-companion__water-mist" />
             <span className="profile-companion__waterfall" />
             <span className="profile-companion__water-foreground" />
           </span>
           <span className="profile-companion__water-system profile-companion__water-system--right">
-            <span className="profile-companion__water-mist" />
             <span className="profile-companion__waterfall" />
             <span className="profile-companion__water-foreground" />
           </span>

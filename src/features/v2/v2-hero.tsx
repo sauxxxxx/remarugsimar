@@ -13,15 +13,15 @@ export function V2Hero() {
 
       <section aria-labelledby="v2-title" className={styles.hero}>
         <header className={styles.header}>
-          <Link aria-label="Remar Ugsimar home" className={styles.brand} href="/v2">
+          <Link aria-label="Remar Ugsimar home" className={styles.brand} href="/">
             <span>REMAR</span>
             <span>UGSIMAR<i aria-hidden="true" /></span>
           </Link>
 
           <nav aria-label="V2 navigation" className={styles.navigation}>
             <Link href="/projects">Work</Link>
-            <Link href="/#about">About</Link>
-            <Link href="/#contact">Contact</Link>
+            <Link href="/#v2-about">About</Link>
+            <Link href="/#v2-contact">Contact</Link>
           </nav>
 
           <PortfolioVersionSwitch

@@ -1,42 +1,23 @@
 import type { Metadata } from "next";
-import { AboutPanel } from "@/components/about-panel";
-import { EntranceTransition } from "@/components/entrance-transition";
-import { FocusModeShell } from "@/components/focus-mode-shell";
-import { ProfilePanel } from "@/components/profile-panel";
 import { HomeStructuredData } from "@/components/structured-data";
-import { TranslatedText } from "@/features/translation/translation-provider";
-import { siteConfig, socialImage } from "@/lib/site-config";
+import { V2Entrance } from "@/features/v2/v2-entrance";
+import { V2EntranceBoot } from "@/features/v2/v2-entrance-boot";
+import { V2ScrollExperience } from "@/features/v2/v2-scroll-experience";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: siteConfig.title },
-  description: siteConfig.description,
+  description: `${siteConfig.name}'s experimental, motion-led portfolio.`,
   alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "/",
-    siteName: `${siteConfig.name} Portfolio`,
-    title: siteConfig.title,
-    description: siteConfig.description,
-    images: [socialImage],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.title,
-    description: siteConfig.description,
-    images: [socialImage.url],
-  },
 };
 
 export default function HomePage() {
   return (
     <>
       <HomeStructuredData />
-      <EntranceTransition />
-      <a className="skip-link" href="#about">
-        <TranslatedText text="Skip to about" />
-      </a>
-      <FocusModeShell profile={<ProfilePanel />} content={<AboutPanel />} />
+      <V2EntranceBoot />
+      <V2Entrance />
+      <V2ScrollExperience />
     </>
   );
 }

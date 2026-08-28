@@ -123,7 +123,7 @@ export function V2ContactSection({
       </div>
 
       <footer className={styles.footer}>
-        <Link href="/v2">Remar Ugsimar</Link>
+        <Link href="/">Remar Ugsimar</Link>
         <p>Full-stack developer / Cebu, PH</p>
         <p>2026</p>
       </footer>

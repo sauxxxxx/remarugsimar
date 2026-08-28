@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: { absolute: "Remar Ugsimar — Portfolio V2" },
   description: `${siteConfig.name}'s experimental, motion-led portfolio.`,
-  alternates: { canonical: "/v2" },
+  alternates: { canonical: "/" },
 };
 
 export default function PortfolioV2Page() {

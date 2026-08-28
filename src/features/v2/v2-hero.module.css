@@ -127,38 +127,11 @@
 }
 
 .versionSwitch {
-  display: flex;
+  --version-ink: var(--v2-ink);
+  --version-paper: var(--v2-paper);
+  --version-muted: var(--v2-muted);
+  --version-accent: var(--v2-accent);
   justify-self: end;
-  overflow: hidden;
-  border: 1px solid var(--v2-ink);
-  border-radius: 999px;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
-  font-weight: 650;
-}
-
-.versionSwitch a,
-.versionSwitch span {
-  display: grid;
-  min-width: 42px;
-  min-height: 44px;
-  place-items: center;
-}
-
-.versionSwitch a {
-  color: var(--v2-muted);
-  transition: background 180ms ease-out, color 180ms ease-out;
-}
-
-.versionSwitch a:hover,
-.versionSwitch a:focus-visible {
-  background: rgba(17, 17, 15, 0.08);
-  color: var(--v2-ink);
-}
-
-.versionSwitch span {
-  background: var(--v2-ink);
-  color: var(--v2-paper);
 }
 
 .heroGrid {

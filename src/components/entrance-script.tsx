@@ -2,12 +2,12 @@ const entranceScript = `
   (function () {
     var root = document.documentElement;
     var storageKey = "portfolio-signature-intro-seen-v3";
-    var isHomePage = window.location.pathname === "/";
+    var isV1Page = window.location.pathname === "/v1";
     var prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    if (!isHomePage || prefersReducedMotion) return;
+    if (!isV1Page || prefersReducedMotion) return;
 
     try {
       if (window.sessionStorage.getItem(storageKey)) return;
