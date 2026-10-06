@@ -98,8 +98,8 @@ a:focus-visible {
 }
 
 @media (min-width: 1181px) {
-  html,
-  body {
+  html:has(.portfolio-shell),
+  body:has(.portfolio-shell) {
     height: 100%;
     overflow: hidden;
   }
