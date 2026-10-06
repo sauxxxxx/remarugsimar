@@ -1,8 +1,5 @@
 import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
-import Cubes from "@/components/Cubes";
-import DotGrid from "@/components/DotGrid";
-import GlitchText from "@/components/GlitchText";
-import { ArrowUpRight, Bot, CloudCog, Database, Globe2 } from "lucide-react";
+import { Bot, CloudCog, Database, Globe2 } from "lucide-react";
 import { motion, type MotionValue, useTransform } from "motion/react";
 import type { ReactNode } from "react";
 import {
@@ -16,7 +13,8 @@ import {
 import { V2FlowReveal } from "./v2-flow-reveal";
 import { v2Experiences } from "./v2-experience-data";
 import styles from "./v2-rest-section.module.css";
-import visualStyles from "./v2-experiment-visuals.module.css";
+import { V2Lab } from "./v2-lab";
+import labStyles from "./v2-lab.module.css";
 
 type V2RestSectionProps = {
   progress: MotionValue<number>;
@@ -62,85 +60,6 @@ const capabilities = [
     Icon: Globe2,
   },
 ] as const;
-
-const experiments = [
-  { kind: "trail", title: "Cursor trail", subtitle: "Interaction experiment" },
-  { kind: "glitch", title: "Glitch transition", subtitle: "Motion study" },
-  { kind: "cubes", title: "3D scroll", subtitle: "Depth exploration" },
-  { kind: "loading", title: "Loading animation", subtitle: "Interface concept" },
-] as const;
-
-type ExperimentKind = (typeof experiments)[number]["kind"];
-
-function ExperimentVisual({ kind, reduceMotion }: { kind: ExperimentKind; reduceMotion: boolean }) {
-  if (kind === "trail") {
-    return (
-      <>
-        {!reduceMotion && <DotGrid
-          activeColor="#72d7ff"
-          baseColor="#183845"
-          className={visualStyles.cursorGrid}
-          dotSize={3}
-          gap={13}
-          maxSpeed={reduceMotion ? 0 : 3600}
-          proximity={120}
-          returnDuration={1.2}
-          shockRadius={reduceMotion ? 0 : 130}
-          shockStrength={4}
-          speedTrigger={75}
-        />}
-        <span className={visualStyles.trailReticle}><i /></span>
-        <span className={visualStyles.visualReadout}><b>Vector field</b><b>Live / 60</b></span>
-      </>
-    );
-  }
-
-  if (kind === "glitch") {
-    return (
-      <>
-        <span className={visualStyles.glitchEcho}>Shift</span>
-        {reduceMotion ? (
-          <span className={visualStyles.staticGlitch}>Shift</span>
-        ) : (
-          <GlitchText className={visualStyles.glitchText} enableShadows speed={0.34}>
-            Shift
-          </GlitchText>
-        )}
-        <span className={visualStyles.glitchScan} />
-        <span className={visualStyles.visualReadout}><b>Signal offset</b><b>RGB / 03</b></span>
-      </>
-    );
-  }
-
-  if (kind === "cubes") {
-    return (
-      <>
-        <span className={visualStyles.cubeHalo}><i /></span>
-        {!reduceMotion && <Cubes
-          autoAnimate={!reduceMotion}
-          borderStyle="1px solid rgba(213, 224, 255, 0.46)"
-          faceColor="#0b0e16"
-          gridSize={6}
-          maxAngle={56}
-          radius={3.1}
-          rippleColor="#a9bfff"
-          rippleOnClick={!reduceMotion}
-          shadow="0 10px 22px rgba(0, 0, 0, 0.52)"
-        />}
-        <span className={visualStyles.visualReadout}><b>Depth mesh</b><b>XYZ / 06</b></span>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <span className={`${visualStyles.orbitalLoader} ${reduceMotion ? visualStyles.staticVisual : ""}`}>
-        <i /><i /><i /><b />
-      </span>
-      <span className={visualStyles.visualReadout}><b>Phase cycle</b><b>74.8%</b></span>
-    </>
-  );
-}
 
 function PanelShell({
   children,
@@ -268,19 +187,10 @@ export function V2RestSection({
       </PanelShell>
 
       <PanelShell
-        className={styles.experimentsPanel}
-        headerAction={(
-          <a
-            className={styles.headerAction}
-            href="https://reactbits.dev/pro/components"
-            rel="noreferrer"
-            target="_blank"
-          >
-            Explore React Bits <ArrowUpRight aria-hidden="true" size={12} strokeWidth={1.5} />
-          </a>
-        )}
+        className={`${styles.experimentsPanel} ${labStyles.panel}`}
+        headerAction={<span />}
         id="v2-experiments"
-        label="Experiments & playground"
+        label="Lab"
         number="05"
         panelPosition="02 / 03"
         progress={progress}
@@ -288,29 +198,7 @@ export function V2RestSection({
         scrollUnits={scrollUnits}
         staticLayout={staticLayout}
       >
-        <div className={styles.experiments}>
-          {experiments.map((experiment, index) => (
-            <ScrollAnimatedContent
-              className={styles.experimentReveal}
-              distance={30}
-              end={0.66 + index * 0.08}
-              key={experiment.title}
-              progress={experimentsProgress}
-              start={0.12 + index * 0.08}
-            >
-              <article className={styles.experiment} data-kind={experiment.kind}>
-                <span>0{index + 1}</span>
-                <div aria-hidden="true" className={styles.experimentVisual}>
-                  <ExperimentVisual kind={experiment.kind} reduceMotion={reduceMotion || staticLayout} />
-                </div>
-                <div className={styles.experimentMeta}>
-                  <h3>{experiment.title}</h3>
-                  <p>{experiment.subtitle}</p>
-                </div>
-              </article>
-            </ScrollAnimatedContent>
-          ))}
-        </div>
+        <V2Lab progress={experimentsProgress} reduceMotion={reduceMotion} staticLayout={staticLayout} />
       </PanelShell>
 
       <PanelShell
