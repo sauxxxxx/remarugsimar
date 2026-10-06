@@ -1,100 +1,71 @@
 .panel > header { border-bottom: 0; }
 .panel { background: #050607; }
 
-.lab {
-  display: grid;
-  height: calc(100% - clamp(42px, 6.4vh, 58px));
-  min-height: 0;
-  padding-top: 20px;
-  gap: 20px;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-}
-
-.intro {
-  margin: 0;
-  color: rgba(245, 245, 239, 0.65);
-  font-size: clamp(13px, 1.1vw, 16px);
-  line-height: 1.6;
-}
-
-.studies {
-  display: grid;
-  min-height: 0;
-  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 80px);
-}
-
+.lab { display: grid; height: calc(100% - clamp(42px, 6.4vh, 58px)); min-height: 0; padding-top: 20px; gap: 24px; grid-template-rows: auto minmax(0, 1fr); }
+.intro { margin: 0; color: rgba(245, 245, 239, 0.65); font-size: clamp(13px, 1.1vw, 16px); line-height: 1.6; }
+.studies { display: grid; min-height: 0; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); }
 .feature,
 .preview { min-width: 0; min-height: 0; height: 100%; }
 .primary,
 .secondary { display: grid; min-height: 0; height: 100%; margin: 0; grid-template-rows: minmax(0, 1fr) auto; }
-.previews { display: grid; min-height: 0; gap: 24px; grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.previews { display: grid; min-height: 0; gap: 32px; grid-template-rows: repeat(2, minmax(0, 1fr)); }
 
-.field {
-  position: relative;
-  min-height: 0;
-  background: radial-gradient(ellipse at 50% 50%, rgba(181, 223, 8, 0.065), transparent 70%);
-}
-
-.dots { padding: 6% !important; }
-.fieldStill { position: absolute; inset: 8%; background-image: radial-gradient(circle, #65753d 1.5px, transparent 1.5px); background-size: 23px 23px; mask-image: radial-gradient(ellipse, #000 35%, transparent 74%); }
 .primaryCaption { padding-top: 20px; }
-.primaryCaption h3 { margin: 0; font-family: var(--font-instrument-serif), Georgia, serif; font-size: clamp(34px, 3.4vw, 52px); font-weight: 400; line-height: 1.1; }
+.primaryCaption h3 { margin: 0; color: #99c8ff; font-family: var(--font-instrument-serif), Georgia, serif; font-size: clamp(32px, 3.3vw, 50px); font-weight: 400; line-height: 1.1; }
 .primaryCaption p,
 .caption p { margin: 8px 0 0; color: rgba(245, 245, 239, 0.6); font-size: 13px; line-height: 1.6; }
-.caption { padding-top: 12px; }
+.caption { padding-top: 14px; }
 .caption h3 { margin: 0; font-size: 16px; font-weight: 500; line-height: 1.3; }
-.caption p { max-width: 32ch; font-size: 12px; }
+.caption p { max-width: 34ch; font-size: 12px; }
+.coralCaption h3 { color: #ffb29d; }
+.violetCaption h3 { color: #c6b1ff; }
 
-.depth,
-.orbitStage { display: grid; min-height: 0; place-items: center; }
-.depth { perspective: 650px; }
-.depthGrid { display: grid; width: clamp(84px, 11vw, 160px); aspect-ratio: 1; grid-template-columns: repeat(4, 1fr); gap: 9px; transform: rotateX(48deg) rotateZ(-22deg); transform-style: preserve-3d; }
-.depthGrid i { border: 1px solid rgba(245, 245, 239, 0.38); background: rgba(245, 245, 239, 0.025); }
-.depthGrid i:nth-child(5n + 1) { border-color: #b5df08; background: rgba(181, 223, 8, 0.08); transform: translateZ(14px); }
+.tiltStage { position: relative; display: grid; min-height: 0; place-items: center; perspective: 1000px; background: radial-gradient(ellipse at 50% 50%, #599fff17, transparent 70%); }
+.tiltImage { width: 100%; height: 100%; transform-style: preserve-3d; }
+.projectLink { position: relative; display: block; width: 100%; height: 100%; border-radius: 18px; }
+.projectLink img { object-fit: contain; pointer-events: none; }
+.projectLabel { position: absolute; bottom: 6px; left: 50%; display: inline-flex; min-height: 44px; align-items: center; gap: 8px; color: #99c8ff; font-size: 12px; white-space: nowrap; transform: translateX(-50%); }
+.projectLink:hover .projectLabel { color: #cfe4ff; }
+.projectLink:focus-visible { outline-color: #99c8ff; outline-offset: 4px; }
 
-.orbit { position: relative; width: clamp(70px, 8vw, 116px); aspect-ratio: 1; }
-.orbit i { position: absolute; inset: 0; border: 1px solid rgba(245, 245, 239, 0.28); border-radius: 50%; }
-.orbit i:nth-child(2) { inset: 20%; border-color: rgba(181, 223, 8, 0.45); transform: rotateX(58deg) rotateZ(-30deg); }
-.orbit::after { position: absolute; inset: 44%; border-radius: 50%; background: #b5df08; content: ""; }
-.orbit b { position: absolute; inset: 0; animation: orbit 6s linear infinite; }
-.orbit b::after { position: absolute; top: -3px; left: calc(50% - 3px); width: 6px; height: 6px; border-radius: 50%; background: #b5df08; content: ""; }
-@keyframes orbit { to { transform: rotate(360deg); } }
+.magnetStage { display: grid; min-height: 0; place-items: center; padding: 20px; background: radial-gradient(ellipse at 50% 50%, #ff95661a, transparent 72%); }
+.magnetButton { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 20px; padding: 14px 24px; border-radius: 999px; background: #ffb29d; color: #28120c; font-size: 14px; font-weight: 600; transition: background-color 180ms ease; }
+.magnetButton:hover { background: #ffcbbb; }
+.magnetButton:focus-visible { outline-color: #ffb29d; outline-offset: 6px; }
 
-.credit { margin: 0; color: rgba(245, 245, 239, 0.4); font-size: 11px; line-height: 1.5; }
-.credit a { display: inline-flex; min-height: 44px; align-items: center; text-decoration: underline; text-underline-offset: 3px; }
-.credit a:hover { color: #b5df08; }
-.credit a:focus-visible { outline: 2px solid #b5df08; outline-offset: 4px; }
-.still .orbit b { animation: none; }
+.spotlight { --light-x: 50%; --light-y: 50%; position: relative; display: flex; width: 100%; min-height: 0; flex-direction: column; align-items: center; justify-content: center; gap: 8px; overflow: hidden; padding: 18px; border: 0; border-radius: 18px; background: #10101a; color: #e1d5ff; font: inherit; cursor: pointer; isolation: isolate; }
+.spotlight::before { position: absolute; z-index: -1; inset: 0; background: radial-gradient(180px circle at var(--light-x) var(--light-y), var(--light-color), transparent 80%); content: ""; pointer-events: none; }
+.spotlightWord { font-family: var(--font-instrument-serif), Georgia, serif; font-size: clamp(36px, 4vw, 64px); line-height: 1; }
+.spotlightHint { display: inline-flex; min-height: 24px; align-items: center; gap: 8px; color: #e1d5ff; font-size: 10px; }
+.spotlight:focus-visible { outline-color: #c6b1ff; outline-offset: 5px; }
 
 .flow { height: auto; gap: 24px; padding-top: 20px; }
 .flow .studies { grid-template-columns: minmax(0, 1fr); gap: 36px; }
-.flow .field { min-height: 260px; }
+.flow .tiltStage { height: auto; min-height: 240px; aspect-ratio: 3 / 2; }
 .flow .previews { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; gap: 24px; }
-.flow .depth,
-.flow .orbitStage { min-height: 140px; }
-.flow .depthGrid { width: 112px; }
-.flow .orbit { width: 96px; }
+.flow .magnetStage,
+.flow .spotlight { min-height: 160px; }
 
-@media (max-width: 420px) {
-  .flow .previews { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .flow .secondary { grid-template-columns: 120px minmax(0, 1fr); grid-template-rows: auto; align-items: center; gap: 16px; }
-  .flow .caption { padding-top: 0; }
-  .flow .depthGrid { width: 88px; gap: 7px; }
-  .flow .orbit { width: 80px; }
-  .flow .depth,
-  .flow .orbitStage { min-height: 120px; }
+@media (max-width: 980px) {
+  .magnetStage { padding-inline: 8px; }
+  .magnetButton { gap: 10px; padding-inline: 16px; font-size: 13px; }
+}
+
+@media (max-width: 540px) {
+  .flow .previews { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .flow .magnetStage,
+  .flow .spotlight { min-height: 180px; }
 }
 
 @media (max-height: 650px) and (min-width: 721px) {
   .lab:not(.flow) { gap: 12px; padding-top: 12px; }
   .lab:not(.flow) .primaryCaption { padding-top: 12px; }
-  .lab:not(.flow) .primaryCaption h3 { font-size: 32px; }
-  .lab:not(.flow) .previews { gap: 16px; }
-  .lab:not(.flow) .depthGrid { width: 80px; gap: 6px; }
-  .lab:not(.flow) .orbit { width: 62px; }
+  .lab:not(.flow) .primaryCaption h3 { font-size: 30px; }
+  .lab:not(.flow) .previews { gap: 18px; }
+  .lab:not(.flow) .spotlightWord { font-size: 38px; }
+  .lab:not(.flow) .caption { padding-top: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orbit b { animation: none; }
+  .magnetButton { transition: none; }
 }
