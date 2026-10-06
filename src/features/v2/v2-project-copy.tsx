@@ -1,8 +1,9 @@
 import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
 import { ScrollBlurText } from "@/components/react-bits/scroll-blur-text";
 import { ArrowRight } from "lucide-react";
-import { motion, type MotionStyle, type MotionValue } from "motion/react";
+import { motion, type MotionStyle, type MotionValue, useMotionValueEvent } from "motion/react";
 import Link from "next/link";
+import { useState } from "react";
 import styles from "./v2-project-copy.module.css";
 
 export type V2ProjectCopyProps = {
@@ -28,8 +29,17 @@ export function V2ProjectCopy({
   title,
   type,
 }: V2ProjectCopyProps) {
+  const [interactive, setInteractive] = useState(() => revealProgress.get() >= 0.99);
+  useMotionValueEvent(revealProgress, "change", (value) => {
+    setInteractive(value >= 0.99);
+  });
+
   return (
-    <motion.div className={`${styles.projectCopy} ${className ?? ""}`} style={style}>
+    <motion.div
+      className={`${styles.projectCopy} ${className ?? ""}`}
+      inert={!interactive}
+      style={{ ...style, pointerEvents: interactive ? "auto" : "none" }}
+    >
       <ScrollAnimatedContent end={0.2} progress={revealProgress} start={0}>
         <p className={styles.projectNumber}>{number}</p>
       </ScrollAnimatedContent>

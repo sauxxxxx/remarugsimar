@@ -168,7 +168,11 @@ export function V2AboutSection({
               </p>
             </div>
 
-            <nav aria-label="Social profiles" className={styles.socials}>
+            <motion.nav
+              aria-label="Social profiles"
+              className={styles.socials}
+              style={{ pointerEvents: staticLayout ? "auto" : pointerEvents }}
+            >
               {aboutSocials.map(({ href, icon: Icon, label }) => (
                 <a
                   aria-label={label}
@@ -181,7 +185,7 @@ export function V2AboutSection({
                   <Icon aria-hidden="true" strokeWidth={1.7} />
                 </a>
               ))}
-            </nav>
+            </motion.nav>
           </ScrollAnimatedContent>
         </div>
       </motion.div>

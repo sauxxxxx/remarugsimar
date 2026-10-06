@@ -5,6 +5,7 @@
   left: 50%;
   width: var(--device-stage-width, min(62vw, 920px));
   aspect-ratio: 3 / 2;
+  pointer-events: none;
   filter: drop-shadow(0 30px 35px rgba(0, 0, 0, 0.46));
   transform-origin: 88% 12%;
   transform-style: preserve-3d;
