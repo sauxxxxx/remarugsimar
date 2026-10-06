@@ -45,7 +45,7 @@ export function V2ProjectCopy({
       </ScrollAnimatedContent>
 
       <ScrollAnimatedContent end={0.9} progress={revealProgress} start={0.62}>
-        <ul aria-label="Project technologies" className={styles.tags}>
+        <ul aria-label="Project highlights" className={styles.tags}>
           {tags.map((tag) => <li key={tag}>{tag}</li>)}
         </ul>
       </ScrollAnimatedContent>

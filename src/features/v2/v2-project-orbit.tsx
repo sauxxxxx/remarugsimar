@@ -190,7 +190,7 @@ export function V2ProjectOrbit({
     <V2OrbitingProject
       Showcase={Showcase}
       index={index}
-      key={Showcase.name}
+      key={index}
       progress={progress}
       projectCount={projectCount}
       reduceMotion={reduceMotion}

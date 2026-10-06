@@ -326,3 +326,58 @@
     width: 43%;
   }
 }
+
+.staticLayout {
+  position: relative;
+  inset: auto;
+  padding: 40px 20px;
+  border: 0;
+  will-change: auto;
+}
+
+.staticLayout .landscape,
+.staticLayout .foreground,
+.staticLayout .haze,
+.staticLayout .noise,
+.staticLayout .limeDust,
+.staticLayout::before { display: none; }
+
+.staticLayout .visualPanel {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  max-width: 400px;
+  height: 320px;
+  margin: 0 auto 32px;
+  box-shadow: none;
+  will-change: auto;
+}
+
+.staticLayout .portraitFrame {
+  inset: 0;
+  width: 100%;
+}
+
+.staticLayout .portrait {
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+  filter: grayscale(1);
+}
+
+.staticLayout .copy,
+.staticLayout .eyebrow,
+.staticLayout .statement {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  pointer-events: auto;
+  will-change: auto;
+}
+
+.staticLayout .statement { margin-top: 28px; }
+.staticLayout .statement h2 { font-size: clamp(36px, 10vw, 60px); }
+.staticLayout .statement h2 span,
+.staticLayout .statement h2 em { white-space: normal; }
+.staticLayout .bodyCopy p { font-size: 14px; line-height: 1.7; }
+.staticLayout .socials a { width: 44px; height: 44px; }

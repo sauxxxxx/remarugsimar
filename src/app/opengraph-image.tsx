@@ -1,10 +1,10 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Remar Ugsimar — CRM & SaaS Full-Stack Developer";
+export const alt = "Remar Ugsimar — CRM, Lead Generation & SaaS Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const focusAreas = ["SaaS", "CRM", "Applied AI", "Web"];
+const focusAreas = ["CRM", "Lead Generation", "SaaS", "Applied AI"];
 
 export default function OpenGraphImage() {
   return new ImageResponse(
@@ -70,7 +70,7 @@ export default function OpenGraphImage() {
           }}
         >
           <div style={{ display: "flex", maxWidth: 790, flexDirection: "column" }}>
-            <span style={{ color: "#666661", fontSize: 26 }}>CRM & SaaS Full-Stack Developer</span>
+            <span style={{ color: "#666661", fontSize: 26 }}>CRM, Lead Generation & SaaS Developer</span>
             <span
               style={{
                 marginTop: 18,
@@ -92,7 +92,7 @@ export default function OpenGraphImage() {
                 lineHeight: 1.55,
               }}
             >
-              Building scalable products, practical AI systems, and modern web experiences.
+              Providing targeted leads and building the systems that help teams convert them.
             </span>
           </div>
 

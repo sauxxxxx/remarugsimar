@@ -52,26 +52,3 @@
   position: relative;
   height: 100dvh;
 }
-
-@media (max-width: 720px) {
-  .track {
-    height: auto;
-    min-height: 0;
-    background: #050607;
-  }
-
-  .stickyViewport {
-    position: relative;
-    height: auto;
-    overflow: visible;
-  }
-
-  .heroLayer,
-  .projectEntryLayer {
-    position: relative;
-    height: auto;
-    min-height: 100dvh;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}

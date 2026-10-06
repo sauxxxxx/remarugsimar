@@ -55,7 +55,7 @@ const interfaceCopy = [
   "Skip to about",
   "portfolio",
   "all projects",
-  "Selected work across SaaS, CRM, AI, and the web—designed and built for real business needs.",
+  "Selected work across CRM, lead generation, SaaS, AI, and the web—built for real business needs.",
   "Have a project in mind?",
   "back to portfolio",
   "Role",

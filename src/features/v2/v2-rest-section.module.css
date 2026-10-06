@@ -73,6 +73,29 @@
   font-style: normal;
 }
 
+.headerAction {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: flex-start;
+  gap: 8px;
+  color: rgba(245, 245, 239, 0.72);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(8px, 0.65vw, 10px);
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 220ms ease;
+}
+
+.headerAction:hover,
+.headerAction:focus-visible { color: var(--rest-accent); }
+
+.headerAction:focus-visible {
+  border-radius: 2px;
+  outline: 1px solid var(--rest-accent);
+  outline-offset: 5px;
+}
+
 .kicker {
   margin: 0 0 clamp(15px, 2.5vh, 24px);
   color: var(--rest-accent);
@@ -96,7 +119,6 @@
 }
 
 .whatIntro h3,
-.experimentsIntro h3,
 .experienceIntro h3 {
   margin: 0;
   font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
@@ -176,28 +198,11 @@
   line-height: 1.55;
 }
 
-.experimentsIntro {
-  display: grid;
-  min-height: clamp(150px, 27vh, 230px);
-  align-items: end;
-  padding: clamp(22px, 4vh, 38px) 0;
-  grid-template-columns: 1fr minmax(260px, 31%);
-}
-
-.experimentsIntro h3 { font-size: clamp(52px, min(5vw, 9vh), 78px); }
-
-.experimentsIntro > div:last-child p {
-  max-width: 39ch;
-  margin: 0 0 4px;
-  color: rgba(245, 245, 239, 0.52);
-  font-size: clamp(10px, 0.8vw, 13px);
-  line-height: 1.6;
-}
-
 .experiments {
   display: grid;
-  height: calc(100% - clamp(192px, 33.4vh, 288px));
-  gap: clamp(10px, 1.1vw, 18px);
+  height: calc(100% - clamp(42px, 6.4vh, 58px));
+  padding: clamp(22px, 4vh, 38px) 0 clamp(6px, 1.2vh, 12px);
+  gap: clamp(12px, 1.15vw, 18px);
   grid-template-columns: repeat(4, 1fr);
 }
 
@@ -205,18 +210,18 @@
 .experiment { height: 100%; }
 
 .experiment {
+  --experiment-accent: #f5f5ef;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(245, 245, 239, 0.2);
-  background: #0b0d0c;
+  background: #070908;
+  transition: border-color 260ms ease, box-shadow 420ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.experiment img {
-  object-fit: cover;
-  object-position: center top;
-  filter: grayscale(0.7) brightness(0.6) contrast(1.14);
-  transition: filter 420ms ease, transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
-}
+.experiment[data-kind="trail"] { --experiment-accent: #72d7ff; }
+.experiment[data-kind="glitch"] { --experiment-accent: #ff6c93; }
+.experiment[data-kind="cubes"] { --experiment-accent: #a9bfff; }
+.experiment[data-kind="loading"] { --experiment-accent: #ffb45c; }
 
 .experiment::after {
   position: absolute;
@@ -225,16 +230,11 @@
   left: -75%;
   width: 46%;
   height: 210%;
-  background: linear-gradient(90deg, transparent, rgba(181, 223, 8, 0.18), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--experiment-accent) 22%, transparent), transparent);
   content: "";
   opacity: 0;
   transform: rotate(14deg);
   transition: left 650ms ease, opacity 240ms ease;
-}
-
-.experiment:hover img {
-  filter: grayscale(0.2) brightness(0.72) contrast(1.08);
-  transform: scale(1.04);
 }
 
 .experiment:hover::after {
@@ -242,44 +242,112 @@
   opacity: 1;
 }
 
-.experimentShade {
+.experiment:hover {
+  border-color: color-mix(in srgb, var(--experiment-accent) 58%, transparent);
+  box-shadow: 0 18px 40px -28px color-mix(in srgb, var(--experiment-accent) 72%, transparent);
+  transform: translateY(-3px);
+}
+
+.experimentVisual {
   position: absolute;
-  z-index: 1;
-  inset: 0;
-  background: linear-gradient(to top, rgba(5, 6, 7, 0.98), transparent 68%);
+  z-index: 0;
+  inset: 0 0 86px;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  background: #070908;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experimentVisual::before {
+  position: absolute;
+  z-index: 3;
+  inset: 13px;
+  border: solid color-mix(in srgb, var(--experiment-accent) 36%, transparent);
+  border-width: 1px 0;
+  content: "";
+  opacity: 0.42;
+  pointer-events: none;
 }
 
 .experiment > span {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   top: 15px;
   left: 16px;
-  color: var(--rest-accent);
+  color: var(--experiment-accent);
   font-family: var(--font-geist-mono), monospace;
   font-size: 8px;
 }
 
-.experiment > p {
+.experiment:hover .experimentVisual { transform: scale(1.025); }
+
+.experimentMeta {
   position: absolute;
-  z-index: 2;
-  right: 18px;
-  bottom: 17px;
-  left: 18px;
+  z-index: 4;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 86px;
+  padding: 16px 17px 14px;
+  border-top: 1px solid rgba(245, 245, 239, 0.16);
+  background: rgba(5, 6, 7, 0.94);
+}
+
+.experimentMeta h3 {
   margin: 0;
   font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
-  font-size: clamp(22px, 1.9vw, 30px);
+  font-size: clamp(21px, 1.75vw, 28px);
+  font-weight: 400;
   letter-spacing: 0.025em;
   line-height: 1;
   text-transform: uppercase;
 }
 
-.experiment > p small {
-  display: block;
-  margin-top: 8px;
-  color: var(--rest-accent);
+.experimentMeta p {
+  margin: 8px 0 0;
+  color: var(--experiment-accent);
   font-family: var(--font-geist-mono), monospace;
   font-size: 8px;
   letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.experimentVisual :global(.glitch)::before,
+.experimentVisual :global(.glitch)::after {
+  background-color: #070908;
+  color: #f5f5ef;
+}
+
+.experimentVisual :global(.default-animation) {
+  z-index: 2;
+  width: min(76%, 226px);
+}
+
+.experimentVisual :global(.dot-grid) {
+  padding: 18%;
+}
+
+.experiment[data-kind="trail"] .experimentVisual {
+  background: radial-gradient(circle at 50% 48%, rgba(45, 159, 204, 0.15), transparent 38%), #05090c;
+}
+.experiment[data-kind="glitch"] .experimentVisual {
+  background:
+    linear-gradient(115deg, rgba(255, 108, 147, 0.1), transparent 38%, rgba(82, 211, 255, 0.1)),
+    #09070d;
+}
+
+.experiment[data-kind="cubes"] .experimentVisual {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(169, 191, 255, 0.14), transparent 44%),
+    #060810;
+}
+
+.experiment[data-kind="loading"] .experimentVisual {
+  background:
+    radial-gradient(circle at 48% 48%, rgba(255, 180, 92, 0.12), transparent 34%),
+    radial-gradient(circle at 62% 58%, rgba(167, 139, 250, 0.11), transparent 46%),
+    #0b080a;
 }
 
 .experienceLayout {
@@ -387,7 +455,104 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .experiment img,
-  .experiment::after { transition: none; }
+@media (max-width: 720px) {
+  .experiments {
+    padding-top: 18px;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .experimentVisual { inset: 0 0 66px; }
+
+  .experimentMeta {
+    min-height: 66px;
+    padding: 10px 11px 9px;
+  }
+
+  .experimentMeta h3 { font-size: 18px; }
+
+  .experimentMeta p {
+    margin-top: 5px;
+    font-size: 6px;
+  }
+
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .experiment,
+  .experiment::after,
+  .experimentVisual { transition: none; }
+
+}
+
+.staticLayout {
+  position: relative;
+  inset: auto;
+  pointer-events: auto;
+}
+
+.staticLayout .panel {
+  position: relative;
+  inset: auto;
+  padding: 40px 20px;
+  will-change: auto;
+}
+
+.staticLayout .noise { display: none; }
+
+.staticLayout .header {
+  height: auto;
+  min-height: 44px;
+  padding-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.staticLayout .header p { display: none; }
+.staticLayout .headerAction { min-height: 44px; align-items: center; }
+
+.staticLayout .whatLayout,
+.staticLayout .experienceLayout {
+  height: auto;
+  padding-top: 28px;
+  gap: 28px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.staticLayout .whatIntro,
+.staticLayout .experienceIntro { padding-right: 0; }
+.staticLayout .whatIntro h3,
+.staticLayout .experienceIntro h3 { max-width: none; font-size: clamp(44px, 12vw, 64px); }
+.staticLayout .whatCopy { margin-top: 24px; font-size: 14px; }
+.staticLayout .capabilities { border: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+.staticLayout .capability { height: auto; padding: 28px 0; border-right: 0; }
+.staticLayout .capabilityReveal:nth-child(n + 3) .capability { border-bottom: 1px solid rgba(245, 245, 239, 0.15); }
+.staticLayout .capability p { font-size: 14px; line-height: 1.65; }
+
+.staticLayout .experiments {
+  height: auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto;
+}
+
+.staticLayout .experiment { height: 240px; }
+.staticLayout .experimentMeta p { font-size: 8px; line-height: 1.5; }
+.staticLayout .experiment:hover,
+.staticLayout .experiment:hover .experimentVisual { transform: none; }
+.staticLayout .experiment::after { display: none; }
+.staticLayout .experienceList { border-left: 0; grid-template-rows: auto; }
+
+.staticLayout .experienceReveal li {
+  height: auto;
+  padding: 24px 0;
+  gap: 16px;
+  grid-template-columns: 32px minmax(0, 1fr);
+}
+
+.staticLayout .experienceList time { font-size: 10px; }
+.staticLayout .experienceList li > div,
+.staticLayout .experienceList li > p { grid-column: 2; }
+.staticLayout .experienceList strong { font-size: 26px; }
+.staticLayout .experienceList li > div span { font-size: 10px; }
+.staticLayout .experienceList li > p { display: block; overflow: visible; font-size: 14px; line-height: 1.65; }

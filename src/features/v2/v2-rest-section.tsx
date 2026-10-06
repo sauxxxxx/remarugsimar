@@ -1,8 +1,9 @@
 import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
-import { experiences } from "@/lib/portfolio-data";
-import { Bot, CloudCog, Database, Globe2 } from "lucide-react";
+import Cubes from "@/components/Cubes";
+import DotGrid from "@/components/DotGrid";
+import GlitchText from "@/components/GlitchText";
+import { ArrowUpRight, Bot, CloudCog, Database, Globe2 } from "lucide-react";
 import { motion, type MotionValue, useTransform } from "motion/react";
-import Image from "next/image";
 import type { ReactNode } from "react";
 import {
   getExperienceRevealUnit,
@@ -12,18 +13,23 @@ import {
   getWhatIDoRevealUnit,
   getWhatIDoSettleUnit,
 } from "./v2-scroll-timeline";
+import { V2FlowReveal } from "./v2-flow-reveal";
+import { v2Experiences } from "./v2-experience-data";
 import styles from "./v2-rest-section.module.css";
+import visualStyles from "./v2-experiment-visuals.module.css";
 
 type V2RestSectionProps = {
   progress: MotionValue<number>;
   projectCount: number;
   reduceMotion: boolean;
   scrollUnits: number;
+  staticLayout?: boolean;
 };
 
 type PanelShellProps = {
   children: ReactNode;
   className?: string;
+  headerAction?: ReactNode;
   id: string;
   label: string;
   number: string;
@@ -31,12 +37,13 @@ type PanelShellProps = {
   progress: MotionValue<number>;
   revealUnit: number;
   scrollUnits: number;
+  staticLayout?: boolean;
 };
 
 const capabilities = [
   {
-    title: "CRM systems",
-    copy: "Customer, pipeline, communication, and reporting workflows built around daily operations.",
+    title: "CRM & lead generation",
+    copy: "Targeted lead sourcing, qualification, pipeline, communication, and reporting built around sales operations.",
     Icon: Database,
   },
   {
@@ -57,15 +64,88 @@ const capabilities = [
 ] as const;
 
 const experiments = [
-  { title: "Interface motion", subtitle: "Scroll study", image: "/projects/roarly-dashboard.webp" },
-  { title: "Data density", subtitle: "Dashboard study", image: "/projects/joynosync-dashboard.webp" },
-  { title: "Editorial depth", subtitle: "3D browser study", image: "/projects/nxone-home.webp" },
-  { title: "Visual pacing", subtitle: "Loading concept", image: "/projects/sharks-tail-home.webp" },
+  { kind: "trail", title: "Cursor trail", subtitle: "Interaction experiment" },
+  { kind: "glitch", title: "Glitch transition", subtitle: "Motion study" },
+  { kind: "cubes", title: "3D scroll", subtitle: "Depth exploration" },
+  { kind: "loading", title: "Loading animation", subtitle: "Interface concept" },
 ] as const;
+
+type ExperimentKind = (typeof experiments)[number]["kind"];
+
+function ExperimentVisual({ kind, reduceMotion }: { kind: ExperimentKind; reduceMotion: boolean }) {
+  if (kind === "trail") {
+    return (
+      <>
+        {!reduceMotion && <DotGrid
+          activeColor="#72d7ff"
+          baseColor="#183845"
+          className={visualStyles.cursorGrid}
+          dotSize={3}
+          gap={13}
+          maxSpeed={reduceMotion ? 0 : 3600}
+          proximity={120}
+          returnDuration={1.2}
+          shockRadius={reduceMotion ? 0 : 130}
+          shockStrength={4}
+          speedTrigger={75}
+        />}
+        <span className={visualStyles.trailReticle}><i /></span>
+        <span className={visualStyles.visualReadout}><b>Vector field</b><b>Live / 60</b></span>
+      </>
+    );
+  }
+
+  if (kind === "glitch") {
+    return (
+      <>
+        <span className={visualStyles.glitchEcho}>Shift</span>
+        {reduceMotion ? (
+          <span className={visualStyles.staticGlitch}>Shift</span>
+        ) : (
+          <GlitchText className={visualStyles.glitchText} enableShadows speed={0.34}>
+            Shift
+          </GlitchText>
+        )}
+        <span className={visualStyles.glitchScan} />
+        <span className={visualStyles.visualReadout}><b>Signal offset</b><b>RGB / 03</b></span>
+      </>
+    );
+  }
+
+  if (kind === "cubes") {
+    return (
+      <>
+        <span className={visualStyles.cubeHalo}><i /></span>
+        {!reduceMotion && <Cubes
+          autoAnimate={!reduceMotion}
+          borderStyle="1px solid rgba(213, 224, 255, 0.46)"
+          faceColor="#0b0e16"
+          gridSize={6}
+          maxAngle={56}
+          radius={3.1}
+          rippleColor="#a9bfff"
+          rippleOnClick={!reduceMotion}
+          shadow="0 10px 22px rgba(0, 0, 0, 0.52)"
+        />}
+        <span className={visualStyles.visualReadout}><b>Depth mesh</b><b>XYZ / 06</b></span>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <span className={`${visualStyles.orbitalLoader} ${reduceMotion ? visualStyles.staticVisual : ""}`}>
+        <i /><i /><i /><b />
+      </span>
+      <span className={visualStyles.visualReadout}><b>Phase cycle</b><b>74.8%</b></span>
+    </>
+  );
+}
 
 function PanelShell({
   children,
   className = "",
+  headerAction,
   id,
   label,
   number,
@@ -73,6 +153,7 @@ function PanelShell({
   progress,
   revealUnit,
   scrollUnits,
+  staticLayout = false,
 }: PanelShellProps) {
   const at = (unit: number) => unit / scrollUnits;
   const clipPath = useTransform(
@@ -86,21 +167,23 @@ function PanelShell({
     ["none", "auto"],
   );
 
-  return (
+  const panel = (
     <motion.section
       aria-labelledby={`${id}-heading`}
       className={`${styles.panel} ${className}`}
       id={id}
-      style={{ clipPath, pointerEvents }}
+      style={staticLayout ? undefined : { clipPath, pointerEvents }}
     >
       <div aria-hidden="true" className={styles.noise} />
       <header className={styles.header}>
         <h2 id={`${id}-heading`}><span>{number}</span> {label}</h2>
-        <p>The rest <i>{panelPosition}</i></p>
+        {headerAction ?? <p>The rest <i>{panelPosition}</i></p>}
       </header>
       {children}
     </motion.section>
   );
+
+  return staticLayout ? <V2FlowReveal>{panel}</V2FlowReveal> : panel;
 }
 
 export function V2RestSection({
@@ -108,6 +191,7 @@ export function V2RestSection({
   projectCount,
   reduceMotion,
   scrollUnits,
+  staticLayout = false,
 }: V2RestSectionProps) {
   const whatRevealUnit = getWhatIDoRevealUnit(projectCount);
   const whatSettleUnit = getWhatIDoSettleUnit(projectCount);
@@ -116,22 +200,22 @@ export function V2RestSection({
   const experienceRevealUnit = getExperienceRevealUnit(projectCount);
   const experienceSettleUnit = getExperienceSettleUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
-  const whatProgress = useTransform(progress, [at(whatRevealUnit), at(whatSettleUnit)], [0, 1]);
+  const whatProgress = useTransform(progress, [at(whatRevealUnit), at(whatSettleUnit)], staticLayout ? [1, 1] : [0, 1]);
   const experimentsProgress = useTransform(
     progress,
     [at(experimentsRevealUnit), at(experimentsSettleUnit)],
-    [0, 1],
+    staticLayout ? [1, 1] : [0, 1],
   );
   const experienceProgress = useTransform(
     progress,
     [at(experienceRevealUnit), at(experienceSettleUnit)],
-    [0, 1],
+    staticLayout ? [1, 1] : [0, 1],
   );
 
   return (
     <div
       aria-label="Capabilities, experiments, and experience"
-      className={`${styles.sequence} ${reduceMotion ? styles.reducedMotion : ""}`}
+      className={`${styles.sequence} ${reduceMotion ? styles.reducedMotion : ""} ${staticLayout ? styles.staticLayout : ""}`}
       id="v2-rest"
     >
       <PanelShell
@@ -143,6 +227,7 @@ export function V2RestSection({
         progress={progress}
         revealUnit={whatRevealUnit}
         scrollUnits={scrollUnits}
+        staticLayout={staticLayout}
       >
         <div className={styles.whatLayout}>
           <ScrollAnimatedContent
@@ -155,8 +240,8 @@ export function V2RestSection({
             <p className={styles.kicker}>Capabilities</p>
             <h3>Systems made for <em>real work.</em></h3>
             <p className={styles.whatCopy}>
-              I connect interface, backend, data, and deployment around the workflow people
-              actually need to complete.
+              I connect lead acquisition, interface, backend, data, and deployment around the
+              workflow people actually need to complete.
             </p>
           </ScrollAnimatedContent>
 
@@ -184,6 +269,16 @@ export function V2RestSection({
 
       <PanelShell
         className={styles.experimentsPanel}
+        headerAction={(
+          <a
+            className={styles.headerAction}
+            href="https://reactbits.dev/pro/components"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Explore React Bits <ArrowUpRight aria-hidden="true" size={12} strokeWidth={1.5} />
+          </a>
+        )}
         id="v2-experiments"
         label="Experiments & playground"
         number="05"
@@ -191,17 +286,8 @@ export function V2RestSection({
         progress={progress}
         revealUnit={experimentsRevealUnit}
         scrollUnits={scrollUnits}
+        staticLayout={staticLayout}
       >
-        <div className={styles.experimentsIntro}>
-          <ScrollAnimatedContent end={0.48} progress={experimentsProgress} start={0.06}>
-            <p className={styles.kicker}>Playground</p>
-            <h3>Small studies.<br />Useful discoveries.</h3>
-          </ScrollAnimatedContent>
-          <ScrollAnimatedContent end={0.62} progress={experimentsProgress} start={0.22}>
-            <p>Motion, depth, pacing, and information density explored outside client constraints.</p>
-          </ScrollAnimatedContent>
-        </div>
-
         <div className={styles.experiments}>
           {experiments.map((experiment, index) => (
             <ScrollAnimatedContent
@@ -210,13 +296,17 @@ export function V2RestSection({
               end={0.66 + index * 0.08}
               key={experiment.title}
               progress={experimentsProgress}
-              start={0.25 + index * 0.08}
+              start={0.12 + index * 0.08}
             >
-              <article className={styles.experiment}>
-                <Image alt="" fill sizes="25vw" src={experiment.image} />
-                <div aria-hidden="true" className={styles.experimentShade} />
+              <article className={styles.experiment} data-kind={experiment.kind}>
                 <span>0{index + 1}</span>
-                <p>{experiment.title}<small>{experiment.subtitle}</small></p>
+                <div aria-hidden="true" className={styles.experimentVisual}>
+                  <ExperimentVisual kind={experiment.kind} reduceMotion={reduceMotion || staticLayout} />
+                </div>
+                <div className={styles.experimentMeta}>
+                  <h3>{experiment.title}</h3>
+                  <p>{experiment.subtitle}</p>
+                </div>
               </article>
             </ScrollAnimatedContent>
           ))}
@@ -232,6 +322,7 @@ export function V2RestSection({
         progress={progress}
         revealUnit={experienceRevealUnit}
         scrollUnits={scrollUnits}
+        staticLayout={staticLayout}
       >
         <div className={styles.experienceLayout}>
           <ScrollAnimatedContent
@@ -246,7 +337,7 @@ export function V2RestSection({
           </ScrollAnimatedContent>
 
           <ol className={styles.experienceList}>
-            {experiences.map((experience, index) => (
+            {v2Experiences.map((experience, index) => (
               <ScrollAnimatedContent
                 className={styles.experienceReveal}
                 distance={20}

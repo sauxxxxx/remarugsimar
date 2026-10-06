@@ -4,7 +4,7 @@ import deviceStyles from "./v2-project-device.module.css";
 import { V2ProjectCopy } from "./v2-project-copy";
 import styles from "./v2-joynosync-showcase.module.css";
 
-const projectTags = ["CRM", "SaaS", "Web app"];
+const projectTags = ["CRM", "Lead generation", "SaaS"];
 
 type V2JoynoSyncShowcaseProps = {
   copyRevealProgress: MotionValue<number>;
@@ -21,14 +21,14 @@ export function V2JoynoSyncShowcase({
     <>
       <V2ProjectCopy
         className={styles.projectCopy}
-        description="A modern CRM that brings customer activity, pipeline movement, and daily operations into one focused workspace."
+        description="A modern CRM that brings targeted lead delivery, qualification, pipeline movement, and daily operations into one focused workspace."
         href="/projects/joynosync"
         number="02"
         revealProgress={copyRevealProgress}
         style={copyStyle}
         tags={projectTags}
         title="Joyno Sync"
-        type="Business CRM platform"
+        type="CRM & lead generation platform"
       />
 
       <motion.div

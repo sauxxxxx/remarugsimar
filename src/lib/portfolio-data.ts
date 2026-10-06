@@ -10,9 +10,9 @@ export const profileLinks = [
 ] as const;
 
 export const profileCopy = {
-  title: "CRM & SaaS Full-Stack Developer",
+  title: "CRM, Lead Generation & SaaS Developer",
   introduction:
-    "I build operational CRM systems, SaaS products, and AI-assisted workflows for real business needs.",
+    "I build operational CRM systems, provide targeted business leads, and create SaaS products and AI-assisted workflows.",
   availability:
     "Available for selected freelance builds and product collaborations.",
   footer: "Building useful software for real operations.",
@@ -25,8 +25,8 @@ export const profileStats = [
 ] as const;
 
 export const aboutParagraphs = [
-  "I'm a full-stack developer based in Cebu, Philippines. My work focuses on CRM systems, operational SaaS products, internal tools, and AI-assisted workflows.",
-  "I start with the workflow: who uses it, what decision comes next, and where time or context gets lost. Then I work across the interface, backend, data, and deployment needed to ship a dependable product.",
+  "I'm a full-stack developer based in Cebu, Philippines. My work focuses on CRM systems, targeted lead generation, operational SaaS products, internal tools, and AI-assisted workflows.",
+  "I start with the growth workflow: who the business needs to reach, how prospects are qualified, what decision comes next, and where time or context gets lost. Then I work across lead delivery, interface, backend, data, and deployment to create a dependable system.",
   "At Joyno Inc. and through freelance projects, I've contributed to production web and mobile applications and built websites for businesses in technology, hospitality, and business services.",
 ] as const;
 
@@ -86,22 +86,22 @@ export const projects: readonly PortfolioProject[] = [
   {
     slug: "joynosync",
     name: "JoynoSync",
-    category: "Business CRM Platform",
+    category: "CRM & Lead Generation Platform",
     description:
-      "A CRM workspace connecting leads, contacts, deals, communications, tasks, attendance, and reporting in one operational view.",
+      "A CRM workspace connecting targeted lead delivery, qualification, contacts, deals, communications, tasks, and reporting in one operational view.",
     overview:
-      "A centralized CRM workspace designed to make business operations, customer communication, and sales activity easier to monitor and manage.",
+      "A centralized CRM workspace combining targeted lead generation with the tools teams need to qualify prospects, manage relationships, and monitor sales activity.",
     challenge:
-      "Customer information, sales activity, communications, and follow-ups can quickly become fragmented across tools. The CRM needed to give teams one reliable workspace without making day-to-day actions feel buried beneath reporting complexity.",
+      "Businesses need both a reliable source of relevant prospects and a clear process for turning them into customer relationships. Lead details, sales activity, communications, and follow-ups can quickly become fragmented, so the CRM needed to support the full journey without burying daily actions beneath reporting complexity.",
     approach:
-      "I worked across the application to organize leads, contacts, accounts, deals, tasks, communication, and attendance into connected workflows. Dashboard summaries provide context, while detailed modules let users move directly from an insight to the records that need attention.",
+      "I combined targeted lead sourcing, enrichment, and qualification with connected CRM workflows for contacts, accounts, deals, tasks, and communication. Qualified leads enter an organized pipeline, while dashboard summaries and detailed modules help teams move from an insight to the prospect or follow-up that needs attention.",
     outcome:
-      "JoynoSync brings operational and customer activity into a shared system. Teams can understand pipeline movement, ownership, communication history, and upcoming work from a consistent interface designed to support daily decision-making.",
-    role: "Full-stack application development",
+      "JoynoSync brings lead acquisition, sales activity, and customer operations into one shared system. Teams receive more actionable prospect data and can understand qualification, pipeline movement, ownership, communication history, and upcoming work from a consistent interface.",
+    role: "Full-stack development and lead delivery",
     contributions: [
+      "Targeted lead sourcing and qualification",
       "CRM dashboard and reporting",
-      "Lead and customer workflows",
-      "Centralized business activity management",
+      "Lead-to-customer workflows",
     ],
     technologies: ["HTML", "CSS", "JavaScript", "Supabase"],
     year: 2026,
@@ -229,7 +229,7 @@ export const experiences = [
     period: "2026 — Present",
     dateTime: "2026",
     description:
-      "Build and maintain production systems including JoynoSync, an accounting management platform, and Roarly AI Animation Studio. Develop CRM workflows, accounting modules, AI-powered features, and performance improvements across web and mobile applications.",
+      "Build and maintain production systems including JoynoSync, an accounting management platform, and Roarly AI Animation Studio. Deliver targeted leads and develop CRM workflows, accounting modules, AI-powered features, and performance improvements across web and mobile applications.",
     technologies: [
       "Vue.js",
       "Node.js",

@@ -101,7 +101,7 @@ export function V2ProjectStage({
       <motion.header className={styles.sectionHeader} style={{ opacity: chromeOpacity, y: chromeY }}>
         <p><span>02</span> Selected work</p>
         <i aria-hidden="true" />
-        <Link href="/projects">
+        <Link href="/v2/projects">
           View all projects
           <ArrowRight aria-hidden="true" size={16} strokeWidth={1.6} />
         </Link>

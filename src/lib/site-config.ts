@@ -12,9 +12,9 @@ function resolveSiteUrl() {
 
 export const siteConfig = {
   name: "Remar Ugsimar",
-  title: "Remar Ugsimar — CRM & SaaS Full-Stack Developer",
+  title: "Remar Ugsimar — CRM, Lead Generation & SaaS Developer",
   description:
-    "Cebu-based full-stack developer building CRM platforms, operational SaaS products, AI-assisted workflows, and business websites.",
+    "Cebu-based developer providing targeted B2B leads and building CRM platforms, operational SaaS products, AI-assisted workflows, and business websites.",
   email: "jarinaremar13@gmail.com",
   location: {
     city: "Cebu",
@@ -28,6 +28,10 @@ export const siteConfig = {
     "software developer Philippines",
     "SaaS developer",
     "CRM developer",
+    "lead generation services",
+    "B2B lead generation",
+    "CRM with lead generation",
+    "lead sourcing and enrichment",
     "AI application developer",
     "Vue.js developer",
     "Node.js developer",
@@ -39,7 +43,7 @@ export const socialImage = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "Remar Ugsimar — CRM & SaaS Full-Stack Developer",
+  alt: "Remar Ugsimar — CRM, Lead Generation & SaaS Developer",
 } as const;
 
 export function absoluteUrl(path = "/") {

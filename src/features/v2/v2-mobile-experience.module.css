@@ -1,0 +1,59 @@
+.page {
+  --project-accent: #b5df08;
+  background: #050607;
+  color: #f5f5ef;
+}
+
+.projects { padding: 40px 20px 0; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(245, 245, 239, 0.23);
+}
+
+.header h2 {
+  margin: 0;
+  font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.header h2 span { margin-right: 14px; color: var(--project-accent); }
+
+.header a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.header svg { color: var(--project-accent); }
+
+.project {
+  padding: 36px 0 20px;
+  border-bottom: 1px solid rgba(245, 245, 239, 0.15);
+}
+
+.project > div h2 { font-size: clamp(44px, 15vw, 72px); }
+.project h2 span { white-space: normal; }
+.project > div:last-child { margin-top: 20px; }
+
+.revealed { animation: reveal 450ms ease-out both; }
+
+@keyframes reveal {
+  from { opacity: 0.8; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealed { animation: none; }
+}

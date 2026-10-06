@@ -1,5 +1,6 @@
 import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
-import { AtSign, Instagram, Linkedin } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
+import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { motion, type MotionValue, useTransform } from "motion/react";
 import Image from "next/image";
 import {
@@ -15,12 +16,13 @@ type V2AboutSectionProps = {
   projectCount: number;
   reduceMotion: boolean;
   scrollUnits: number;
+  staticLayout?: boolean;
 };
 
 const aboutSocials = [
   { href: "https://www.instagram.com/", icon: Instagram, label: "Instagram" },
-  { href: "https://www.threads.net/", icon: AtSign, label: "Threads" },
-  { href: "https://x.com/", icon: null, label: "X" },
+  { href: "https://github.com/sauxxxxx", icon: Github, label: "GitHub" },
+  { href: `mailto:${siteConfig.email}`, icon: Mail, label: "Email" },
   {
     href: "https://www.linkedin.com/in/ugsimar-remar-756a8a3a7/",
     icon: Linkedin,
@@ -33,13 +35,14 @@ export function V2AboutSection({
   projectCount,
   reduceMotion,
   scrollUnits,
+  staticLayout = false,
 }: V2AboutSectionProps) {
   const revealUnit = getAboutRevealUnit(projectCount);
   const settleUnit = getAboutSettleUnit(projectCount);
   const nextRevealUnit = getWhatIDoRevealUnit(projectCount);
   const nextSettleUnit = getWhatIDoSettleUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
-  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], [0, 1]);
+  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], staticLayout ? [1, 1] : [0, 1]);
   const sectionOpacity = useTransform(
     progress,
     [
@@ -84,17 +87,19 @@ export function V2AboutSection({
   return (
     <motion.section
       aria-label="About Remar"
-      className={`${styles.section} ${reduceMotion ? styles.reducedMotion : ""}`}
+      className={`${styles.section} ${reduceMotion ? styles.reducedMotion : ""} ${staticLayout ? styles.staticLayout : ""}`}
       id="v2-about"
-      style={{ opacity: sectionOpacity, pointerEvents, y: sectionY }}
+      style={staticLayout ? undefined : { opacity: sectionOpacity, pointerEvents, y: sectionY }}
     >
-      <motion.div
-        aria-hidden="true"
-        className={styles.landscape}
-        style={{ opacity: landscapeOpacity, y: landscapeY }}
-      >
-        <Image alt="" fill priority sizes="100vw" src="/v2/closing-rock-valley-v2.webp" />
-      </motion.div>
+      {!staticLayout && (
+        <motion.div
+          aria-hidden="true"
+          className={styles.landscape}
+          style={{ opacity: landscapeOpacity, y: landscapeY }}
+        >
+          <Image alt="" fill priority sizes="100vw" src="/v2/closing-rock-valley-v2.webp" />
+        </motion.div>
+      )}
       <div aria-hidden="true" className={styles.haze} />
 
       <motion.div aria-hidden="true" className={styles.visualPanel} style={{ clipPath: slabClip }}>
@@ -116,22 +121,26 @@ export function V2AboutSection({
           <Image
             alt=""
             className={styles.portrait}
-            height={1537}
-            priority
-            sizes="(max-width: 1100px) 48vw, 700px"
-            src="/v2/remar-profile-side-cutout-v2.png"
+            height={1538}
+            priority={!staticLayout}
+            sizes={staticLayout
+              ? "(max-width: 440px) calc(100vw - 40px), 400px"
+              : "(max-width: 1100px) 48vw, 700px"}
+            src="/v2/remar-profile-three-quarter-v3.png"
             width={1023}
           />
         </motion.div>
       </motion.div>
 
-      <motion.div
-        aria-hidden="true"
-        className={styles.foreground}
-        style={{ opacity: landscapeOpacity, y: landscapeY }}
-      >
-        <Image alt="" fill priority sizes="100vw" src="/v2/closing-rock-valley-v2.webp" />
-      </motion.div>
+      {!staticLayout && (
+        <motion.div
+          aria-hidden="true"
+          className={styles.foreground}
+          style={{ opacity: landscapeOpacity, y: landscapeY }}
+        >
+          <Image alt="" fill priority sizes="100vw" src="/v2/closing-rock-valley-v2.webp" />
+        </motion.div>
+      )}
 
       <motion.div
         className={styles.copy}
@@ -154,8 +163,8 @@ export function V2AboutSection({
             <div className={styles.bodyCopy}>
               <i aria-hidden="true" />
               <p>
-                I connect interface, backend, data, and deployment around the workflow people
-                actually need to complete.
+                I connect lead generation with the interface, backend, data, and deployment teams
+                need to manage prospects and complete real work.
               </p>
             </div>
 
@@ -169,7 +178,7 @@ export function V2AboutSection({
                   target="_blank"
                   title={label}
                 >
-                  {Icon ? <Icon aria-hidden="true" strokeWidth={1.7} /> : <span aria-hidden="true">X</span>}
+                  <Icon aria-hidden="true" strokeWidth={1.7} />
                 </a>
               ))}
             </nav>

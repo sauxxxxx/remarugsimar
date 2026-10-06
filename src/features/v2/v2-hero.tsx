@@ -19,9 +19,9 @@ export function V2Hero() {
           </Link>
 
           <nav aria-label="V2 navigation" className={styles.navigation}>
-            <Link href="/projects">Work</Link>
-            <Link href="/#v2-about">About</Link>
-            <Link href="/#v2-contact">Contact</Link>
+            <Link href="/v2/projects">Work</Link>
+            <Link href="#v2-about">About</Link>
+            <Link href="#v2-contact">Contact</Link>
           </nav>
 
           <PortfolioVersionSwitch
@@ -45,11 +45,11 @@ export function V2Hero() {
             </h1>
 
             <p className={styles.introduction}>
-              I build operational CRM systems, SaaS platforms, and AI-assisted workflows for
-              real business needs.
+              I build operational CRM systems, provide targeted business leads, and create SaaS
+              platforms and AI-assisted workflows.
             </p>
 
-            <Link className={styles.exploreLink} href="/projects">
+            <Link className={styles.exploreLink} href="/v2/projects">
               <span className={styles.exploreIcon}>
                 <ArrowDownRight aria-hidden="true" size={15} strokeWidth={1.6} />
               </span>

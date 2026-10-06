@@ -15,18 +15,26 @@ type V2ContactSectionProps = {
   projectCount: number;
   reduceMotion: boolean;
   scrollUnits: number;
+  staticLayout?: boolean;
 };
+
+const contactHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
+  "CRM, lead generation, or product inquiry",
+)}&body=${encodeURIComponent(
+  "Target customers:\nCurrent sales process:\nCRM or product needs:\nTarget timeline:",
+)}`;
 
 export function V2ContactSection({
   progress,
   projectCount,
   reduceMotion,
   scrollUnits,
+  staticLayout = false,
 }: V2ContactSectionProps) {
   const revealUnit = getContactRevealUnit(projectCount);
   const settleUnit = getContactSettleUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
-  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], [0, 1]);
+  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], staticLayout ? [1, 1] : [0, 1]);
   const sectionClip = useTransform(
     progress,
     [at(revealUnit - 0.12), at(revealUnit + 0.58)],
@@ -51,23 +59,25 @@ export function V2ContactSection({
   return (
     <motion.section
       aria-labelledby="v2-contact-heading"
-      className={`${styles.section} ${reduceMotion ? styles.reducedMotion : ""}`}
+      className={`${styles.section} ${reduceMotion ? styles.reducedMotion : ""} ${staticLayout ? styles.staticLayout : ""}`}
       id="v2-contact"
-      style={{ clipPath: sectionClip, pointerEvents }}
+      style={staticLayout ? undefined : { clipPath: sectionClip, pointerEvents }}
     >
       <div aria-hidden="true" className={styles.glow} />
       <div aria-hidden="true" className={styles.noise} />
-      <motion.div
-        aria-hidden="true"
-        className={styles.rock}
-        style={{ opacity: rockOpacity, scale: rockScale, x: rockX, y: rockY }}
-      >
-        <Image alt="" fill sizes="62vw" src="/v2/closing-rock-valley-v2.webp" />
-      </motion.div>
+      {!staticLayout && (
+        <motion.div
+          aria-hidden="true"
+          className={styles.rock}
+          style={{ opacity: rockOpacity, scale: rockScale, x: rockX, y: rockY }}
+        >
+          <Image alt="" fill sizes="62vw" src="/v2/closing-rock-valley-v2.webp" />
+        </motion.div>
+      )}
 
       <header className={styles.header}>
         <p><span>07</span> Contact</p>
-        <p>Available for selected projects</p>
+        <p>CRM, lead generation &amp; product projects</p>
       </header>
 
       <div className={styles.content}>
@@ -77,8 +87,8 @@ export function V2ContactSection({
         >
           <h2 id="v2-contact-heading">
             Let&apos;s build
-            <span>something great</span>
-            <span>together.</span>
+            <span>your next</span>
+            <span>growth system.</span>
           </h2>
         </motion.div>
 
@@ -90,7 +100,7 @@ export function V2ContactSection({
           start={0.32}
         >
           <div className={styles.details}>
-            <a href={`mailto:${siteConfig.email}?subject=Project%20inquiry`}>
+            <a href={contactHref}>
               <Mail aria-hidden="true" size={15} strokeWidth={1.45} />
               {siteConfig.email}
             </a>
@@ -100,7 +110,7 @@ export function V2ContactSection({
             </p>
             <p>
               <Clock3 aria-hidden="true" size={15} strokeWidth={1.45} />
-              Available for selected projects
+              Available for selected client projects
             </p>
           </div>
         </ScrollAnimatedContent>
@@ -114,9 +124,9 @@ export function V2ContactSection({
         >
           <a
             className={styles.cta}
-            href={`mailto:${siteConfig.email}?subject=Project%20inquiry`}
+            href={contactHref}
           >
-            <span>Start a project</span>
+            <span>Discuss your project</span>
             <ArrowRight aria-hidden="true" size={18} strokeWidth={1.5} />
           </a>
         </ScrollAnimatedContent>

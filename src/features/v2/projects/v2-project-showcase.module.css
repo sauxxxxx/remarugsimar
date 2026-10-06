@@ -1,0 +1,11 @@
+.copy {
+  --project-copy-width: min(29vw, 375px);
+  --project-copy-tablet-width: 34vw;
+  --project-title-size: clamp(48px, 5.5vw, 84px);
+  --project-description-width: 36ch;
+}
+
+.laptop { --device-stage-width: min(60vw, 920px); }
+.monitor { --device-stage-width: min(58vw, 880px); }
+.tablet { --device-stage-width: min(58vw, 880px); }
+.image { object-fit: contain; }

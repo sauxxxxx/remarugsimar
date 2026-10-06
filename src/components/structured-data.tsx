@@ -41,7 +41,7 @@ export function StructuredData() {
         name: siteConfig.name,
         url: siteConfig.url.toString(),
         email: `mailto:${siteConfig.email}`,
-        jobTitle: "CRM & SaaS Full-Stack Developer",
+        jobTitle: "CRM, Lead Generation & SaaS Developer",
         description: siteConfig.description,
         sameAs: profileLinks
           .filter((link) => link.external && link.href.startsWith("http"))
@@ -55,6 +55,9 @@ export function StructuredData() {
           ...selectedTechnologies,
           "SaaS products",
           "CRM systems",
+          "B2B lead generation",
+          "Lead sourcing and enrichment",
+          "Lead qualification",
           "AI-assisted workflows",
           "Business automation",
         ],
@@ -65,7 +68,10 @@ export function StructuredData() {
   return <StructuredDataScript id="site-structured-data" value={value} />;
 }
 
-export function HomeStructuredData() {
+export function HomeStructuredData({
+  projectList = projects,
+  basePath = "/projects",
+}: { projectList?: readonly PortfolioProject[]; basePath?: string } = {}) {
   const value = {
     "@context": "https://schema.org",
     "@graph": [
@@ -82,15 +88,15 @@ export function HomeStructuredData() {
         "@type": "ItemList",
         "@id": `${siteConfig.url}#projects`,
         name: "Selected software projects",
-        numberOfItems: projects.length,
-        itemListElement: projects.map((project, index) => ({
+        numberOfItems: projectList.length,
+        itemListElement: projectList.map((project, index) => ({
           "@type": "ListItem",
           position: index + 1,
           item: {
             "@type": "CreativeWork",
             name: project.name,
             description: project.overview,
-            url: absoluteUrl(`/projects/${project.slug}`),
+            url: absoluteUrl(`${basePath}/${project.slug}`),
             image: absoluteUrl(project.thumbnailUrl),
             dateCreated: String(project.year),
             creator: { "@id": personId },
@@ -105,8 +111,11 @@ export function HomeStructuredData() {
   return <StructuredDataScript id="home-structured-data" value={value} />;
 }
 
-export function ProjectStructuredData({ project }: { project: PortfolioProject }) {
-  const canonicalUrl = absoluteUrl(`/projects/${project.slug}`);
+export function ProjectStructuredData({
+  project,
+  basePath = "/projects",
+}: { project: PortfolioProject; basePath?: string }) {
+  const canonicalUrl = absoluteUrl(`${basePath}/${project.slug}`);
   const value = {
     "@context": "https://schema.org",
     "@graph": [
@@ -129,7 +138,7 @@ export function ProjectStructuredData({ project }: { project: PortfolioProject }
             "@type": "ListItem",
             position: 1,
             name: "Projects",
-            item: absoluteUrl("/projects"),
+            item: absoluteUrl(basePath),
           },
           {
             "@type": "ListItem",

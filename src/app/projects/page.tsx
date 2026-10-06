@@ -7,7 +7,7 @@ import { projects } from "@/lib/portfolio-data";
 import { siteConfig, socialImage } from "@/lib/site-config";
 
 const projectsDescription =
-  "Selected SaaS products, CRM systems, AI applications, and websites built by Remar Ugsimar.";
+  "Selected CRM and lead generation systems, SaaS products, AI applications, and websites built by Remar Ugsimar.";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -43,7 +43,7 @@ export default function ProjectsPage() {
             <span>~ {projects.length}</span>
           </div>
           <h1><TranslatedText text="Projects" /></h1>
-          <p><TranslatedText text="Selected work across SaaS, CRM, AI, and the web—designed and built for real business needs." /></p>
+          <p><TranslatedText text="Selected work across CRM, lead generation, SaaS, AI, and the web—built for real business needs." /></p>
         </section>
 
         <section aria-label="Project case studies" className="expanded-projects">

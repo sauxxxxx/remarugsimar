@@ -6,10 +6,10 @@ export type Service = {
 
 export const services: readonly Service[] = [
   {
-    title: "SaaS & CRM Development",
+    title: "SaaS, CRM & Lead Generation",
     description:
-      "Custom platforms for leads, customers, operations, reporting, and the workflows that connect them.",
-    capabilities: ["Product architecture", "Dashboards & workflows", "Backend integrations"],
+      "Targeted lead sourcing and qualification paired with custom SaaS and CRM pipelines, outreach workflows, and reporting.",
+    capabilities: ["Lead sourcing & enrichment", "CRM & SaaS platforms", "Qualification & reporting"],
   },
   {
     title: "AI Product Integration",
@@ -75,8 +75,8 @@ export const writingEntries: readonly WritingEntry[] = [
 ];
 
 export const contactCopy = {
-  heading: "Have a product or workflow that needs to be built?",
-  body: "Send me the problem, current process, and target timeline. I'll review the context and suggest the most practical next step.",
+  heading: "Need a better system or a stronger lead pipeline?",
+  body: "Share your target customers, current sales process, CRM needs, and timeline. I'll review the context and suggest the most practical next step.",
 } as const;
 
 export type Testimonial = {

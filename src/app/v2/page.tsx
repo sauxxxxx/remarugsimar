@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { HomeStructuredData } from "@/components/structured-data";
+import { v2Projects } from "@/features/v2/projects/v2-project-data";
 import { V2Entrance } from "@/features/v2/v2-entrance";
 import { V2EntranceBoot } from "@/features/v2/v2-entrance-boot";
 import { V2ScrollExperience } from "@/features/v2/v2-scroll-experience";
@@ -13,6 +15,7 @@ export const metadata: Metadata = {
 export default function PortfolioV2Page() {
   return (
     <>
+      <HomeStructuredData projectList={v2Projects} basePath="/v2/projects" />
       <V2EntranceBoot />
       <V2Entrance />
       <V2ScrollExperience />
