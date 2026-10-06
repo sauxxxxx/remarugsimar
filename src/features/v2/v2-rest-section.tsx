@@ -11,7 +11,8 @@ import {
   getWhatIDoSettleUnit,
 } from "./v2-scroll-timeline";
 import { V2FlowReveal } from "./v2-flow-reveal";
-import { v2Experiences } from "./v2-experience-data";
+import { V2CareerRoadmap } from "./experience/v2-career-roadmap";
+import roadStyles from "./experience/v2-career-roadmap.module.css";
 import styles from "./v2-rest-section.module.css";
 import { V2Lab } from "./v2-lab";
 import labStyles from "./v2-lab.module.css";
@@ -202,7 +203,8 @@ export function V2RestSection({
       </PanelShell>
 
       <PanelShell
-        className={styles.experiencePanel}
+        className={`${styles.experiencePanel} ${roadStyles.panel}`}
+        headerAction={<span />}
         id="v2-experience"
         label="Experience"
         number="06"
@@ -212,41 +214,7 @@ export function V2RestSection({
         scrollUnits={scrollUnits}
         staticLayout={staticLayout}
       >
-        <div className={styles.experienceLayout}>
-          <ScrollAnimatedContent
-            className={styles.experienceIntro}
-            distance={22}
-            end={0.48}
-            progress={experienceProgress}
-            start={0.06}
-          >
-            <p className={styles.kicker}>Selected timeline</p>
-            <h3>Building across product, platform, and web.</h3>
-          </ScrollAnimatedContent>
-
-          <ol className={styles.experienceList}>
-            {v2Experiences.map((experience, index) => (
-              <ScrollAnimatedContent
-                className={styles.experienceReveal}
-                distance={20}
-                end={0.62 + index * 0.13}
-                key={`${experience.company}-${experience.role}`}
-                progress={experienceProgress}
-                start={0.2 + index * 0.11}
-              >
-                <li>
-                  <span className={styles.experienceIndex}>0{index + 1}</span>
-                  <time dateTime={experience.dateTime}>{experience.period}</time>
-                  <div>
-                    <strong>{experience.role}</strong>
-                    <span>{experience.company}</span>
-                  </div>
-                  <p>{experience.description}</p>
-                </li>
-              </ScrollAnimatedContent>
-            ))}
-          </ol>
-        </div>
+        <V2CareerRoadmap progress={experienceProgress} reduceMotion={reduceMotion} staticLayout={staticLayout} />
       </PanelShell>
     </div>
   );

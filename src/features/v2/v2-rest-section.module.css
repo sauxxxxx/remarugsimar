@@ -95,8 +95,7 @@
   padding-right: clamp(38px, 5vw, 76px);
 }
 
-.whatIntro h3,
-.experienceIntro h3 {
+.whatIntro h3 {
   margin: 0;
   font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
   font-size: clamp(60px, min(6.2vw, 11vh), 96px);
@@ -175,92 +174,6 @@
   line-height: 1.55;
 }
 
-.experienceLayout {
-  display: grid;
-  height: calc(100% - clamp(42px, 6.4vh, 58px));
-  grid-template-columns: 34% 66%;
-}
-
-.experienceIntro {
-  display: flex !important;
-  justify-content: center;
-  flex-direction: column;
-  padding-right: clamp(40px, 5vw, 76px);
-}
-
-.experienceIntro h3 {
-  max-width: 8ch;
-  font-size: clamp(54px, min(5.6vw, 10vh), 88px);
-}
-
-.experienceList {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  border-left: 1px solid rgba(245, 245, 239, 0.15);
-  grid-template-rows: repeat(3, 1fr);
-  list-style: none;
-}
-
-.experienceReveal,
-.experienceReveal li { height: 100%; }
-
-.experienceReveal li {
-  display: grid;
-  align-items: center;
-  padding: 0 clamp(24px, 3.2vw, 50px);
-  border-bottom: 1px solid rgba(245, 245, 239, 0.15);
-  grid-template-columns: 36px minmax(100px, 0.42fr) minmax(210px, 0.7fr) 1.25fr;
-  column-gap: clamp(14px, 2vw, 30px);
-}
-
-.experienceReveal:last-child li { border-bottom: 0; }
-
-.experienceIndex {
-  color: var(--rest-accent);
-  font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
-  font-size: 20px;
-}
-
-.experienceList time {
-  color: rgba(245, 245, 239, 0.48);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
-  text-transform: uppercase;
-}
-
-.experienceList li > div {
-  display: grid;
-  gap: 8px;
-}
-
-.experienceList strong {
-  font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
-  font-size: clamp(20px, 1.8vw, 28px);
-  font-weight: 400;
-  letter-spacing: 0.025em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.experienceList li > div span {
-  color: var(--rest-accent);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
-  text-transform: uppercase;
-}
-
-.experienceList li > p {
-  display: -webkit-box;
-  overflow: hidden;
-  margin: 0;
-  color: rgba(245, 245, 239, 0.5);
-  font-size: clamp(9px, 0.72vw, 11px);
-  line-height: 1.55;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-}
-
 .reducedMotion { display: none; }
 
 @media (max-width: 920px) {
@@ -269,15 +182,8 @@
     padding-left: 34px;
   }
 
-  .whatLayout,
-  .experienceLayout { grid-template-columns: 31% 69%; }
+  .whatLayout { grid-template-columns: 31% 69%; }
 
-  .experienceReveal li {
-    padding-right: 18px;
-    padding-left: 18px;
-    grid-template-columns: 28px 88px minmax(170px, 0.8fr) 1fr;
-    column-gap: 10px;
-  }
 }
 
 .staticLayout {
@@ -306,36 +212,17 @@
 .staticLayout .header p { display: none; }
 
 
-.staticLayout .whatLayout,
-.staticLayout .experienceLayout {
+.staticLayout .whatLayout {
   height: auto;
   padding-top: 28px;
   gap: 28px;
   grid-template-columns: minmax(0, 1fr);
 }
 
-.staticLayout .whatIntro,
-.staticLayout .experienceIntro { padding-right: 0; }
-.staticLayout .whatIntro h3,
-.staticLayout .experienceIntro h3 { max-width: none; font-size: clamp(44px, 12vw, 64px); }
+.staticLayout .whatIntro { padding-right: 0; }
+.staticLayout .whatIntro h3 { max-width: none; font-size: clamp(44px, 12vw, 64px); }
 .staticLayout .whatCopy { margin-top: 24px; font-size: 14px; }
 .staticLayout .capabilities { border: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
 .staticLayout .capability { height: auto; padding: 28px 0; border-right: 0; }
 .staticLayout .capabilityReveal:nth-child(n + 3) .capability { border-bottom: 1px solid rgba(245, 245, 239, 0.15); }
 .staticLayout .capability p { font-size: 14px; line-height: 1.65; }
-
-.staticLayout .experienceList { border-left: 0; grid-template-rows: auto; }
-
-.staticLayout .experienceReveal li {
-  height: auto;
-  padding: 24px 0;
-  gap: 16px;
-  grid-template-columns: 32px minmax(0, 1fr);
-}
-
-.staticLayout .experienceList time { font-size: 10px; }
-.staticLayout .experienceList li > div,
-.staticLayout .experienceList li > p { grid-column: 2; }
-.staticLayout .experienceList strong { font-size: 26px; }
-.staticLayout .experienceList li > div span { font-size: 10px; }
-.staticLayout .experienceList li > p { display: block; overflow: visible; font-size: 14px; line-height: 1.65; }

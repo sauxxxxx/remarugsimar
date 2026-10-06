@@ -1,0 +1,91 @@
+.panel.panel { overflow-y: auto; background: #080a0a; }
+.panel > header { border-bottom: 0; }
+.roadmap { display: grid; gap: clamp(12px, 2vh, 22px); padding-top: 12px; }
+.intro h3 { margin: 0; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(38px, 5.2vh, 58px); font-weight: 400; line-height: 1; text-transform: uppercase; }
+.intro p { margin: 8px 0 0; color: #a7aaa7; font-size: 14px; }
+.road { position: relative; height: clamp(215px, 36vh, 360px); }
+.desktopRoad { position: absolute; width: 100%; height: 100%; }
+.mobileRoad { display: none; }
+.desktopRoad path, .mobileRoad path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.roadShadow { stroke: #050707; }
+.roadEdge { stroke: #636e6a; }
+.asphalt { stroke: #2a302d; }
+.lane { stroke: #dbdacf; stroke-dasharray: 17 20; opacity: 0.8; }
+.sideRoad .roadEdge { stroke: #78695e; }
+.sideRoad .asphalt { stroke: #272827; }
+.sideRoad .lane { stroke: #b2a497; stroke-dasharray: 12 15; }
+.direction { stroke: #f2f0e9; stroke-width: 1.8; opacity: 0.6; }
+.stops { margin: 0; padding: 0; list-style: none; }
+.stop { position: absolute; transform: translate(-50%, -100%); }
+.freelance { left: 13%; top: 55%; }
+.internship { left: 44%; top: 27%; }
+.developer { left: 81%; top: 68%; }
+.stopButton { position: relative; display: block; width: 48px; height: 64px; padding: 0; border: 0; border-radius: 24px 24px 12px 12px; background: transparent; color: var(--stop-color); cursor: pointer; touch-action: manipulation; }
+.pin { display: block; width: 100%; height: 100%; overflow: visible; transition: transform 180ms ease; }
+.pin path { fill: currentColor; stroke: #080a0a; stroke-width: 2; }
+.pin circle { fill: #080a0a; }
+.pin .pinCenter { fill: currentColor; }
+.stopButton[aria-pressed="true"] .pin { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--stop-color) 30%, transparent)); }
+.stopButton:hover .pin { transform: translateY(-4px); }
+.stopButton:focus-visible { outline: 2px solid var(--stop-color); outline-offset: 5px; }
+.stopLabel { position: absolute; display: grid; width: max-content; max-width: 220px; gap: 5px; bottom: calc(100% + 4px); left: -40px; text-align: left; }
+.internship .stopLabel { left: calc(100% + 12px); bottom: 25px; }
+.developer .stopLabel { left: -55px; }
+.stopLabel time { color: var(--stop-color); font-size: clamp(11px, 0.95vw, 14px); }
+.stopLabel strong { max-width: 12ch; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(23px, 2.1vw, 32px); font-weight: 400; line-height: 0.95; text-transform: uppercase; }
+.stopLabel > span { color: #a7aaa7; font-size: clamp(11px, 0.95vw, 14px); }
+.stopButton[aria-pressed="true"] .stopLabel > span { color: var(--stop-color); }
+.branchLabel { position: absolute; margin: 0; top: 95%; left: 42%; color: #ffb29d; font-size: 12px; }
+.details { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(24px, 6vw, 100px); padding: 10px 0 6px; }
+.eyebrow { margin: 0 0 10px; color: var(--stop-color); font-family: var(--font-geist-mono), monospace; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; }
+.roleDetails h4 { margin: 0; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(28px, 3.4vh, 42px); font-weight: 400; line-height: 1; text-transform: uppercase; }
+.company { margin: 8px 0 0; color: #a7aaa7; font-size: 13px; }
+.description { max-width: 70ch; margin: 16px 0 0; color: #c4c8c4; font-size: 14px; line-height: 1.6; }
+.relatedWork { display: grid; align-content: start; gap: 22px; }
+.relatedWork .eyebrow { color: #a7aaa7; }
+.projects, .tools { margin: 0; padding: 0; list-style: none; }
+.projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 22px; }
+.projects a { display: flex; min-height: 44px; align-items: center; justify-content: space-between; gap: 8px; color: #f2f0e9; font-size: 14px; text-decoration: none; }
+.projects svg { flex-shrink: 0; color: var(--stop-color); transition: transform 180ms ease; }
+.projects a:hover svg { transform: translate(2px, -2px); }
+.projects a:focus-visible { outline: 2px solid var(--stop-color); outline-offset: 4px; }
+.tools { display: flex; flex-wrap: wrap; gap: 5px 14px; color: #a7aaa7; font-size: 12px; line-height: 1.6; }
+.flow { padding-top: 24px; }
+.quiet .pin, .quiet .projects svg { transition: none; transform: none; }
+
+@media (max-width: 920px) {
+  .road { height: 430px; }
+  .desktopRoad { display: none; }
+  .mobileRoad { position: absolute; display: block; top: 0; left: 0; width: 120px; height: 100%; }
+  .stop { left: 43px; }
+  .freelance { top: 21%; }
+  .internship { left: 86px; top: 48%; }
+  .developer { top: 78%; }
+  .stopButton { width: 44px; height: 60px; }
+  .stop .stopLabel { left: 120px; bottom: 8px; max-width: calc(100vw - 230px); }
+  .internship .stopLabel { left: 77px; }
+  .stopLabel strong { font-size: 27px; }
+  .stopLabel time, .stopLabel > span { font-size: 13px; }
+  .branchLabel { left: 140px; top: 94%; max-width: calc(100% - 140px); font-size: 12px; }
+  .details { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .roleDetails h4 { font-size: 34px; }
+  .description { font-size: 15px; }
+  .projects a { font-size: 15px; }
+  .tools { font-size: 13px; }
+}
+
+@media (max-width: 380px) {
+  .mobileRoad { width: 100px; }
+  .stop { left: 36px; }
+  .internship { left: 71px; }
+  .stop .stopLabel { left: 94px; max-width: calc(100vw - 185px); }
+  .internship .stopLabel { left: 59px; }
+  .stopLabel strong { font-size: 24px; }
+  .stopLabel time, .stopLabel > span { font-size: 12px; }
+  .branchLabel { left: 110px; max-width: calc(100% - 110px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pin, .projects svg { transition: none; }
+  .stopButton:hover .pin, .projects a:hover svg { transform: none; }
+}

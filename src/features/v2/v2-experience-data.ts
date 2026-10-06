@@ -8,3 +8,15 @@ export const v2Experiences = experiences.map((experience, index) => (
       }
     : experience
 ));
+
+const careerStages = [
+  { id: "freelance", role: "Freelance Full-Stack Developer", label: "Freelance", color: "#ffb29d", projects: ["nxone-dc-inc"] },
+  { id: "internship", role: "Full-Stack Developer Intern", label: "Internship", color: "#c6b1ff", projects: [] },
+  { id: "developer", role: "Full-Stack Developer", label: "Full-Stack Developer", color: "#99c8ff", projects: ["scout", "joynosync", "joyno-accounting", "casatoon"] },
+] as const;
+
+export const v2CareerStops = careerStages.map((stage) => {
+  const experience = v2Experiences.find((item) => item.role === stage.role);
+  if (!experience) throw new Error(`Missing career experience: ${stage.role}`);
+  return { ...experience, ...stage };
+});
