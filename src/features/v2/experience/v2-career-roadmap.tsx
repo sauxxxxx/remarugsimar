@@ -58,13 +58,13 @@ export function V2CareerRoadmap({ reduceMotion, staticLayout }: RoadmapProps) {
         <p className={styles.branchLabel}>Freelance continues <span aria-hidden="true">↗</span></p>
       </div>
       <div id="v2-career-details" className={styles.details} role="region" aria-labelledby="v2-career-role" style={{ "--stop-color": selected.color } as CSSProperties}>
-        <motion.div key={selectedId} className={styles.roleDetails} aria-live="polite" aria-atomic="true" initial={quiet ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: quiet ? 0 : 0.18 }}>
+        <motion.div key={`role-${selectedId}`} className={styles.roleDetails} aria-live="polite" aria-atomic="true" initial={quiet ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: quiet ? 0 : 0.18 }}>
           <p className={styles.eyebrow}>Selected stop</p>
           <h4 id="v2-career-role">{selected.role}</h4>
           <p className={styles.company}>{selected.company} · {selected.period}</p>
           <p className={styles.description}>{selected.summary}</p>
         </motion.div>
-        {projects.length > 0 && <V2CareerCarousel key={selected.id} projects={projects} reduceMotion={quiet} />}
+        {projects.length > 0 && <V2CareerCarousel key={`projects-${selected.id}`} projects={projects} reduceMotion={quiet} />}
         <V2CareerTools technologies={selected.coreTools} />
       </div>
     </div>
