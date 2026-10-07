@@ -7,8 +7,6 @@ const ABOUT_REVEAL_OFFSET_UNITS = 0.72;
 const ABOUT_SETTLE_OFFSET_UNITS = 1.95;
 const WHAT_I_DO_REVEAL_OFFSET_UNITS = 0.9;
 const WHAT_I_DO_SETTLE_OFFSET_UNITS = 2.1;
-const EXPERIMENTS_REVEAL_OFFSET_UNITS = 1.35;
-const EXPERIMENTS_SETTLE_OFFSET_UNITS = 2.55;
 const EXPERIENCE_REVEAL_OFFSET_UNITS = 1.35;
 const EXPERIENCE_SETTLE_OFFSET_UNITS = 2.55;
 const CONTACT_REVEAL_OFFSET_UNITS = 1.45;
@@ -47,20 +45,12 @@ export function getWhatIDoSettleUnit(projectCount: number) {
   return getAboutSettleUnit(projectCount) + WHAT_I_DO_SETTLE_OFFSET_UNITS;
 }
 
-export function getExperimentsRevealUnit(projectCount: number) {
-  return getWhatIDoSettleUnit(projectCount) + EXPERIMENTS_REVEAL_OFFSET_UNITS;
-}
-
-export function getExperimentsSettleUnit(projectCount: number) {
-  return getWhatIDoSettleUnit(projectCount) + EXPERIMENTS_SETTLE_OFFSET_UNITS;
-}
-
 export function getExperienceRevealUnit(projectCount: number) {
-  return getExperimentsSettleUnit(projectCount) + EXPERIENCE_REVEAL_OFFSET_UNITS;
+  return getWhatIDoSettleUnit(projectCount) + EXPERIENCE_REVEAL_OFFSET_UNITS;
 }
 
 export function getExperienceSettleUnit(projectCount: number) {
-  return getExperimentsSettleUnit(projectCount) + EXPERIENCE_SETTLE_OFFSET_UNITS;
+  return getWhatIDoSettleUnit(projectCount) + EXPERIENCE_SETTLE_OFFSET_UNITS;
 }
 
 export function getContactRevealUnit(projectCount: number) {

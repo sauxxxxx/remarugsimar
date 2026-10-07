@@ -3,8 +3,6 @@ import { useState, type ReactNode } from "react";
 import {
   getExperienceRevealUnit,
   getContactRevealUnit,
-  getExperimentsRevealUnit,
-  getExperimentsSettleUnit,
   getWhatIDoRevealUnit,
 } from "./v2-scroll-timeline";
 import { V2Capabilities } from "./capabilities/v2-capabilities";
@@ -13,8 +11,6 @@ import { V2FlowReveal } from "./v2-flow-reveal";
 import { V2CareerRoadmap } from "./experience/v2-career-roadmap";
 import roadStyles from "./experience/v2-career-roadmap.module.css";
 import styles from "./v2-rest-section.module.css";
-import { V2Lab } from "./v2-lab";
-import labStyles from "./v2-lab.module.css";
 
 type V2RestSectionProps = {
   progress: MotionValue<number>;
@@ -91,19 +87,11 @@ export function V2RestSection({
   staticLayout = false,
 }: V2RestSectionProps) {
   const whatRevealUnit = getWhatIDoRevealUnit(projectCount);
-  const experimentsRevealUnit = getExperimentsRevealUnit(projectCount);
-  const experimentsSettleUnit = getExperimentsSettleUnit(projectCount);
   const experienceRevealUnit = getExperienceRevealUnit(projectCount);
-  const at = (unit: number) => unit / scrollUnits;
-  const experimentsProgress = useTransform(
-    progress,
-    [at(experimentsRevealUnit), at(experimentsSettleUnit)],
-    staticLayout ? [1, 1] : [0, 1],
-  );
 
   return (
     <div
-      aria-label="Capabilities, experiments, and experience"
+      aria-label="Capabilities and experience"
       className={`${styles.sequence} ${reduceMotion ? styles.reducedMotion : ""} ${staticLayout ? styles.staticLayout : ""}`}
       id="v2-rest"
     >
@@ -111,10 +99,10 @@ export function V2RestSection({
         className={`${styles.whatPanel} ${capabilityStyles.panel}`}
         headerAction={<span />}
         id="v2-what-i-do"
-        hideUnit={experimentsRevealUnit + 0.5}
+        hideUnit={experienceRevealUnit + 0.5}
         label="What I do"
         number="04"
-        panelPosition="01 / 03"
+        panelPosition="01 / 02"
         progress={progress}
         revealUnit={whatRevealUnit}
         scrollUnits={scrollUnits}
@@ -124,29 +112,13 @@ export function V2RestSection({
       </PanelShell>
 
       <PanelShell
-        className={`${styles.experimentsPanel} ${labStyles.panel}`}
-        headerAction={<span />}
-        id="v2-experiments"
-        hideUnit={experienceRevealUnit + 0.5}
-        label="Lab"
-        number="05"
-        panelPosition="02 / 03"
-        progress={progress}
-        revealUnit={experimentsRevealUnit}
-        scrollUnits={scrollUnits}
-        staticLayout={staticLayout}
-      >
-        <V2Lab progress={experimentsProgress} reduceMotion={reduceMotion} staticLayout={staticLayout} />
-      </PanelShell>
-
-      <PanelShell
         className={`${styles.experiencePanel} ${roadStyles.panel}`}
         headerAction={<span />}
         id="v2-experience"
         hideUnit={getContactRevealUnit(projectCount) + 0.58}
         label="Experience"
-        number="06"
-        panelPosition="03 / 03"
+        number="05"
+        panelPosition="02 / 02"
         progress={progress}
         revealUnit={experienceRevealUnit}
         scrollUnits={scrollUnits}

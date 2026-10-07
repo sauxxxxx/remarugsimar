@@ -76,7 +76,7 @@ export function V2ContactSection({
       )}
 
       <header className={styles.header}>
-        <p><span>07</span> Contact</p>
+        <p><span>06</span> Contact</p>
         <p>CRM, lead generation &amp; product projects</p>
       </header>
 
