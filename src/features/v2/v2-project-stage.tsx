@@ -18,9 +18,9 @@ type V2ProjectStageProps = {
   scrollUnits: number;
 };
 
-const accent = "#b5df08";
+const accent = "#8bdbc9";
 const muted = "rgba(245,245,239,.62)";
-const darkVeilTint = [181 / 255, 223 / 255, 8 / 255] as const;
+const darkVeilTint = [139 / 255, 219 / 255, 201 / 255] as const;
 
 function V2ProjectRailItem({
   index,

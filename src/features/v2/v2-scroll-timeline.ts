@@ -3,15 +3,13 @@ export const PROJECT_INTERVAL_UNITS = 1.5;
 
 const CLOSING_REVEAL_OFFSET_UNITS = 0.42;
 const CLOSING_SETTLE_OFFSET_UNITS = 1.28;
-const ABOUT_REVEAL_OFFSET_UNITS = 0.72;
-const ABOUT_SETTLE_OFFSET_UNITS = 1.95;
-const WHAT_I_DO_REVEAL_OFFSET_UNITS = 0.9;
-const WHAT_I_DO_SETTLE_OFFSET_UNITS = 2.1;
+const WHAT_I_DO_REVEAL_OFFSET_UNITS = 0.72;
+const WHAT_I_DO_SETTLE_OFFSET_UNITS = 1.95;
+const ABOUT_REVEAL_OFFSET_UNITS = 0.9;
+const ABOUT_SETTLE_OFFSET_UNITS = 2.1;
 const EXPERIENCE_REVEAL_OFFSET_UNITS = 1.35;
 const EXPERIENCE_SETTLE_OFFSET_UNITS = 2.55;
 const CONTACT_REVEAL_OFFSET_UNITS = 1.45;
-const CONTACT_SETTLE_OFFSET_UNITS = 2.7;
-const CONTACT_HOLD_UNITS = 1.25;
 
 export function getProjectSettleUnit(index: number) {
   return STAGE_SETTLE_UNITS + index * PROJECT_INTERVAL_UNITS;
@@ -30,37 +28,34 @@ export function getClosingSettleUnit(projectCount: number) {
 }
 
 export function getAboutRevealUnit(projectCount: number) {
-  return getClosingSettleUnit(projectCount) + ABOUT_REVEAL_OFFSET_UNITS;
+  return getWhatIDoSettleUnit(projectCount) + ABOUT_REVEAL_OFFSET_UNITS;
 }
 
 export function getAboutSettleUnit(projectCount: number) {
-  return getClosingSettleUnit(projectCount) + ABOUT_SETTLE_OFFSET_UNITS;
+  return getWhatIDoSettleUnit(projectCount) + ABOUT_SETTLE_OFFSET_UNITS;
 }
 
 export function getWhatIDoRevealUnit(projectCount: number) {
-  return getAboutSettleUnit(projectCount) + WHAT_I_DO_REVEAL_OFFSET_UNITS;
+  return getClosingSettleUnit(projectCount) + WHAT_I_DO_REVEAL_OFFSET_UNITS;
 }
 
 export function getWhatIDoSettleUnit(projectCount: number) {
-  return getAboutSettleUnit(projectCount) + WHAT_I_DO_SETTLE_OFFSET_UNITS;
+  return getClosingSettleUnit(projectCount) + WHAT_I_DO_SETTLE_OFFSET_UNITS;
 }
 
 export function getExperienceRevealUnit(projectCount: number) {
-  return getWhatIDoSettleUnit(projectCount) + EXPERIENCE_REVEAL_OFFSET_UNITS;
+  return getAboutSettleUnit(projectCount) + EXPERIENCE_REVEAL_OFFSET_UNITS;
 }
 
 export function getExperienceSettleUnit(projectCount: number) {
-  return getWhatIDoSettleUnit(projectCount) + EXPERIENCE_SETTLE_OFFSET_UNITS;
+  return getAboutSettleUnit(projectCount) + EXPERIENCE_SETTLE_OFFSET_UNITS;
 }
 
 export function getContactRevealUnit(projectCount: number) {
   return getExperienceSettleUnit(projectCount) + CONTACT_REVEAL_OFFSET_UNITS;
 }
 
-export function getContactSettleUnit(projectCount: number) {
-  return getExperienceSettleUnit(projectCount) + CONTACT_SETTLE_OFFSET_UNITS;
-}
-
 export function getProjectScrollUnits(projectCount: number) {
-  return getContactSettleUnit(projectCount) + CONTACT_HOLD_UNITS;
+  // The closing sections continue in normal page flow after the road has settled.
+  return getContactRevealUnit(projectCount);
 }

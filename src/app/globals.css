@@ -447,13 +447,13 @@ html:has(.v2-portfolio-page) {
   height: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  background: #efede6;
+  background: #0c1111;
 }
 
 body:has(.v2-portfolio-page) {
   min-height: 100%;
   overflow: visible;
-  background: #efede6;
+  background: #0c1111;
 }
 
 html[data-v2-entrance="pending"],

@@ -32,15 +32,15 @@ export function V2Capabilities({ staticLayout }: { staticLayout: boolean }) {
   }
 
   return <div className={`${styles.capabilities} ${staticLayout ? styles.flow : ""}`} style={{ "--capability-color": selected.color } as CSSProperties}>
-    <div className={styles.intro}><h3>See what I build.</h3><p>Choose a capability. Try a small example.</p></div>
+    <div className={styles.intro}><h3>What I can build for you.</h3><p>Choose a service. Try a small example.</p></div>
     <div className={styles.layout}>
-      <div className={styles.tabs} role="tablist" aria-label="What I build" aria-orientation="vertical">
+      <div className={styles.tabs} role="tablist" aria-label="Services" aria-orientation="vertical">
         {capabilities.map((item, index) => <button key={item.id} ref={(node) => { tabs.current[index] = node; }} type="button" role="tab" id={`v2-capability-tab-${item.id}`} aria-controls="v2-capability-preview" aria-selected={selectedId === item.id} tabIndex={selectedId === item.id ? 0 : -1} style={{ "--item-color": item.color } as CSSProperties} onClick={() => setSelectedId(item.id)} onKeyDown={(event) => onTabKeyDown(event, index)}>
           <span className={styles.number}>0{index + 1}</span><span className={styles.tabCopy}><strong>{item.label}</strong><span>{item.hint}</span></span><ArrowRight size={20} className={styles.tabArrow} aria-hidden="true" />
         </button>)}
       </div>
       <div className={styles.preview} id="v2-capability-preview" role="tabpanel" aria-labelledby={`v2-capability-tab-${selected.id}`} tabIndex={0}>
-        <div className={styles.previewHeading}><p>{selected.label}</p><h4>{selected.title}</h4><span>{selected.description}</span></div>
+        <div className={styles.previewHeading}><h4>{selected.title}</h4><span>{selected.description}</span></div>
         <div className={styles.demoStage}><Demo key={`demo-${selected.id}`} /></div>
         <footer className={styles.projectFooter}><span>Built in <strong>{selected.project}</strong></span><Link href={v2ProjectHref(selected.slug)}>View case study <ArrowUpRight size={17} aria-hidden="true" /></Link></footer>
       </div>

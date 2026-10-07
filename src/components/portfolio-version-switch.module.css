@@ -169,10 +169,77 @@ a.option:hover {
   }
 }
 
+.modern {
+  --version-ink: #f2f1ed;
+  --version-paper: #0c1111;
+  --version-muted: #aab4b0;
+  --version-accent: #8bdbc9;
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+.modern .trigger {
+  border: 0;
+  border-radius: 10px;
+}
+
+.modern .trigger:hover,
+.modern .trigger[aria-expanded="true"] {
+  background: rgba(139, 219, 201, 0.08);
+  color: var(--version-accent);
+}
+
+.modern .markers i,
+.modern .markers i:nth-child(2) {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: none;
+}
+
+.modern .menu {
+  width: 238px;
+  max-width: calc(100vw - 48px);
+  padding: 6px;
+  border: 1px solid rgba(139, 219, 201, 0.13);
+  border-radius: 14px;
+  background: #101918;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.modern .option {
+  min-height: 48px;
+  grid-template-columns: 1fr 16px;
+  gap: 12px;
+  padding-inline: 12px;
+  border-radius: 8px;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+
+.modern a.option:hover {
+  padding-inline: 12px;
+  background: rgba(242, 241, 237, 0.05);
+}
+
+.modern .currentOption {
+  background: rgba(139, 219, 201, 0.08);
+  color: var(--version-ink);
+}
+
+.modern .optionLabel {
+  font-size: 14px;
+  font-weight: 450;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.modern .currentMark { display: flex; justify-content: flex-end; }
+
 @media (prefers-reduced-motion: reduce) {
   .trigger,
   .markers i,
-  .option {
+  .option,
+  .modern .option {
     transition: none;
   }
 

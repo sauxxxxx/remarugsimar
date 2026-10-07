@@ -19,7 +19,7 @@
   inset: 0;
   background:
     radial-gradient(circle at 50% 44%, rgba(24, 27, 25, 0.88), transparent 38%),
-    radial-gradient(circle at 52% 32%, rgba(181, 223, 8, 0.035), transparent 30%),
+    radial-gradient(circle at 52% 32%, rgba(139, 219, 201, 0.035), transparent 30%),
     linear-gradient(180deg, #050607 0%, #080a09 52%, #050607 100%);
 }
 
@@ -138,7 +138,7 @@
   width: 30px;
   height: 30px;
   place-items: center;
-  color: #b5df08;
+  color: #8bdbc9;
 }
 
 .reducedMotion {

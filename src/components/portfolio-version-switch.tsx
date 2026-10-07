@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { Check } from "lucide-react";
 import styles from "./portfolio-version-switch.module.css";
 
 type PortfolioVersion = "v1" | "v2";
@@ -19,6 +20,7 @@ export function PortfolioVersionSwitch({
   className,
   currentVersion,
 }: PortfolioVersionSwitchProps) {
+  const modern = currentVersion === "v2";
   const [isOpen, setIsOpen] = useState(false);
   const menuId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -47,7 +49,7 @@ export function PortfolioVersionSwitch({
   }, [isOpen]);
 
   return (
-    <div className={`${styles.root} ${className ?? ""}`} ref={rootRef}>
+    <div className={`${styles.root} ${modern ? styles.modern : ""} ${className ?? ""}`} ref={rootRef}>
       <button
         aria-controls={menuId}
         aria-expanded={isOpen}
@@ -67,17 +69,17 @@ export function PortfolioVersionSwitch({
 
       {isOpen ? (
         <nav aria-label="Portfolio view" className={styles.menu} id={menuId}>
-          <p className={styles.menuHeading}>
+          {!modern && <p className={styles.menuHeading}>
             Portfolio view <span>02</span>
-          </p>
+          </p>}
           <div className={styles.options}>
             {portfolioViews.map((view) => {
               const content = (
                 <>
-                  <span className={styles.optionLabel}>{view.label}</span>
-                  <span className={styles.optionVersion}>{view.version}</span>
+                  <span className={styles.optionLabel}>{modern ? `${view.label} portfolio` : view.label}</span>
+                  {!modern && <span className={styles.optionVersion}>{view.version}</span>}
                   {view.version === currentVersion ? (
-                    <span aria-hidden="true" className={styles.currentMark}>✓</span>
+                    <span aria-hidden="true" className={styles.currentMark}>{modern ? <Check size={16} strokeWidth={2} /> : "✓"}</span>
                   ) : null}
                 </>
               );

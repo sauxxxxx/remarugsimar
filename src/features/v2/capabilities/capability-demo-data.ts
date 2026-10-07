@@ -2,7 +2,7 @@ export const leadStages = [
   { id: "new", label: "New", color: "#79bcff" },
   { id: "qualified", label: "Qualified", color: "#ffb29d" },
   { id: "contacted", label: "Contacted", color: "#c6b1ff" },
-  { id: "won", label: "Won", color: "#b5df08" },
+  { id: "won", label: "Won", color: "#8bdbc9" },
 ] as const;
 
 export type LeadStage = (typeof leadStages)[number]["id"];

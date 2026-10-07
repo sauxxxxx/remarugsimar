@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { type MotionStyle, useMotionValue } from "motion/react";
 import Link from "next/link";
 import { V2AboutSection } from "./v2-about-section";
-import { V2ContactSection } from "./v2-contact-section";
+import { V2ClosingSection } from "./closing/v2-closing-section";
 import { V2FlowReveal } from "./v2-flow-reveal";
 import { V2Hero } from "./v2-hero";
 import { projectShowcases } from "./v2-project-showcases";
@@ -43,9 +43,10 @@ export function V2MobileExperience() {
           </V2FlowReveal>
         ))}
       </section>
+      <V2RestSection {...sectionProps} section="capabilities" />
       <V2FlowReveal><V2AboutSection {...sectionProps} /></V2FlowReveal>
-      <V2RestSection {...sectionProps} />
-      <V2FlowReveal><V2ContactSection {...sectionProps} /></V2FlowReveal>
+      <V2RestSection {...sectionProps} section="experience" />
+      <V2ClosingSection />
     </div>
   );
 }

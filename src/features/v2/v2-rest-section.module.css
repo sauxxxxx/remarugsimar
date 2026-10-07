@@ -23,6 +23,7 @@
 
 .whatPanel { z-index: 1; }
 .experiencePanel { z-index: 2; }
+.experienceSequence { z-index: 12; }
 
 .noise {
   position: absolute;

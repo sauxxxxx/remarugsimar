@@ -1,13 +1,17 @@
-import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
+"use client";
+
+import { profileLinks } from "@/lib/portfolio-data";
 import { siteConfig } from "@/lib/site-config";
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
-import { motion, type MotionValue, useTransform } from "motion/react";
+import { ArrowUpRight, Github, Mail } from "lucide-react";
+import { motion, type MotionValue, useMotionValueEvent, useTransform } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import {
   getAboutRevealUnit,
   getAboutSettleUnit,
-  getWhatIDoRevealUnit,
-  getWhatIDoSettleUnit,
+  getExperienceRevealUnit,
+  getExperienceSettleUnit,
 } from "./v2-scroll-timeline";
 import styles from "./v2-about-section.module.css";
 
@@ -19,16 +23,8 @@ type V2AboutSectionProps = {
   staticLayout?: boolean;
 };
 
-const aboutSocials = [
-  { href: "https://www.instagram.com/", icon: Instagram, label: "Instagram" },
-  { href: "https://github.com/sauxxxxx", icon: Github, label: "GitHub" },
-  { href: `mailto:${siteConfig.email}`, icon: Mail, label: "Email" },
-  {
-    href: "https://www.linkedin.com/in/ugsimar-remar-756a8a3a7/",
-    icon: Linkedin,
-    label: "LinkedIn",
-  },
-] as const;
+const resume = profileLinks.find((link) => link.label === "resume")!;
+const github = profileLinks.find((link) => link.label === "github")!;
 
 export function V2AboutSection({
   progress,
@@ -39,157 +35,85 @@ export function V2AboutSection({
 }: V2AboutSectionProps) {
   const revealUnit = getAboutRevealUnit(projectCount);
   const settleUnit = getAboutSettleUnit(projectCount);
-  const nextRevealUnit = getWhatIDoRevealUnit(projectCount);
-  const nextSettleUnit = getWhatIDoSettleUnit(projectCount);
+  const nextRevealUnit = getExperienceRevealUnit(projectCount);
+  const nextSettleUnit = getExperienceSettleUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
-  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], staticLayout ? [1, 1] : [0, 1]);
+  const quiet = reduceMotion || staticLayout;
+  const isInteractive = (value: number) =>
+    value >= at(revealUnit) && value < at(nextRevealUnit + 0.5);
+  const [interactive, setInteractive] = useState(() => isInteractive(progress.get()));
+  useMotionValueEvent(progress, "change", (value) => setInteractive(isInteractive(value)));
+
   const sectionOpacity = useTransform(
     progress,
-    [
-      at(revealUnit - 0.12),
-      at(revealUnit + 0.08),
-      at(nextRevealUnit - 0.1),
-      at(nextSettleUnit - 0.55),
-    ],
+    [at(revealUnit - 0.12), at(revealUnit + 0.08), at(nextRevealUnit - 0.1), at(nextSettleUnit - 0.55)],
     [0, 1, 1, 0],
   );
-  const pointerEvents = useTransform(
-    progress,
-    [at(revealUnit - 0.02), at(revealUnit)],
-    ["none", "auto"],
-  );
-  const copyOpacity = useTransform(revealProgress, [0.08, 0.44], [0, 1]);
-  const copyY = useTransform(revealProgress, [0.08, 0.74], ["5vh", "0vh"]);
-  const copyFilter = useTransform(
-    revealProgress,
-    [0.08, 0.62],
-    ["blur(18px)", "blur(0px)"],
-  );
-  const slabClip = useTransform(
-    revealProgress,
-    [0.04, 0.7],
-    ["inset(0 0 0 100%)", "inset(0 0 0 0%)"],
-  );
-  const seamOpacity = useTransform(revealProgress, [0.08, 0.38, 0.92], [0, 1, 0.72]);
-  const seamScale = useTransform(revealProgress, [0.08, 0.72], [0.12, 1]);
-  const portraitX = useTransform(revealProgress, [0.18, 1], ["4.5vw", "0vw"]);
-  const portraitY = useTransform(revealProgress, [0.18, 1], ["8vh", "0vh"]);
-  const portraitOpacity = useTransform(revealProgress, [0.18, 0.6], [0, 1]);
-  const portraitScale = useTransform(revealProgress, [0.18, 1], [1.045, 1]);
-  const landscapeOpacity = useTransform(revealProgress, [0, 0.28], [0.4, 1]);
-  const landscapeY = useTransform(revealProgress, [0, 1], ["5vh", "0vh"]);
   const sectionY = useTransform(
     progress,
     [at(nextRevealUnit - 0.1), at(nextSettleUnit - 0.45)],
     ["0vh", "-8vh"],
   );
+  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], [0, 1]);
+  const portraitOpacity = useTransform(revealProgress, [0.04, 0.7], [0, 1]);
+  const portraitY = useTransform(revealProgress, [0.04, 0.9], [20, 0]);
+  const copyOpacity = useTransform(revealProgress, [0.14, 0.78], [0, 1]);
+  const copyY = useTransform(revealProgress, [0.14, 0.95], [14, 0]);
+  const pointerEvents = staticLayout || interactive ? "auto" : "none";
 
   return (
     <motion.section
-      aria-label="About Remar"
-      className={`${styles.section} ${reduceMotion ? styles.reducedMotion : ""} ${staticLayout ? styles.staticLayout : ""}`}
+      aria-labelledby="v2-about-heading"
+      className={`${styles.section} ${staticLayout ? styles.staticLayout : ""}`}
       id="v2-about"
+      inert={!staticLayout && !interactive}
       style={staticLayout ? undefined : { opacity: sectionOpacity, pointerEvents, y: sectionY }}
     >
-      {!staticLayout && (
-        <motion.div
-          aria-hidden="true"
-          className={styles.landscape}
-          style={{ opacity: landscapeOpacity, y: landscapeY }}
-        >
-          <Image alt="" fill priority sizes="100vw" src="/v2/closing-rock-valley-v2.webp" />
-        </motion.div>
-      )}
-      <div aria-hidden="true" className={styles.haze} />
+      <header className={styles.header}>
+        <h2 id="v2-about-heading"><span>04</span> About</h2>
+      </header>
 
-      <motion.div aria-hidden="true" className={styles.visualPanel} style={{ clipPath: slabClip }}>
-        <div className={styles.slabTexture} />
-        <div className={styles.limeDust} />
-        <motion.div
-          className={styles.seam}
-          style={{ opacity: seamOpacity, scaleY: seamScale }}
-        />
-        <motion.div
+      <div className={styles.layout}>
+        <motion.figure
           className={styles.portraitFrame}
-          style={{
-            opacity: portraitOpacity,
-            scale: portraitScale,
-            x: portraitX,
-            y: portraitY,
-          }}
+          style={quiet ? undefined : { opacity: portraitOpacity, y: portraitY }}
         >
           <Image
-            alt=""
+            alt="Remar Ugsimar"
             className={styles.portrait}
-            height={1538}
-            priority={!staticLayout}
-            sizes={staticLayout
-              ? "(max-width: 440px) calc(100vw - 40px), 400px"
-              : "(max-width: 1100px) 48vw, 700px"}
-            src="/v2/remar-profile-three-quarter-v3.png"
-            width={1023}
+            fill
+            sizes="(max-width: 760px) 360px, (max-width: 1024px) 40vw, 430px"
+            src="/v2/remar-editorial-portrait.webp"
           />
+        </motion.figure>
+
+        <motion.div className={styles.copy} style={quiet ? undefined : { opacity: copyOpacity, y: copyY }}>
+          <h3>I&apos;m Remar.</h3>
+          <p className={styles.role}>Full-stack developer · Cebu, Philippines.</p>
+          <div className={styles.bodyCopy}>
+            <p>
+              I build software around the way people actually work. My projects span CRM and
+              lead discovery, accounting, AI tools, and business websites.
+            </p>
+            <p>
+              I start by understanding what takes time or gets lost in a manual process, then
+              connect the interface, backend, and data into a practical solution.
+            </p>
+          </div>
+
+          <nav aria-label="About links" className={styles.links} style={{ pointerEvents }}>
+            <Link className={styles.resume} href={resume.href} prefetch={false} rel="noreferrer" target="_blank">
+              View résumé <ArrowUpRight aria-hidden="true" size={17} />
+            </Link>
+            <a href={github.href} rel="noreferrer" target="_blank">
+              <Github aria-hidden="true" size={17} /> GitHub <ArrowUpRight aria-hidden="true" size={14} />
+            </a>
+            <a href={`mailto:${siteConfig.email}`}>
+              <Mail aria-hidden="true" size={17} /> Email
+            </a>
+          </nav>
         </motion.div>
-      </motion.div>
-
-      {!staticLayout && (
-        <motion.div
-          aria-hidden="true"
-          className={styles.foreground}
-          style={{ opacity: landscapeOpacity, y: landscapeY }}
-        >
-          <Image alt="" fill priority sizes="100vw" src="/v2/closing-rock-valley-v2.webp" />
-        </motion.div>
-      )}
-
-      <motion.div
-        className={styles.copy}
-        style={{ filter: copyFilter, opacity: copyOpacity, y: copyY }}
-      >
-        <ScrollAnimatedContent end={0.24} progress={revealProgress} start={0.02}>
-          <p className={styles.eyebrow}><span>03</span> About me</p>
-        </ScrollAnimatedContent>
-
-        <div className={styles.statement}>
-          <ScrollAnimatedContent distance={18} end={0.58} progress={revealProgress} start={0.16}>
-            <h2 aria-label="I design and build systems that solve real problems.">
-              <span>I design and build</span>
-              <span>systems that</span>
-              <em>solve real problems.</em>
-            </h2>
-          </ScrollAnimatedContent>
-
-          <ScrollAnimatedContent end={0.82} progress={revealProgress} start={0.42}>
-            <div className={styles.bodyCopy}>
-              <i aria-hidden="true" />
-              <p>
-                I connect lead generation with the interface, backend, data, and deployment teams
-                need to manage prospects and complete real work.
-              </p>
-            </div>
-
-            <motion.nav
-              aria-label="Social profiles"
-              className={styles.socials}
-              style={{ pointerEvents: staticLayout ? "auto" : pointerEvents }}
-            >
-              {aboutSocials.map(({ href, icon: Icon, label }) => (
-                <a
-                  aria-label={label}
-                  href={href}
-                  key={label}
-                  rel="noreferrer"
-                  target="_blank"
-                  title={label}
-                >
-                  <Icon aria-hidden="true" strokeWidth={1.7} />
-                </a>
-              ))}
-            </motion.nav>
-          </ScrollAnimatedContent>
-        </div>
-      </motion.div>
-      <div aria-hidden="true" className={styles.noise} />
+      </div>
     </motion.section>
   );
 }

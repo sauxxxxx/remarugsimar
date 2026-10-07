@@ -1,0 +1,8 @@
+.ending {
+  --contact-accent: #8bdbc9;
+  --closing-gutter: clamp(24px, 6vw, 110px);
+  position: relative;
+  background: #0c1111;
+  color: #f2f1ed;
+  font-family: var(--font-geist-sans), sans-serif;
+}

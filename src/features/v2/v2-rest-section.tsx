@@ -1,6 +1,7 @@
 import { motion, type MotionValue, useMotionValueEvent, useTransform } from "motion/react";
 import { useState, type ReactNode } from "react";
 import {
+  getAboutRevealUnit,
   getExperienceRevealUnit,
   getContactRevealUnit,
   getWhatIDoRevealUnit,
@@ -18,6 +19,7 @@ type V2RestSectionProps = {
   reduceMotion: boolean;
   scrollUnits: number;
   staticLayout?: boolean;
+  section?: "capabilities" | "experience" | "all";
 };
 
 type PanelShellProps = {
@@ -85,23 +87,24 @@ export function V2RestSection({
   reduceMotion,
   scrollUnits,
   staticLayout = false,
+  section = "all",
 }: V2RestSectionProps) {
   const whatRevealUnit = getWhatIDoRevealUnit(projectCount);
   const experienceRevealUnit = getExperienceRevealUnit(projectCount);
 
   return (
     <div
-      aria-label="Capabilities and experience"
-      className={`${styles.sequence} ${reduceMotion ? styles.reducedMotion : ""} ${staticLayout ? styles.staticLayout : ""}`}
-      id="v2-rest"
+      aria-label={section === "all" ? "Services and experience" : section === "capabilities" ? "Services" : "Experience"}
+      className={`${styles.sequence} ${section === "experience" ? styles.experienceSequence : ""} ${reduceMotion ? styles.reducedMotion : ""} ${staticLayout ? styles.staticLayout : ""}`}
+      id={`v2-rest-${section}`}
     >
-      <PanelShell
+      {section !== "experience" && <PanelShell
         className={`${styles.whatPanel} ${capabilityStyles.panel}`}
         headerAction={<span />}
         id="v2-what-i-do"
-        hideUnit={experienceRevealUnit + 0.5}
-        label="What I do"
-        number="04"
+        hideUnit={getAboutRevealUnit(projectCount) + 0.5}
+        label="Services"
+        number="03"
         panelPosition="01 / 02"
         progress={progress}
         revealUnit={whatRevealUnit}
@@ -109,9 +112,9 @@ export function V2RestSection({
         staticLayout={staticLayout}
       >
         <V2Capabilities staticLayout={staticLayout} />
-      </PanelShell>
+      </PanelShell>}
 
-      <PanelShell
+      {section !== "capabilities" && <PanelShell
         className={`${styles.experiencePanel} ${roadStyles.panel}`}
         headerAction={<span />}
         id="v2-experience"
@@ -125,7 +128,7 @@ export function V2RestSection({
         staticLayout={staticLayout}
       >
         <V2CareerRoadmap reduceMotion={reduceMotion} staticLayout={staticLayout} />
-      </PanelShell>
+      </PanelShell>}
     </div>
   );
 }

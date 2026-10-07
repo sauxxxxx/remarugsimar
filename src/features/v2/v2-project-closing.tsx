@@ -2,8 +2,8 @@ import { ArrowDown } from "lucide-react";
 import { motion, type MotionValue, useTransform } from "motion/react";
 import Image from "next/image";
 import {
-  getAboutRevealUnit,
-  getAboutSettleUnit,
+  getWhatIDoRevealUnit,
+  getWhatIDoSettleUnit,
   getClosingRevealUnit,
   getClosingSettleUnit,
 } from "./v2-scroll-timeline";
@@ -48,32 +48,32 @@ export function V2ProjectClosing({
 }: V2ProjectClosingProps) {
   const revealUnit = getClosingRevealUnit(projectCount);
   const settleUnit = getClosingSettleUnit(projectCount);
-  const aboutRevealUnit = getAboutRevealUnit(projectCount);
-  const aboutSettleUnit = getAboutSettleUnit(projectCount);
+  const nextRevealUnit = getWhatIDoRevealUnit(projectCount);
+  const nextSettleUnit = getWhatIDoSettleUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
   const sectionOpacity = useTransform(
     progress,
     [
       at(revealUnit - 0.18),
       at(revealUnit + 0.32),
-      at(aboutSettleUnit - 0.12),
-      at(aboutSettleUnit + 0.08),
+      at(nextSettleUnit - 0.12),
+      at(nextSettleUnit + 0.08),
     ],
     [0, 1, 1, 0],
   );
   const sectionScale = useTransform(
     progress,
-    [at(revealUnit - 0.18), at(settleUnit), at(aboutRevealUnit + 0.35), at(aboutSettleUnit)],
+    [at(revealUnit - 0.18), at(settleUnit), at(nextRevealUnit + 0.35), at(nextSettleUnit)],
     [1.025, 1, 1, 1.018],
   );
   const sectionY = useTransform(
     progress,
-    [at(aboutRevealUnit + 0.28), at(aboutSettleUnit)],
+    [at(nextRevealUnit + 0.28), at(nextSettleUnit)],
     ["0vh", "8vh"],
   );
   const veilOpacity = useTransform(
     progress,
-    [at(aboutRevealUnit - 0.04), at(aboutRevealUnit + 0.62)],
+    [at(nextRevealUnit - 0.04), at(nextRevealUnit + 0.62)],
     [1, 0],
   );
   const copyOpacity = useTransform(
@@ -81,8 +81,8 @@ export function V2ProjectClosing({
     [
       at(revealUnit + 0.38),
       at(settleUnit),
-      at(aboutRevealUnit - 0.04),
-      at(aboutRevealUnit + 0.34),
+      at(nextRevealUnit - 0.04),
+      at(nextRevealUnit + 0.34),
     ],
     [0, 1, 1, 0],
   );
@@ -93,17 +93,17 @@ export function V2ProjectClosing({
   );
   const headingOpacity = useTransform(
     progress,
-    [at(aboutRevealUnit - 0.06), at(aboutRevealUnit + 0.38)],
+    [at(nextRevealUnit - 0.06), at(nextRevealUnit + 0.38)],
     [1, 0],
   );
   const headingFilter = useTransform(
     progress,
-    [at(aboutRevealUnit - 0.06), at(aboutRevealUnit + 0.42)],
+    [at(nextRevealUnit - 0.06), at(nextRevealUnit + 0.42)],
     ["blur(0px)", "blur(16px)"],
   );
   const headingY = useTransform(
     progress,
-    [at(aboutRevealUnit - 0.06), at(aboutRevealUnit + 0.42)],
+    [at(nextRevealUnit - 0.06), at(nextRevealUnit + 0.42)],
     ["0vh", "-3vh"],
   );
   const rayOpacity = useTransform(
@@ -111,8 +111,8 @@ export function V2ProjectClosing({
     [
       at(revealUnit - 0.05),
       at(settleUnit),
-      at(aboutRevealUnit + 0.08),
-      at(aboutRevealUnit + 0.68),
+      at(nextRevealUnit + 0.08),
+      at(nextRevealUnit + 0.68),
     ],
     [0, 0.42, 0.32, 0],
   );
@@ -121,8 +121,8 @@ export function V2ProjectClosing({
     [
       at(revealUnit - 0.08),
       at(revealUnit + 0.58),
-      at(aboutRevealUnit + 0.46),
-      at(aboutSettleUnit),
+      at(nextRevealUnit + 0.46),
+      at(nextSettleUnit),
     ],
     [0, 0.92, 0.92, 0],
   );
@@ -131,8 +131,8 @@ export function V2ProjectClosing({
     [
       at(revealUnit - 0.08),
       at(settleUnit),
-      at(aboutRevealUnit + 0.46),
-      at(aboutSettleUnit),
+      at(nextRevealUnit + 0.46),
+      at(nextSettleUnit),
     ],
     ["10vh", "0vh", "0vh", "15vh"],
   );

@@ -1,142 +1,54 @@
-import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
+"use client";
+
+import { profileLinks } from "@/lib/portfolio-data";
 import { siteConfig } from "@/lib/site-config";
-import { ArrowRight, Clock3, Mail, MapPin } from "lucide-react";
-import { motion, type MotionValue, useTransform } from "motion/react";
-import Image from "next/image";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
-import {
-  getContactRevealUnit,
-  getContactSettleUnit,
-} from "./v2-scroll-timeline";
+import { contactHref } from "./closing/closing-content";
+import { V2ContactFaqs } from "./closing/v2-contact-faqs";
 import styles from "./v2-contact-section.module.css";
 
-type V2ContactSectionProps = {
-  progress: MotionValue<number>;
-  projectCount: number;
-  reduceMotion: boolean;
-  scrollUnits: number;
-  staticLayout?: boolean;
-};
+const socialIcons = { github: Github, linkedin: Linkedin, email: Mail };
+const socialLabels = { github: "GitHub", linkedin: "LinkedIn", email: "Email" };
+const socialLinks = profileLinks.filter((link) => link.label !== "resume");
 
-const contactHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
-  "CRM, lead generation, or product inquiry",
-)}&body=${encodeURIComponent(
-  "Target customers:\nCurrent sales process:\nCRM or product needs:\nTarget timeline:",
-)}`;
-
-export function V2ContactSection({
-  progress,
-  projectCount,
-  reduceMotion,
-  scrollUnits,
-  staticLayout = false,
-}: V2ContactSectionProps) {
-  const revealUnit = getContactRevealUnit(projectCount);
-  const settleUnit = getContactSettleUnit(projectCount);
-  const at = (unit: number) => unit / scrollUnits;
-  const revealProgress = useTransform(progress, [at(revealUnit), at(settleUnit)], staticLayout ? [1, 1] : [0, 1]);
-  const sectionClip = useTransform(
-    progress,
-    [at(revealUnit - 0.12), at(revealUnit + 0.58)],
-    ["inset(0 0 0 100%)", "inset(0 0 0 0%)"],
-  );
-  const headingFilter = useTransform(
-    revealProgress,
-    [0.08, 0.58],
-    ["blur(18px)", "blur(0px)"],
-  );
-  const headingY = useTransform(revealProgress, [0.08, 0.72], [36, 0]);
-  const rockX = useTransform(revealProgress, [0.04, 1], ["12vw", "0vw"]);
-  const rockY = useTransform(revealProgress, [0.04, 1], ["7vh", "0vh"]);
-  const rockScale = useTransform(revealProgress, [0.04, 1], [1.08, 1]);
-  const rockOpacity = useTransform(revealProgress, [0.04, 0.5], [0, 0.86]);
-  const pointerEvents = useTransform(
-    progress,
-    [at(revealUnit - 0.02), at(revealUnit)],
-    ["none", "auto"],
-  );
-
+export function V2ContactSection() {
   return (
-    <motion.section
-      aria-labelledby="v2-contact-heading"
-      className={`${styles.section} ${reduceMotion ? styles.reducedMotion : ""} ${staticLayout ? styles.staticLayout : ""}`}
-      id="v2-contact"
-      style={staticLayout ? undefined : { clipPath: sectionClip, pointerEvents }}
-    >
-      <div aria-hidden="true" className={styles.glow} />
-      <div aria-hidden="true" className={styles.noise} />
-      {!staticLayout && (
-        <motion.div
-          aria-hidden="true"
-          className={styles.rock}
-          style={{ opacity: rockOpacity, scale: rockScale, x: rockX, y: rockY }}
-        >
-          <Image alt="" fill sizes="62vw" src="/v2/closing-rock-valley-v2.webp" />
-        </motion.div>
-      )}
-
-      <header className={styles.header}>
-        <p><span>06</span> Contact</p>
-        <p>CRM, lead generation &amp; product projects</p>
-      </header>
-
-      <div className={styles.content}>
-        <motion.div
-          className={styles.headingWrap}
-          style={{ filter: headingFilter, y: headingY }}
-        >
-          <h2 id="v2-contact-heading">
-            Let&apos;s build
-            <span>your next</span>
-            <span>growth system.</span>
-          </h2>
-        </motion.div>
-
-        <ScrollAnimatedContent
-          className={styles.detailsReveal}
-          distance={18}
-          end={0.78}
-          progress={revealProgress}
-          start={0.32}
-        >
-          <div className={styles.details}>
-            <a href={contactHref}>
-              <Mail aria-hidden="true" size={15} strokeWidth={1.45} />
-              {siteConfig.email}
-            </a>
-            <p>
-              <MapPin aria-hidden="true" size={15} strokeWidth={1.45} />
-              Cebu, Philippines
-            </p>
-            <p>
-              <Clock3 aria-hidden="true" size={15} strokeWidth={1.45} />
-              Available for selected client projects
-            </p>
-          </div>
-        </ScrollAnimatedContent>
-
-        <ScrollAnimatedContent
-          className={styles.ctaReveal}
-          distance={12}
-          end={1}
-          progress={revealProgress}
-          start={0.62}
-        >
-          <a
-            className={styles.cta}
-            href={contactHref}
-          >
-            <span>Discuss your project</span>
-            <ArrowRight aria-hidden="true" size={18} strokeWidth={1.5} />
+    <div className={styles.section}>
+      <section aria-labelledby="v2-contact-heading" className={styles.contact} id="v2-contact">
+        <div className={styles.invitation}>
+          <h2 id="v2-contact-heading">Have a workflow<br className={styles.headlineBreak} /> worth improving?</h2>
+          <p className={styles.support}>Let&apos;s talk about what you need to build.</p>
+          <a className={styles.cta} href={contactHref}>
+            Discuss your project <ArrowUpRight aria-hidden="true" size={20} />
           </a>
-        </ScrollAnimatedContent>
-      </div>
+          <div className={styles.details}>
+            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+            <p>{siteConfig.location.city}, {siteConfig.location.country}</p>
+          </div>
+        </div>
+        <V2ContactFaqs />
+      </section>
 
       <footer className={styles.footer}>
-        <Link href="/">Remar Ugsimar</Link>
-        <p>Full-stack developer / Cebu, PH</p>
-        <p>2026</p>
+        <Link className={styles.brand} href="/"><strong>{siteConfig.name}</strong><span>Full-stack developer</span></Link>
+        <nav aria-label="Contact profiles" className={styles.socials}>
+          {socialLinks.map((link) => {
+            const Icon = socialIcons[link.label];
+            return (
+              <a
+                aria-label={socialLabels[link.label]}
+                href={link.href}
+                key={link.label}
+                rel={link.external ? "noreferrer" : undefined}
+                target={link.external ? "_blank" : undefined}
+              >
+                <Icon aria-hidden="true" size={22} strokeWidth={1.6} />
+              </a>
+            );
+          })}
+        </nav>
       </footer>
-    </motion.section>
+    </div>
   );
 }

@@ -1,0 +1,83 @@
+.process {
+  padding: clamp(56px, 6vw, 88px) var(--closing-gutter) 0;
+  scroll-margin-top: 24px;
+}
+
+.content {
+  max-width: 1220px;
+  margin-inline: auto;
+  padding-bottom: clamp(40px, 5vw, 64px);
+  border-bottom: 1px solid rgba(242, 241, 237, 0.16);
+}
+
+.heading h2 {
+  margin: 0;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.heading p { margin: 12px 0 0; color: #aab4b0; font-size: 18px; line-height: 1.5; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 44px);
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li { min-width: 0; }
+
+.step {
+  display: grid;
+  width: 100%;
+  gap: 16px;
+  padding: 20px 0 0;
+  border: 0;
+  border-top: 2px solid rgba(242, 241, 237, 0.25);
+  background: transparent;
+  color: #f2f1ed;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms ease;
+}
+
+.number { color: #86b2a9; font-size: 32px; font-weight: 400; line-height: 1; }
+.stepCopy { display: grid; min-width: 0; gap: 10px; }
+.stepCopy strong { font-size: clamp(20px, 1.6vw, 24px); font-weight: 550; letter-spacing: -0.025em; line-height: 1.3; }
+.stepCopy > span { color: #aab4b0; font-size: 16px; line-height: 1.55; }
+.step[aria-expanded="true"] { border-color: var(--contact-accent); }
+.step[aria-expanded="true"] .number { color: var(--contact-accent); }
+.step:hover { border-color: var(--contact-accent); }
+.step:focus-visible { outline: 2px solid var(--contact-accent); outline-offset: 6px; }
+
+.detail { margin: 18px 0 0; color: #aab4b0; font-size: 16px; line-height: 1.6; animation: detailReveal 180ms ease-out; }
+.detail[hidden] { display: none; }
+
+@keyframes detailReveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (min-width: 901px) {
+  /* Keep each explanation's space so desktop selection never shifts Contact. */
+  .detail[hidden] { display: block; visibility: hidden; }
+}
+
+@media (max-width: 900px) {
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 36px; }
+}
+
+@media (max-width: 560px) {
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .heading p { font-size: 16px; }
+  .step { gap: 12px; padding-top: 16px; }
+  .number { font-size: 28px; }
+  .stepCopy strong { font-size: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step { transition: none; }
+  .detail { animation: none; }
+}
