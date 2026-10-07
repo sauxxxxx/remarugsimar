@@ -1,5 +1,3 @@
-import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
-import { Bot, CloudCog, Database, Globe2 } from "lucide-react";
 import { motion, type MotionValue, useMotionValueEvent, useTransform } from "motion/react";
 import { useState, type ReactNode } from "react";
 import {
@@ -8,8 +6,9 @@ import {
   getExperimentsRevealUnit,
   getExperimentsSettleUnit,
   getWhatIDoRevealUnit,
-  getWhatIDoSettleUnit,
 } from "./v2-scroll-timeline";
+import { V2Capabilities } from "./capabilities/v2-capabilities";
+import capabilityStyles from "./capabilities/v2-capabilities.module.css";
 import { V2FlowReveal } from "./v2-flow-reveal";
 import { V2CareerRoadmap } from "./experience/v2-career-roadmap";
 import roadStyles from "./experience/v2-career-roadmap.module.css";
@@ -39,29 +38,6 @@ type PanelShellProps = {
   scrollUnits: number;
   staticLayout?: boolean;
 };
-
-const capabilities = [
-  {
-    title: "CRM & lead generation",
-    copy: "Targeted lead sourcing, qualification, pipeline, communication, and reporting built around sales operations.",
-    Icon: Database,
-  },
-  {
-    title: "SaaS platforms",
-    copy: "Scalable product foundations designed for dependable growth and maintainable releases.",
-    Icon: CloudCog,
-  },
-  {
-    title: "AI integrations",
-    copy: "Practical AI features that automate repetitive work without removing human control.",
-    Icon: Bot,
-  },
-  {
-    title: "Web applications",
-    copy: "Responsive interfaces connected to production-ready services, data, and deployment.",
-    Icon: Globe2,
-  },
-] as const;
 
 function PanelShell({
   children,
@@ -115,12 +91,10 @@ export function V2RestSection({
   staticLayout = false,
 }: V2RestSectionProps) {
   const whatRevealUnit = getWhatIDoRevealUnit(projectCount);
-  const whatSettleUnit = getWhatIDoSettleUnit(projectCount);
   const experimentsRevealUnit = getExperimentsRevealUnit(projectCount);
   const experimentsSettleUnit = getExperimentsSettleUnit(projectCount);
   const experienceRevealUnit = getExperienceRevealUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
-  const whatProgress = useTransform(progress, [at(whatRevealUnit), at(whatSettleUnit)], staticLayout ? [1, 1] : [0, 1]);
   const experimentsProgress = useTransform(
     progress,
     [at(experimentsRevealUnit), at(experimentsSettleUnit)],
@@ -134,7 +108,8 @@ export function V2RestSection({
       id="v2-rest"
     >
       <PanelShell
-        className={styles.whatPanel}
+        className={`${styles.whatPanel} ${capabilityStyles.panel}`}
+        headerAction={<span />}
         id="v2-what-i-do"
         hideUnit={experimentsRevealUnit + 0.5}
         label="What I do"
@@ -145,42 +120,7 @@ export function V2RestSection({
         scrollUnits={scrollUnits}
         staticLayout={staticLayout}
       >
-        <div className={styles.whatLayout}>
-          <ScrollAnimatedContent
-            className={styles.whatIntro}
-            distance={24}
-            end={0.55}
-            progress={whatProgress}
-            start={0.08}
-          >
-            <p className={styles.kicker}>Capabilities</p>
-            <h3>Systems made for <em>real work.</em></h3>
-            <p className={styles.whatCopy}>
-              I connect lead acquisition, interface, backend, data, and deployment around the
-              workflow people actually need to complete.
-            </p>
-          </ScrollAnimatedContent>
-
-          <div className={styles.capabilities}>
-            {capabilities.map(({ Icon, copy, title }, index) => (
-              <ScrollAnimatedContent
-                className={styles.capabilityReveal}
-                distance={18}
-                end={0.58 + index * 0.11}
-                key={title}
-                progress={whatProgress}
-                start={0.22 + index * 0.09}
-              >
-                <article className={styles.capability}>
-                  <span>0{index + 1}</span>
-                  <Icon aria-hidden="true" size={22} strokeWidth={1.15} />
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
-                </article>
-              </ScrollAnimatedContent>
-            ))}
-          </div>
-        </div>
+        <V2Capabilities staticLayout={staticLayout} />
       </PanelShell>
 
       <PanelShell
