@@ -10,9 +10,9 @@ export const v2Experiences = experiences.map((experience, index) => (
 ));
 
 const careerStages = [
-  { id: "freelance", role: "Freelance Full-Stack Developer", label: "Freelance", color: "#ffb29d", projects: ["nxone-dc-inc"] },
-  { id: "internship", role: "Full-Stack Developer Intern", label: "Internship", color: "#c6b1ff", projects: [] },
-  { id: "developer", role: "Full-Stack Developer", label: "Full-Stack Developer", color: "#99c8ff", projects: ["scout", "joynosync", "joyno-accounting", "casatoon"] },
+  { id: "freelance", role: "Freelance Full-Stack Developer", label: "Freelance", summary: "Business websites, SEO, analytics, and performance.", color: "#ffb29d", coreTools: ["WordPress", "Elementor", "JavaScript", "Tailwind CSS"], projects: ["nxone-dc-inc"] },
+  { id: "internship", role: "Full-Stack Developer Intern", label: "Internship", summary: "Internal products, client websites, and production releases.", color: "#c6b1ff", coreTools: ["Vue.js", "Node.js", "Flutter", "Firebase"], projects: [] },
+  { id: "developer", role: "Full-Stack Developer", label: "Full-Stack Developer", summary: "Sales, operations, accounting, and AI-powered tools.", color: "#99c8ff", coreTools: ["Vue.js", "Node.js", "Flutter", "Supabase"], projects: ["scout", "joynosync", "joyno-accounting", "casatoon"] },
 ] as const;
 
 export const v2CareerStops = careerStages.map((stage) => {

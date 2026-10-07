@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { motion, type MotionValue, useMotionValueEvent, useReducedMotion } from "motion/react";
 import { useState, type CSSProperties } from "react";
 import { v2CareerStops } from "../v2-experience-data";
-import { v2Projects, v2ProjectHref } from "../projects/v2-project-data";
+import { v2Projects } from "../projects/v2-project-data";
 import { V2CareerPin, V2CareerRoad } from "./v2-career-road";
+import { V2CareerCarousel } from "./v2-career-carousel";
+import { V2CareerTools } from "./v2-career-tools";
 import styles from "./v2-career-roadmap.module.css";
 
 type RoadmapProps = {
@@ -16,10 +16,10 @@ type RoadmapProps = {
 };
 
 export function V2CareerRoadmap({ progress, reduceMotion, staticLayout }: RoadmapProps) {
-  const [selectedId, setSelectedId] = useState("developer");
+  const [selectedId, setSelectedId] = useState<(typeof v2CareerStops)[number]["id"]>("developer");
   const [revealed, setRevealed] = useState(() => progress.get() >= 0.9);
   const prefersReducedMotion = useReducedMotion();
-  const quiet = reduceMotion || prefersReducedMotion;
+  const quiet = Boolean(reduceMotion || prefersReducedMotion);
   useMotionValueEvent(progress, "change", (value) => setRevealed(value >= 0.9));
   const selected = v2CareerStops.find((stop) => stop.id === selectedId)!;
   const projects = selected.projects.flatMap((slug) => {
@@ -31,12 +31,12 @@ export function V2CareerRoadmap({ progress, reduceMotion, staticLayout }: Roadma
     <div className={`${styles.roadmap} ${staticLayout ? styles.flow : ""} ${quiet ? styles.quiet : ""}`} inert={!staticLayout && !revealed}>
       <div className={styles.intro}>
         <h3>The road so far.</h3>
-        <p>Choose a stop. Explore the work behind it.</p>
+        <p>Choose a stop to explore.</p>
       </div>
       <div className={styles.road}>
         <V2CareerRoad />
         <ol className={styles.stops} aria-label="Career milestones">
-          {v2CareerStops.map((stop) => (
+          {v2CareerStops.map((stop, index) => (
             <li key={stop.id} className={`${styles.stop} ${styles[stop.id]}`} style={{ "--stop-color": stop.color } as CSSProperties}>
               <button
                 type="button"
@@ -48,37 +48,27 @@ export function V2CareerRoadmap({ progress, reduceMotion, staticLayout }: Roadma
               >
                 <V2CareerPin />
                 <span className={styles.stopLabel}>
-                  <time dateTime={stop.dateTime}>{stop.period}</time>
+                  <span className={styles.stopNumber}>0{index + 1}</span>
                   <strong>{stop.label}</strong>
-                  <span>{stop.company}{stop.id === "developer" ? " · Current" : ""}</span>
+                  <span>{stop.company}</span>
+                  <time dateTime={stop.dateTime}>{stop.period}</time>
+                  {stop.id === "developer" && <span className={styles.current}>Current</span>}
                 </span>
               </button>
             </li>
           ))}
         </ol>
-        <p className={styles.branchLabel}>Independent work continues</p>
+        <p className={styles.branchLabel}>Freelance continues <span aria-hidden="true">↗</span></p>
       </div>
-      <div id="v2-career-details" className={styles.details} role="region" aria-labelledby="v2-career-role" aria-live="polite" style={{ "--stop-color": selected.color } as CSSProperties}>
-        <motion.div key={selectedId} className={styles.roleDetails} initial={quiet ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: quiet ? 0 : 0.18 }}>
+      <div id="v2-career-details" className={styles.details} role="region" aria-labelledby="v2-career-role" style={{ "--stop-color": selected.color } as CSSProperties}>
+        <motion.div key={selectedId} className={styles.roleDetails} aria-live="polite" aria-atomic="true" initial={quiet ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: quiet ? 0 : 0.18 }}>
           <p className={styles.eyebrow}>Selected stop</p>
           <h4 id="v2-career-role">{selected.role}</h4>
           <p className={styles.company}>{selected.company} · {selected.period}</p>
-          <p className={styles.description}>{selected.description}</p>
+          <p className={styles.description}>{selected.summary}</p>
         </motion.div>
-        <div className={styles.relatedWork}>
-          {projects.length > 0 && (
-            <div>
-              <p className={styles.eyebrow}>Built here</p>
-              <ul className={styles.projects}>
-                {projects.map((project) => <li key={project.slug}><Link href={v2ProjectHref(project.slug)}>{project.name}<ArrowUpRight aria-hidden="true" size={17} /></Link></li>)}
-              </ul>
-            </div>
-          )}
-          <div>
-            <p className={styles.eyebrow}>Tools</p>
-            <ul className={styles.tools}>{selected.technologies.map((tool) => <li key={tool}>{tool}</li>)}</ul>
-          </div>
-        </div>
+        {projects.length > 0 && <V2CareerCarousel key={selected.id} projects={projects} reduceMotion={quiet} />}
+        <V2CareerTools technologies={selected.coreTools} />
       </div>
     </div>
   );
