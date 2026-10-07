@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type MotionValue, useMotionValueEvent, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState, type CSSProperties } from "react";
 import { v2CareerStops } from "../v2-experience-data";
 import { v2Projects } from "../projects/v2-project-data";
@@ -10,17 +10,14 @@ import { V2CareerTools } from "./v2-career-tools";
 import styles from "./v2-career-roadmap.module.css";
 
 type RoadmapProps = {
-  progress: MotionValue<number>;
   reduceMotion: boolean;
   staticLayout: boolean;
 };
 
-export function V2CareerRoadmap({ progress, reduceMotion, staticLayout }: RoadmapProps) {
+export function V2CareerRoadmap({ reduceMotion, staticLayout }: RoadmapProps) {
   const [selectedId, setSelectedId] = useState<(typeof v2CareerStops)[number]["id"]>("developer");
-  const [revealed, setRevealed] = useState(() => progress.get() >= 0.9);
   const prefersReducedMotion = useReducedMotion();
   const quiet = Boolean(reduceMotion || prefersReducedMotion);
-  useMotionValueEvent(progress, "change", (value) => setRevealed(value >= 0.9));
   const selected = v2CareerStops.find((stop) => stop.id === selectedId)!;
   const projects = selected.projects.flatMap((slug) => {
     const project = v2Projects.find((item) => item.slug === slug);
@@ -28,7 +25,7 @@ export function V2CareerRoadmap({ progress, reduceMotion, staticLayout }: Roadma
   });
 
   return (
-    <div className={`${styles.roadmap} ${staticLayout ? styles.flow : ""} ${quiet ? styles.quiet : ""}`} inert={!staticLayout && !revealed}>
+    <div className={`${styles.roadmap} ${staticLayout ? styles.flow : ""} ${quiet ? styles.quiet : ""}`}>
       <div className={styles.intro}>
         <h3>The road so far.</h3>
         <p>Choose a stop to explore.</p>

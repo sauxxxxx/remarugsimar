@@ -1,10 +1,10 @@
 import { ScrollAnimatedContent } from "@/components/react-bits/scroll-animated-content";
 import { Bot, CloudCog, Database, Globe2 } from "lucide-react";
-import { motion, type MotionValue, useTransform } from "motion/react";
-import type { ReactNode } from "react";
+import { motion, type MotionValue, useMotionValueEvent, useTransform } from "motion/react";
+import { useState, type ReactNode } from "react";
 import {
   getExperienceRevealUnit,
-  getExperienceSettleUnit,
+  getContactRevealUnit,
   getExperimentsRevealUnit,
   getExperimentsSettleUnit,
   getWhatIDoRevealUnit,
@@ -29,6 +29,7 @@ type PanelShellProps = {
   children: ReactNode;
   className?: string;
   headerAction?: ReactNode;
+  hideUnit: number;
   id: string;
   label: string;
   number: string;
@@ -66,6 +67,7 @@ function PanelShell({
   children,
   className = "",
   headerAction,
+  hideUnit,
   id,
   label,
   number,
@@ -81,18 +83,17 @@ function PanelShell({
     [at(revealUnit - 0.12), at(revealUnit + 0.5)],
     ["inset(100% 0 0 0)", "inset(0% 0 0 0)"],
   );
-  const pointerEvents = useTransform(
-    progress,
-    [at(revealUnit - 0.02), at(revealUnit)],
-    ["none", "auto"],
-  );
+  const isInteractive = (value: number) => value >= at(revealUnit) && value < at(hideUnit);
+  const [interactive, setInteractive] = useState(() => isInteractive(progress.get()));
+  useMotionValueEvent(progress, "change", (value) => setInteractive(isInteractive(value)));
 
   const panel = (
     <motion.section
       aria-labelledby={`${id}-heading`}
       className={`${styles.panel} ${className}`}
       id={id}
-      style={staticLayout ? undefined : { clipPath, pointerEvents }}
+      inert={!staticLayout && !interactive}
+      style={staticLayout ? undefined : { clipPath, pointerEvents: interactive ? "auto" : "none" }}
     >
       <div aria-hidden="true" className={styles.noise} />
       <header className={styles.header}>
@@ -118,17 +119,11 @@ export function V2RestSection({
   const experimentsRevealUnit = getExperimentsRevealUnit(projectCount);
   const experimentsSettleUnit = getExperimentsSettleUnit(projectCount);
   const experienceRevealUnit = getExperienceRevealUnit(projectCount);
-  const experienceSettleUnit = getExperienceSettleUnit(projectCount);
   const at = (unit: number) => unit / scrollUnits;
   const whatProgress = useTransform(progress, [at(whatRevealUnit), at(whatSettleUnit)], staticLayout ? [1, 1] : [0, 1]);
   const experimentsProgress = useTransform(
     progress,
     [at(experimentsRevealUnit), at(experimentsSettleUnit)],
-    staticLayout ? [1, 1] : [0, 1],
-  );
-  const experienceProgress = useTransform(
-    progress,
-    [at(experienceRevealUnit), at(experienceSettleUnit)],
     staticLayout ? [1, 1] : [0, 1],
   );
 
@@ -141,6 +136,7 @@ export function V2RestSection({
       <PanelShell
         className={styles.whatPanel}
         id="v2-what-i-do"
+        hideUnit={experimentsRevealUnit + 0.5}
         label="What I do"
         number="04"
         panelPosition="01 / 03"
@@ -191,6 +187,7 @@ export function V2RestSection({
         className={`${styles.experimentsPanel} ${labStyles.panel}`}
         headerAction={<span />}
         id="v2-experiments"
+        hideUnit={experienceRevealUnit + 0.5}
         label="Lab"
         number="05"
         panelPosition="02 / 03"
@@ -206,6 +203,7 @@ export function V2RestSection({
         className={`${styles.experiencePanel} ${roadStyles.panel}`}
         headerAction={<span />}
         id="v2-experience"
+        hideUnit={getContactRevealUnit(projectCount) + 0.58}
         label="Experience"
         number="06"
         panelPosition="03 / 03"
@@ -214,7 +212,7 @@ export function V2RestSection({
         scrollUnits={scrollUnits}
         staticLayout={staticLayout}
       >
-        <V2CareerRoadmap progress={experienceProgress} reduceMotion={reduceMotion} staticLayout={staticLayout} />
+        <V2CareerRoadmap reduceMotion={reduceMotion} staticLayout={staticLayout} />
       </PanelShell>
     </div>
   );

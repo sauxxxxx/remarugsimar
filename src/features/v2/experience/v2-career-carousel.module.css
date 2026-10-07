@@ -1,19 +1,27 @@
-.carousel { min-width: 0; outline-offset: 5px; }
-.preview { position: relative; overflow: hidden; aspect-ratio: 16 / 9; border-radius: 4px; background: #f6f8f9; touch-action: pan-y; }
-.slide, .slide a { position: absolute; inset: 0; }
+.carousel { display: grid; min-width: 0; min-height: 0; grid-template-rows: minmax(0, 1fr) auto auto; outline-offset: 5px; }
+.viewport { position: relative; min-height: 0; overflow: clip; container-type: size; touch-action: pan-y; }
+.slide { position: absolute; top: 50%; left: 50%; width: min(64cqw, 177.778cqh); aspect-ratio: 16 / 9; translate: -50% -50%; overflow: hidden; border-radius: 6px; background: #f6f8f9; box-shadow: 0 8px 24px #0005; }
+.cardControl { position: absolute; display: block; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; }
 .slide img { object-fit: contain; user-select: none; }
-.footer { display: flex; min-height: 48px; align-items: center; justify-content: space-between; gap: 12px; }
+.footer { display: flex; min-height: 40px; align-items: center; justify-content: space-between; gap: 12px; }
 .projectLink { display: flex; align-items: center; gap: 8px; color: #f2f0e9; font-size: 14px; line-height: 1.3; text-decoration: none; }
 .projectLink svg { flex-shrink: 0; color: var(--stop-color); }
-.controls { display: flex; flex-shrink: 0; align-items: center; gap: 2px; }
-.count { padding-right: 7px; color: #a7aaa7; font-family: var(--font-geist-mono), monospace; font-size: 11px; white-space: nowrap; }
-.controls button { display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #f2f0e9; cursor: pointer; touch-action: manipulation; }
-.controls button:hover { background: #ffffff0f; color: var(--stop-color); }
-.carousel:focus-visible, .carousel a:focus-visible, .controls button:focus-visible { outline: 2px solid var(--stop-color); outline-offset: 3px; }
-.slide a:focus-visible { outline-offset: -3px; }
+.count { color: #a7aaa7; font-family: var(--font-geist-mono), monospace; font-size: 11px; white-space: nowrap; }
+.arrow { position: absolute; z-index: 5; top: 50%; display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border: 1px solid #ffffff24; border-radius: 50%; background: #101616e8; color: #f2f0e9; cursor: pointer; touch-action: manipulation; translate: 0 -50%; }
+.previous { left: 2px; }
+.next { right: 2px; }
+.arrow:hover { background: #26302fe8; color: var(--stop-color); }
+.dots { display: flex; min-height: 32px; justify-content: center; gap: 2px; }
+.dots button { display: grid; width: 32px; height: 32px; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; touch-action: manipulation; }
+.dots span { width: 6px; height: 6px; border-radius: 50%; background: #ffffff40; }
+.dots button[aria-pressed="true"] span { width: 8px; height: 8px; background: var(--stop-color); }
+.carousel:focus-visible, .carousel a:focus-visible, .carousel button:focus-visible { outline: 2px solid var(--stop-color); outline-offset: 3px; }
+.cardControl:focus-visible { outline-offset: -3px !important; }
 .srOnly { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 1024px) {
+  .carousel { grid-template-rows: auto auto auto; }
+  .viewport { aspect-ratio: 16 / 7; }
+}
 @media (max-width: 380px) {
-  .footer { flex-wrap: wrap; gap: 0; }
-  .projectLink { flex: 1; font-size: 13px; }
-  .controls button { width: 44px; }
+  .projectLink { font-size: 13px; }
 }

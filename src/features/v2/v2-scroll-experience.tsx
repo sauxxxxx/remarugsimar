@@ -4,7 +4,7 @@ import { useSyncExternalStore } from "react";
 import { V2DesktopScrollExperience } from "./v2-desktop-scroll-experience";
 import { V2MobileExperience } from "./v2-mobile-experience";
 
-const mobileQuery = "(max-width: 720px), (prefers-reduced-motion: reduce)";
+const mobileQuery = "(max-width: 1024px), (prefers-reduced-motion: reduce)";
 
 function subscribe(onChange: () => void) {
   const media = window.matchMedia(mobileQuery);

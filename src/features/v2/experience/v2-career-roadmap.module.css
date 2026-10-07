@@ -1,8 +1,8 @@
-.panel.panel.panel { padding: 0; overflow-y: auto; background: #080a0a; }
-.panel > header { position: relative; z-index: 2; height: 72px; padding: 30px clamp(24px, 5vw, 76px) 0; border: 0; }
-.roadmap { position: relative; height: calc(100% - 72px); min-height: 680px; background: #080a0a; isolation: isolate; }
+.panel.panel.panel { --road-header-height: clamp(48px, 8vh, 64px); padding: 0; overflow: clip; background: #080a0a; }
+.panel > header { position: relative; z-index: 2; height: var(--road-header-height); padding: clamp(18px, 3vh, 26px) clamp(24px, 5vw, 76px) 0; border: 0; }
+.roadmap { position: relative; height: calc(100% - var(--road-header-height)); min-height: 0; background: #080a0a; isolation: isolate; container-type: size; }
 .intro { position: absolute; z-index: 2; top: 18px; left: 5%; }
-.intro h3 { margin: 0; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(42px, 4.7vw, 68px); font-weight: 400; line-height: 1; text-transform: uppercase; }
+.intro h3 { margin: 0; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(36px, 6cqh, 64px); font-weight: 400; line-height: 1; text-transform: uppercase; }
 .intro p { margin: 10px 0 0; color: #a7aaa7; font-size: 14px; }
 .road { position: absolute; inset: 0; }
 .scenery { position: absolute; display: block; inset: 0; pointer-events: none; }
@@ -22,31 +22,32 @@
 .stopButton:focus-visible { outline: 2px solid var(--stop-color); outline-offset: 6px; }
 .stopLabel { position: absolute; display: grid; width: max-content; max-width: 210px; gap: 4px; bottom: 24px; left: 48px; text-align: left; text-shadow: 0 1px 8px #000, 0 0 18px #000; }
 .developer .stopLabel { top: 0; bottom: auto; }
+.internship .stopLabel { right: 48px; left: auto; text-align: right; }
 .stopNumber { color: var(--stop-color); font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: 18px; }
 .stopLabel strong { max-width: 14ch; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(23px, 2vw, 30px); font-weight: 400; line-height: 1; text-transform: uppercase; }
 .stopLabel time, .stopLabel > span:not(.stopNumber) { color: #c4c8c4; font-size: 12px; line-height: 1.25; }
 .stopLabel > .current { color: var(--stop-color) !important; }
 .branchLabel { position: absolute; z-index: 1; margin: 0; bottom: 8%; left: 35%; color: #c4c8c4; font-size: 12px; text-shadow: 0 1px 8px #000; transform: rotate(12deg); }
 .branchLabel span { margin-left: 8px; }
-.details { position: relative; z-index: 2; display: grid; width: 34%; max-width: 420px; gap: 16px; margin-left: auto; margin-right: 4%; padding-top: clamp(160px, 22vh, 190px); padding-bottom: 28px; }
-.details::before { position: absolute; z-index: -1; inset: 75px -30px -8px; background: radial-gradient(ellipse, #080a0aeb 45%, #080a0a00 74%); content: ""; pointer-events: none; }
+.details { position: absolute; z-index: 2; top: clamp(112px, 20cqh, 150px); right: 4%; bottom: clamp(10px, 2cqh, 18px); display: grid; width: 44%; max-width: 640px; gap: clamp(8px, 1.5cqh, 14px); grid-template-rows: auto minmax(0, 1fr) auto; }
+.details::before { position: absolute; z-index: -1; inset: -15px -30px -8px; background: radial-gradient(ellipse, #080a0aeb 45%, #080a0a00 74%); content: ""; pointer-events: none; }
 .eyebrow { margin: 0 0 8px; color: var(--stop-color); font-family: var(--font-geist-mono), monospace; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; }
-.roleDetails h4 { margin: 0; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(28px, 2.4vw, 36px); font-weight: 400; line-height: 1; text-transform: uppercase; }
-.company { margin: 8px 0 0; color: #a7aaa7; font-size: 12px; }
-.description { margin: 12px 0 0; color: #c4c8c4; font-size: 14px; line-height: 1.5; }
+.roleDetails h4 { margin: 0; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(24px, 4cqh, 32px); font-weight: 400; line-height: 1; text-transform: uppercase; }
+.company { margin: 6px 0 0; color: #a7aaa7; font-size: 12px; }
+.description { margin: 8px 0 0; color: #c4c8c4; font-size: 13px; line-height: 1.45; }
 .toolGroup .eyebrow { color: #a7aaa7; }
 .tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 8px; margin: 0; padding: 0; list-style: none; }
 .tool { display: grid; justify-items: center; gap: 6px; color: #c4c8c4; font-size: 10px; text-align: center; }
 .tool img { object-fit: contain; }
 .monochrome { filter: brightness(0) invert(1); }
 .skill { display: flex; align-items: center; justify-content: center; color: #a7aaa7; font-size: 12px; }
-.flow { height: auto; min-height: 700px; }
+.flow { height: min(780px, 90vh); min-height: 0; }
 .quiet .beacon { transition: none; }
 .quiet .stopButton:hover .beacon { transform: none; }
 
 @media (max-width: 1024px) {
   .panel > header { height: 64px; padding: 28px 20px 0; }
-  .roadmap, .flow { height: auto; min-height: 0; }
+  .roadmap, .flow { height: auto; min-height: 0; container-type: normal; }
   .intro { position: relative; top: auto; left: auto; padding: 20px 20px 0; }
   .intro h3 { font-size: clamp(42px, 7vw, 64px); }
   .road { position: relative; inset: auto; margin-top: 12px; aspect-ratio: 3 / 4; }
@@ -55,9 +56,10 @@
   .developer { left: 73%; top: 19%; }
   .stopLabel { max-width: 43vw; bottom: 20px; }
   .stopLabel strong { font-size: clamp(24px, 4vw, 34px); }
+  .internship .stopLabel { right: auto; left: 48px; text-align: left; }
   .developer .stopLabel { right: 48px; left: auto; text-align: right; }
   .branchLabel { bottom: 8%; left: 39%; max-width: 55%; font-size: 11px; transform: rotate(20deg); }
-  .details { width: auto; max-width: 620px; margin: 0 auto; padding: 24px 20px 36px; gap: 20px; }
+  .details { position: relative; inset: auto; width: auto; max-width: 620px; margin: 0 auto; padding: 24px 20px 36px; gap: 20px; grid-template-rows: auto; }
   .details::before { display: none; }
   .roleDetails h4 { font-size: 34px; }
   .company { font-size: 13px; }
