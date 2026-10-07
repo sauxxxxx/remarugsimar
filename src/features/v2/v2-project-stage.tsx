@@ -1,4 +1,3 @@
-import DarkVeil from "@/components/DarkVeil";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { motion, type MotionValue, useTransform } from "motion/react";
 import Image from "next/image";
@@ -7,8 +6,8 @@ import type { ReactNode } from "react";
 import {
   getClosingRevealUnit,
   getLastProjectSettleUnit,
-  getProjectSettleUnit,
 } from "./v2-scroll-timeline";
+import { V2ProjectRail } from "./v2-project-rail";
 import styles from "./v2-project-stage.module.css";
 
 type V2ProjectStageProps = {
@@ -16,52 +15,12 @@ type V2ProjectStageProps = {
   progress: MotionValue<number>;
   projectCount: number;
   scrollUnits: number;
+  onSelectProject: (index: number) => void;
 };
-
-const accent = "#8bdbc9";
-const muted = "rgba(245,245,239,.62)";
-const darkVeilTint = [139 / 255, 219 / 255, 201 / 255] as const;
-
-function V2ProjectRailItem({
-  index,
-  progress,
-  projectCount,
-  scrollUnits,
-}: {
-  index: number;
-  progress: MotionValue<number>;
-  projectCount: number;
-  scrollUnits: number;
-}) {
-  const settle = getProjectSettleUnit(index) / scrollUnits;
-  const previousSettle = index === 0 ? 0 : getProjectSettleUnit(index - 1) / scrollUnits;
-  const nextSettle = index === projectCount - 1 ? 1 : getProjectSettleUnit(index + 1) / scrollUnits;
-  const activeStart = index === 0 ? 0 : (previousSettle + settle) / 2;
-  const activeEnd = index === projectCount - 1 ? 1 : (settle + nextSettle) / 2;
-  const transitionWidth = 0.012;
-
-  const input = index === 0
-    ? [0, activeEnd, activeEnd + transitionWidth, 1]
-    : index === projectCount - 1
-      ? [0, activeStart - transitionWidth, activeStart, 1]
-      : [0, activeStart - transitionWidth, activeStart, activeEnd, activeEnd + transitionWidth, 1];
-  const output = index === 0
-    ? [accent, accent, muted, muted]
-    : index === projectCount - 1
-      ? [muted, muted, accent, accent]
-      : [muted, muted, accent, accent, muted, muted];
-  const color = useTransform(progress, input, output);
-
-  return (
-    <motion.li style={{ color }}>
-      <span>{String(index + 1).padStart(2, "0")}</span>
-      {index < projectCount - 1 ? <i /> : null}
-    </motion.li>
-  );
-}
 
 export function V2ProjectStage({
   children,
+  onSelectProject,
   progress,
   projectCount,
   scrollUnits,
@@ -81,23 +40,6 @@ export function V2ProjectStage({
 
   return (
     <section aria-label="Selected work" className={styles.section} id="v2-projects">
-      <div aria-hidden="true" className={styles.darkVeil}>
-        <DarkVeil
-          hueShift={0}
-          noiseIntensity={0.015}
-          offsetX={0}
-          offsetY={-0.4}
-          resolutionScale={0.7}
-          scanlineIntensity={0}
-          speed={0.35}
-          tintColor={darkVeilTint}
-          tintStrength={1}
-          warpAmount={0.08}
-          zoom={1.3}
-        />
-      </div>
-      <div aria-hidden="true" className={styles.atmosphere} />
-
       <motion.header className={styles.sectionHeader} style={{ opacity: chromeOpacity, y: chromeY }}>
         <p><span>02</span> Selected work</p>
         <i aria-hidden="true" />
@@ -119,21 +61,13 @@ export function V2ProjectStage({
         src="/v2/roarly-volcanic-rock-v2.webp"
       />
 
-      <motion.ol
-        aria-label="Project position"
-        className={styles.projectRail}
+      <V2ProjectRail
+        onSelectProject={onSelectProject}
+        progress={progress}
+        projectCount={projectCount}
+        scrollUnits={scrollUnits}
         style={{ opacity: chromeOpacity, y: chromeY }}
-      >
-        {Array.from({ length: projectCount }, (_, index) => (
-          <V2ProjectRailItem
-            index={index}
-            key={index}
-            progress={progress}
-            projectCount={projectCount}
-            scrollUnits={scrollUnits}
-          />
-        ))}
-      </motion.ol>
+      />
 
       <motion.p className={styles.scrollHint} style={{ opacity: chromeOpacity }}>
         <span><ArrowDown aria-hidden="true" size={15} strokeWidth={1.5} /></span>

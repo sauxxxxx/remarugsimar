@@ -2,9 +2,10 @@ import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/site-config";
 import { projects } from "@/lib/portfolio-data";
 import { writingEntries } from "@/lib/content-data";
-import { v2Projects, v2ProjectHref } from "@/features/v2/projects/v2-project-data";
+import { v2ProjectHref } from "@/features/v2/projects/v2-project-data";
+import { v2ProjectCatalogue } from "@/features/v2/projects/v2-project-catalogue";
 
-const siteUpdatedAt = new Date("2026-10-06T00:00:00.000Z");
+const siteUpdatedAt = new Date("2026-10-07T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -20,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    ...v2Projects.map((project) => ({
+    ...v2ProjectCatalogue.map((project) => ({
       url: absoluteUrl(v2ProjectHref(project.slug)),
       lastModified: siteUpdatedAt,
       changeFrequency: "monthly" as const,

@@ -5,7 +5,7 @@
   height: 100%;
   min-height: 620px;
   overflow: hidden;
-  background: #050607;
+  background: #000000;
   color: #f5f5ef;
   isolation: isolate;
 }
@@ -19,26 +19,6 @@
   mix-blend-mode: soft-light;
   opacity: 0.11;
   animation: noiseShift 420ms steps(2, end) infinite;
-  pointer-events: none;
-}
-
-.atmosphere {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  background:
-    linear-gradient(118deg, transparent 55%, rgba(59, 63, 72, 0.28) 56%, transparent 80%),
-    radial-gradient(circle at 67% 39%, rgba(51, 55, 65, 0.21), transparent 36%);
-  pointer-events: none;
-}
-
-.darkVeil {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  overflow: hidden;
-  opacity: 0.55;
-  mix-blend-mode: normal;
   pointer-events: none;
 }
 
@@ -111,31 +91,6 @@
   pointer-events: none;
 }
 
-.projectRail {
-  position: absolute;
-  z-index: 6;
-  top: 31%;
-  right: clamp(28px, 3.8vw, 68px);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 11px;
-}
-
-.projectRail li {
-  display: grid;
-  justify-items: center;
-  gap: 9px;
-  color: rgba(245, 245, 239, 0.62);
-}
-
-.projectRail i {
-  width: 1px;
-  height: clamp(24px, 4vh, 42px);
-  background: rgba(245, 245, 239, 0.38);
-}
-
 .scrollHint {
   position: absolute;
   z-index: 6;
@@ -175,10 +130,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .darkVeil {
-    display: none;
-  }
-
   .section::after,
   .sectionHeader a svg {
     animation: none;

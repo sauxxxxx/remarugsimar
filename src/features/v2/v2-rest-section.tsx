@@ -8,7 +8,7 @@ import {
 } from "./v2-scroll-timeline";
 import { V2Capabilities } from "./capabilities/v2-capabilities";
 import capabilityStyles from "./capabilities/v2-capabilities.module.css";
-import { V2FlowReveal } from "./v2-flow-reveal";
+import { useSectionEntrance } from "./scroll/use-section-entrance";
 import { V2CareerRoadmap } from "./experience/v2-career-roadmap";
 import roadStyles from "./experience/v2-career-roadmap.module.css";
 import styles from "./v2-rest-section.module.css";
@@ -51,6 +51,7 @@ function PanelShell({
   scrollUnits,
   staticLayout = false,
 }: PanelShellProps) {
+  const entranceRef = useSectionEntrance<HTMLElement>(staticLayout);
   const at = (unit: number) => unit / scrollUnits;
   const clipPath = useTransform(
     progress,
@@ -65,12 +66,14 @@ function PanelShell({
     <motion.section
       aria-labelledby={`${id}-heading`}
       className={`${styles.panel} ${className}`}
+      data-v2-reveal-root
+      ref={entranceRef}
       id={id}
       inert={!staticLayout && !interactive}
       style={staticLayout ? undefined : { clipPath, pointerEvents: interactive ? "auto" : "none" }}
     >
       <div aria-hidden="true" className={styles.noise} />
-      <header className={styles.header}>
+      <header className={styles.header} data-v2-reveal="heading">
         <h2 id={`${id}-heading`}><span>{number}</span> {label}</h2>
         {headerAction ?? <p>The rest <i>{panelPosition}</i></p>}
       </header>
@@ -78,7 +81,7 @@ function PanelShell({
     </motion.section>
   );
 
-  return staticLayout ? <V2FlowReveal>{panel}</V2FlowReveal> : panel;
+  return panel;
 }
 
 export function V2RestSection({

@@ -9,7 +9,7 @@ export function V2ContactFaqs() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   return (
-    <div aria-label="Project questions" className={styles.faqs} role="group">
+    <div aria-label="Project questions" className={styles.faqs} data-v2-reveal="visual" role="group">
       {contactFaqs.map((faq) => (
         <div className={styles.faq} key={faq.id}>
           <button

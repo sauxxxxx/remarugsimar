@@ -3,12 +3,10 @@
 import { ArrowRight } from "lucide-react";
 import { type MotionStyle, useMotionValue } from "motion/react";
 import Link from "next/link";
-import { V2AboutSection } from "./v2-about-section";
-import { V2ClosingSection } from "./closing/v2-closing-section";
+import { V2FollowingSections } from "./v2-following-sections";
 import { V2FlowReveal } from "./v2-flow-reveal";
 import { V2Hero } from "./v2-hero";
 import { projectShowcases } from "./v2-project-showcases";
-import { V2RestSection } from "./v2-rest-section";
 import styles from "./v2-mobile-experience.module.css";
 
 const copyStyle: MotionStyle = {
@@ -24,10 +22,6 @@ const visualStyle: MotionStyle = {
 export function V2MobileExperience() {
   // Settled content stays visible; mobile never subscribes to the scroll timeline.
   const progress = useMotionValue(1);
-  const sectionProps = {
-    progress, projectCount: projectShowcases.length, scrollUnits: 1,
-    reduceMotion: false, staticLayout: true,
-  };
 
   return (
     <div className={styles.page}>
@@ -43,10 +37,7 @@ export function V2MobileExperience() {
           </V2FlowReveal>
         ))}
       </section>
-      <V2RestSection {...sectionProps} section="capabilities" />
-      <V2FlowReveal><V2AboutSection {...sectionProps} /></V2FlowReveal>
-      <V2RestSection {...sectionProps} section="experience" />
-      <V2ClosingSection />
+      <V2FollowingSections />
     </div>
   );
 }

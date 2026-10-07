@@ -1,7 +1,7 @@
 .page {
   --work-accent: #b5df08;
   min-height: 100dvh;
-  background: #050607;
+  background: #000000;
   color: #f5f5ef;
 }
 
@@ -9,13 +9,18 @@
 .header { display: flex; min-height: 100px; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid #ffffff26; }
 .brand { font-size: 14px; font-weight: 750; line-height: 1.1; letter-spacing: -0.04em; }
 .header nav { display: flex; flex-wrap: wrap; gap: 24px; }
+.editorialHeader { min-height: 92px; border-bottom: 0; }
+.editorialHeader .brand { flex-shrink: 0; font-size: 15px; font-weight: 550; letter-spacing: -0.03em; }
+.header.editorialHeader nav a { font-family: var(--font-geist-sans), Arial, sans-serif; font-size: 13px; text-transform: none; }
+.editorialHeader svg { color: var(--work-accent); }
+.editorialHeader a:hover { color: var(--work-accent); }
 .header nav a,
 .action,
 .footer a { display: inline-flex; min-height: 44px; align-items: center; gap: 12px; font-family: var(--font-geist-mono), monospace; font-size: 11px; text-transform: uppercase; }
 .page a:focus-visible { outline: 2px solid var(--work-accent); outline-offset: 5px; }
 .page a:hover { color: var(--work-accent); }
 .page svg { flex-shrink: 0; color: var(--work-accent); }
-.skip { position: fixed; z-index: 30; top: 12px; left: 12px; padding: 12px; background: #050607; transform: translateY(-200%); }
+.skip { position: fixed; z-index: 30; top: 12px; left: 12px; padding: 12px; background: #000000; transform: translateY(-200%); }
 .skip:focus { transform: none; }
 .intro { padding: 80px 0 64px; }
 .eyebrow { margin: 0 0 24px; color: var(--work-accent); font-family: var(--font-geist-mono), monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }

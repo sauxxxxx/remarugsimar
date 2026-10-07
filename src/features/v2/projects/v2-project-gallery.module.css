@@ -1,0 +1,61 @@
+.page {
+  --work-accent: #8bdbc9;
+  min-height: 100dvh;
+  background: #000;
+  color: #f5f5ef;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.container { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }
+.page a:focus-visible { outline: 2px solid var(--work-accent); outline-offset: 6px; }
+.skip { position: fixed; top: 12px; left: 12px; z-index: 40; padding: 12px 18px; background: #000; color: var(--work-accent); transform: translateY(-200%); }
+.skip:focus { transform: none; }
+.intro { padding-block: clamp(48px, 6vw, 88px) 48px; animation: arrive 420ms ease-out both; }
+.intro h1 { margin: 0; font-size: clamp(44px, 6.5vw, 88px); font-weight: 550; line-height: 1.1; letter-spacing: -0.055em; }
+.summary { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; margin-top: 24px; }
+.summary p { margin: 0; color: #b5b9b7; font-size: clamp(16px, 1.5vw, 19px); }
+.summary > span { color: #919995; font-size: 13px; white-space: nowrap; }
+
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 56px 32px; }
+.project { min-width: 0; }
+.projectLink { display: block; border-radius: 8px; }
+.preview { overflow: hidden; border-radius: 8px; }
+.preview img { display: block; width: 100%; height: auto; transition: transform 300ms ease; }
+.projectCaption { display: flex; align-items: start; justify-content: space-between; gap: 24px; padding-top: 20px; }
+.projectCaption h2 { margin: 0; font-size: clamp(22px, 2.3vw, 28px); font-weight: 550; line-height: 1.25; letter-spacing: -0.035em; transition: color 180ms ease; }
+.projectCaption p { margin: 8px 0 0; color: #919995; font-size: 13px; line-height: 1.6; }
+.projectCaption svg { flex-shrink: 0; margin-top: 4px; color: var(--work-accent); transition: transform 180ms ease; }
+.projectLink:hover h2, .projectLink:focus-visible h2 { color: var(--work-accent); }
+.projectLink:hover .projectCaption svg, .projectLink:focus-visible .projectCaption svg { transform: translate(2px, -2px); }
+
+.contact { padding-block: clamp(80px, 10vw, 144px) 96px; text-align: center; }
+.contact h2 { margin: 0; font-size: clamp(32px, 4vw, 54px); font-weight: 550; line-height: 1.2; letter-spacing: -0.04em; text-wrap: balance; }
+.contact p { margin: 18px 0 28px; color: #b5b9b7; font-size: 17px; }
+.button { display: inline-flex; min-height: 54px; align-items: center; justify-content: center; gap: 24px; padding: 12px 24px; border-radius: 999px; background: var(--work-accent); color: #071410; font-size: 14px; font-weight: 550; transition: background 180ms ease, transform 180ms ease; }
+.button:hover { background: #a3e4d5; transform: translateY(-2px); }
+.footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; padding-block: 28px; border-top: 1px solid #ffffff21; font-size: 14px; }
+.footer > a:first-child { display: flex; min-height: 44px; flex-direction: column; justify-content: center; }
+.footer span { color: #919995; font-size: 12px; }
+.textLink { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; color: var(--work-accent); font-size: 14px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .projectLink:hover .preview img { transform: scale(1.012); }
+}
+
+@keyframes arrive { from { opacity: 0.9; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 760px) {
+  .container { width: calc(100% - 40px); }
+  .intro { padding-block: 40px 36px; }
+  .summary { margin-top: 20px; }
+  .gallery { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .projectCaption { gap: 16px; padding-top: 16px; }
+  .projectCaption h2 { font-size: 24px; }
+  .contact { padding-block: 80px 64px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro { animation: none; }
+  .preview img, .projectCaption h2, .projectCaption svg, .button { transition: none; }
+  .projectLink:hover .preview img, .projectLink:hover .projectCaption svg, .projectLink:focus-visible .projectCaption svg, .button:hover { transform: none; }
+}

@@ -1,6 +1,6 @@
-.panel.panel.panel { --road-header-height: clamp(48px, 8vh, 64px); padding: 0; overflow: clip; background: #080a0a; }
+.panel.panel.panel { --road-header-height: clamp(48px, 8vh, 64px); padding: 0; overflow: clip; background: #000000; }
 .panel > header { position: relative; z-index: 2; height: var(--road-header-height); padding: clamp(18px, 3vh, 26px) clamp(24px, 5vw, 76px) 0; border: 0; }
-.roadmap { position: relative; height: calc(100% - var(--road-header-height)); min-height: 0; background: #080a0a; isolation: isolate; container-type: size; }
+.roadmap { position: relative; height: calc(100% - var(--road-header-height)); min-height: 0; background: #000000; isolation: isolate; container-type: size; }
 .intro { position: absolute; z-index: 2; top: 18px; left: 5%; }
 .intro h3 { margin: 0; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(36px, 6cqh, 64px); font-weight: 400; line-height: 1; text-transform: uppercase; }
 .intro p { margin: 10px 0 0; color: #a7aaa7; font-size: 14px; }
@@ -30,7 +30,7 @@
 .branchLabel { position: absolute; z-index: 1; margin: 0; bottom: 8%; left: 35%; color: #c4c8c4; font-size: 12px; text-shadow: 0 1px 8px #000; transform: rotate(12deg); }
 .branchLabel span { margin-left: 8px; }
 .details { position: absolute; z-index: 2; top: clamp(112px, 20cqh, 150px); right: 4%; bottom: clamp(10px, 2cqh, 18px); display: grid; width: 44%; max-width: 640px; gap: clamp(8px, 1.5cqh, 14px); grid-template-rows: auto minmax(0, 1fr) auto; }
-.details::before { position: absolute; z-index: -1; inset: -15px -30px -8px; background: radial-gradient(ellipse, #080a0aeb 45%, #080a0a00 74%); content: ""; pointer-events: none; }
+.details::before { position: absolute; z-index: -1; inset: -15px -30px -8px; background: radial-gradient(ellipse, #000000eb 45%, #00000000 74%); content: ""; pointer-events: none; }
 .eyebrow { margin: 0 0 8px; color: var(--stop-color); font-family: var(--font-geist-mono), monospace; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; }
 .roleDetails h4 { margin: 0; color: #f2f0e9; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(24px, 4cqh, 32px); font-weight: 400; line-height: 1; text-transform: uppercase; }
 .company { margin: 6px 0 0; color: #a7aaa7; font-size: 12px; }

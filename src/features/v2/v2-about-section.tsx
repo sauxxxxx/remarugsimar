@@ -7,6 +7,7 @@ import { motion, type MotionValue, useMotionValueEvent, useTransform } from "mot
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useSectionEntrance } from "./scroll/use-section-entrance";
 import {
   getAboutRevealUnit,
   getAboutSettleUnit,
@@ -33,6 +34,7 @@ export function V2AboutSection({
   scrollUnits,
   staticLayout = false,
 }: V2AboutSectionProps) {
+  const entranceRef = useSectionEntrance<HTMLElement>(staticLayout);
   const revealUnit = getAboutRevealUnit(projectCount);
   const settleUnit = getAboutSettleUnit(projectCount);
   const nextRevealUnit = getExperienceRevealUnit(projectCount);
@@ -65,17 +67,20 @@ export function V2AboutSection({
     <motion.section
       aria-labelledby="v2-about-heading"
       className={`${styles.section} ${staticLayout ? styles.staticLayout : ""}`}
+      data-v2-reveal-root
+      ref={entranceRef}
       id="v2-about"
       inert={!staticLayout && !interactive}
       style={staticLayout ? undefined : { opacity: sectionOpacity, pointerEvents, y: sectionY }}
     >
-      <header className={styles.header}>
+      <header className={styles.header} data-v2-reveal="heading">
         <h2 id="v2-about-heading"><span>04</span> About</h2>
       </header>
 
       <div className={styles.layout}>
         <motion.figure
           className={styles.portraitFrame}
+          data-v2-reveal="visual"
           style={quiet ? undefined : { opacity: portraitOpacity, y: portraitY }}
         >
           <Image
@@ -87,7 +92,7 @@ export function V2AboutSection({
           />
         </motion.figure>
 
-        <motion.div className={styles.copy} style={quiet ? undefined : { opacity: copyOpacity, y: copyY }}>
+        <motion.div className={styles.copy} data-v2-reveal="copy" style={quiet ? undefined : { opacity: copyOpacity, y: copyY }}>
           <h3>I&apos;m Remar.</h3>
           <p className={styles.role}>Full-stack developer · Cebu, Philippines.</p>
           <div className={styles.bodyCopy}>

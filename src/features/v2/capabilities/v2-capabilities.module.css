@@ -1,5 +1,5 @@
 .panel.panel > header { border-bottom: 0; }
-.panel.panel { --rest-accent: #8bdbc9; background: radial-gradient(ellipse at 78% 8%, rgba(139, 219, 201, 0.07), transparent 55%), #0c1111; }
+.panel.panel { --rest-accent: #8bdbc9; background: #000000; }
 .panel.panel > div[aria-hidden="true"] { display: none; }
 .capabilities { height: calc(100% - clamp(42px, 6.4vh, 58px)); display: grid; min-height: 0; padding-top: clamp(8px, 1.8vh, 20px); grid-template-rows: auto minmax(0, 1fr); gap: clamp(14px, 2.5vh, 28px); }
 .intro h3 { margin: 0; color: #f5f5ef; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(38px, 6.5vh, 64px); font-weight: 400; line-height: 1; text-transform: uppercase; }
@@ -34,6 +34,13 @@
 .flow .preview { min-height: 0; gap: 16px; grid-template-rows: auto auto auto; }
 .flow .demoStage { min-height: 360px; }
 .flow .previewHeading h4 { font-size: clamp(30px, 6vw, 42px); }
+@media (min-width: 1025px) {
+  .flow .layout { grid-template-columns: minmax(0, 0.88fr) minmax(0, 2fr); gap: clamp(30px, 4vw, 70px); }
+  .flow .tabs { grid-template-columns: minmax(0, 1fr); align-content: space-around; }
+  .flow .tabArrow { display: block; }
+  .flow .demoStage { height: 420px; }
+  .flow .previewHeading h4 { font-size: clamp(28px, 3.2vw, 42px); }
+}
 @media (max-width: 720px) {
   .flow .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; }
   .flow .tabs button { padding: 8px 0; }

@@ -171,7 +171,7 @@ a.option:hover {
 
 .modern {
   --version-ink: #f2f1ed;
-  --version-paper: #0c1111;
+  --version-paper: #000000;
   --version-muted: #aab4b0;
   --version-accent: #8bdbc9;
   font-family: var(--font-geist-sans), sans-serif;
@@ -203,7 +203,7 @@ a.option:hover {
   padding: 6px;
   border: 1px solid rgba(139, 219, 201, 0.13);
   border-radius: 14px;
-  background: #101918;
+  background: #111111;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
 

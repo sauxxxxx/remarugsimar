@@ -17,10 +17,7 @@
   position: absolute;
   z-index: -3;
   inset: 0;
-  background:
-    radial-gradient(circle at 50% 44%, rgba(24, 27, 25, 0.88), transparent 38%),
-    radial-gradient(circle at 52% 32%, rgba(139, 219, 201, 0.035), transparent 30%),
-    linear-gradient(180deg, #050607 0%, #080a09 52%, #050607 100%);
+  background: #000000;
 }
 
 .lightRays {

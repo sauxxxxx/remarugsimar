@@ -2,13 +2,12 @@
 
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { type CSSProperties, useRef, useState } from "react";
-import { V2AboutSection } from "./v2-about-section";
-import { V2ClosingSection } from "./closing/v2-closing-section";
+import { V2FollowingSections } from "./v2-following-sections";
+import { usePostGlimpseScroll } from "./scroll/use-post-glimpse-scroll";
 import { V2Hero, type V2HeroDestination } from "./v2-hero";
 import { V2ProjectClosing } from "./v2-project-closing";
 import { V2ProjectOrbit } from "./v2-project-orbit";
-import { V2RestSection } from "./v2-rest-section";
-import { getAboutSettleUnit, getProjectScrollUnits, getProjectSettleUnit, getWhatIDoSettleUnit } from "./v2-scroll-timeline";
+import { getProjectScrollUnits, getProjectSettleUnit } from "./v2-scroll-timeline";
 import { V2ProjectStage } from "./v2-project-stage";
 import { projectShowcases } from "./v2-project-showcases";
 import styles from "./v2-scroll-experience.module.css";
@@ -18,6 +17,7 @@ const scrollUnits = getProjectScrollUnits(projectCount);
 
 export function V2DesktopScrollExperience() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const scrollTo = usePostGlimpseScroll(trackRef);
   const reduceMotion = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: trackRef,
@@ -66,26 +66,24 @@ export function V2DesktopScrollExperience() {
       };
   const trackStyle = { "--v2-scroll-units": scrollUnits } as CSSProperties;
 
-  function navigateFromHero(destination: V2HeroDestination) {
-    if (destination === "contact") {
-      document.getElementById("v2-contact")?.scrollIntoView({
-        behavior: reduceMotion ? "instant" : "smooth", block: "start",
-      });
-      return;
-    }
+  function navigateToProject(index: number) {
+    if (!Number.isInteger(index) || index < 0 || index >= projectCount) return;
     const track = trackRef.current;
     if (!track) return;
-    const units = {
-      work: getProjectSettleUnit(0),
-      capabilities: getWhatIDoSettleUnit(projectCount),
-      about: getAboutSettleUnit(projectCount),
-    };
     const start = track.getBoundingClientRect().top + window.scrollY;
     const distance = Math.max(0, track.offsetHeight - window.innerHeight);
-    window.scrollTo({
-      top: start + distance * units[destination] / scrollUnits,
-      behavior: reduceMotion ? "instant" : "smooth",
-    });
+    // Land inside the settled hold, allowing for pixel rounding and the scroll spring.
+    scrollTo(start + distance * (getProjectSettleUnit(index) + 0.08) / scrollUnits);
+  }
+
+  function navigateFromHero(destination: V2HeroDestination) {
+    if (destination !== "work") {
+      const sectionIds = { capabilities: "v2-what-i-do", about: "v2-about", contact: "v2-contact" };
+      const section = document.getElementById(sectionIds[destination]);
+      if (section) scrollTo(section);
+      return;
+    }
+    navigateToProject(0);
   }
 
   return (
@@ -102,6 +100,7 @@ export function V2DesktopScrollExperience() {
 
           <motion.div className={styles.projectEntryLayer} style={animatedProjectStyle}>
             <V2ProjectStage
+              onSelectProject={navigateToProject}
               progress={progress}
               projectCount={projectCount}
               scrollUnits={scrollUnits}
@@ -120,30 +119,10 @@ export function V2DesktopScrollExperience() {
               reduceMotion={reduceMotion}
               scrollUnits={scrollUnits}
             />
-            <V2RestSection
-              progress={progress}
-              projectCount={projectCount}
-              reduceMotion={reduceMotion}
-              scrollUnits={scrollUnits}
-              section="capabilities"
-            />
-            <V2AboutSection
-              progress={progress}
-              projectCount={projectCount}
-              reduceMotion={reduceMotion}
-              scrollUnits={scrollUnits}
-            />
-            <V2RestSection
-              progress={progress}
-              projectCount={projectCount}
-              reduceMotion={reduceMotion}
-              scrollUnits={scrollUnits}
-              section="experience"
-            />
           </motion.div>
         </div>
       </div>
-      <V2ClosingSection />
+      <V2FollowingSections />
     </>
   );
 }

@@ -4,8 +4,8 @@
   inset: 0;
   display: none;
   overflow: hidden;
-  background: #f2f0ea;
-  color: #11110f;
+  background: #000000;
+  color: #f2f1ed;
   opacity: 1;
   transition: opacity 460ms cubic-bezier(0.4, 0, 1, 1);
 }
@@ -19,8 +19,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(17, 17, 15, 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 17, 15, 0.16) 1px, transparent 1px);
+    linear-gradient(rgba(242, 241, 237, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 241, 237, 0.1) 1px, transparent 1px);
   background-position: center;
   background-size: clamp(64px, 8vw, 128px) clamp(64px, 11vh, 104px);
   opacity: 0;
@@ -146,7 +146,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #686862;
+  color: #aaaeb2;
   cursor: pointer;
   font-family: var(--font-geist-mono), monospace;
   font-size: 10px;
@@ -156,11 +156,11 @@
 
 .skip:hover,
 .skip:focus-visible {
-  color: #11110f;
+  color: #8bdbc9;
 }
 
 .skip:focus-visible {
-  outline: 2px solid #11110f;
+  outline: 2px solid #8bdbc9;
   outline-offset: 4px;
 }
 

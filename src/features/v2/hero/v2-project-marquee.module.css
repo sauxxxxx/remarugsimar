@@ -36,7 +36,7 @@
   aspect-ratio: 8 / 5;
   border: 1px solid rgba(242, 241, 237, 0.14);
   border-radius: 8px;
-  background: #161e1c;
+  background: #111111;
   transition: border-color 180ms ease;
 }
 
@@ -62,7 +62,7 @@
   height: 44px;
   border: 1px solid rgba(139, 219, 201, 0.3);
   border-radius: 50%;
-  background: #0c1111;
+  background: #000000;
   color: var(--hero-ink);
   cursor: pointer;
   place-items: center;

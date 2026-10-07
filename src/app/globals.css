@@ -447,13 +447,17 @@ html:has(.v2-portfolio-page) {
   height: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  background: #0c1111;
+  background: #000000;
 }
 
 body:has(.v2-portfolio-page) {
   min-height: 100%;
   overflow: visible;
-  background: #0c1111;
+  background: #000000;
+}
+
+html[data-v2-smooth-scroll="enabled"] {
+  scroll-behavior: auto !important;
 }
 
 html[data-v2-entrance="pending"],

@@ -4,10 +4,24 @@
   --hero-muted: #aab4b0;
   min-width: 320px;
   overflow: hidden;
-  background: radial-gradient(ellipse 65% 45% at 50% -8%, rgba(68, 168, 150, 0.28), transparent 85%), #0c1111;
+  position: relative;
+  background: #000000;
   color: var(--hero-ink);
   font-family: var(--font-geist-sans), sans-serif;
   isolation: isolate;
+}
+
+.page::before {
+  position: absolute;
+  z-index: -1;
+  top: -60px;
+  left: 50%;
+  width: min(560px, 80vw);
+  height: 160px;
+  background: radial-gradient(ellipse, rgba(139, 219, 201, 0.1), transparent 70%);
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
 .hero {
@@ -36,7 +50,7 @@
   padding: 8px 14px 8px 24px;
   border: 1px solid rgba(139, 219, 201, 0.13);
   border-radius: 14px;
-  background: rgba(10, 17, 16, 0.72);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .brand {
@@ -85,7 +99,7 @@
 
 .versionSwitch {
   --version-ink: var(--hero-ink);
-  --version-paper: #0c1111;
+  --version-paper: #000000;
   --version-muted: var(--hero-muted);
   --version-accent: var(--hero-accent);
 }
@@ -183,7 +197,7 @@
   top: 18px;
   left: 18px;
   padding: 12px;
-  background: #0c1111;
+  background: #000000;
   color: var(--hero-ink);
   font-size: 12px;
   transform: translateY(-180%);

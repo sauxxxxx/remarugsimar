@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useState, type CSSProperties } from "react";
 import { v2CareerStops } from "../v2-experience-data";
 import { v2Projects } from "../projects/v2-project-data";
+import { useSectionEntrance } from "../scroll/use-section-entrance";
 import { V2CareerPin, V2CareerRoad } from "./v2-career-road";
 import { V2CareerCarousel } from "./v2-career-carousel";
 import { V2CareerTools } from "./v2-career-tools";
@@ -15,6 +16,7 @@ type RoadmapProps = {
 };
 
 export function V2CareerRoadmap({ reduceMotion, staticLayout }: RoadmapProps) {
+  const entranceRef = useSectionEntrance(staticLayout);
   const [selectedId, setSelectedId] = useState<(typeof v2CareerStops)[number]["id"]>("developer");
   const prefersReducedMotion = useReducedMotion();
   const quiet = Boolean(reduceMotion || prefersReducedMotion);
@@ -25,8 +27,8 @@ export function V2CareerRoadmap({ reduceMotion, staticLayout }: RoadmapProps) {
   });
 
   return (
-    <div className={`${styles.roadmap} ${staticLayout ? styles.flow : ""} ${quiet ? styles.quiet : ""}`}>
-      <div className={styles.intro}>
+    <div className={`${styles.roadmap} ${staticLayout ? styles.flow : ""} ${quiet ? styles.quiet : ""}`} data-v2-reveal-root ref={entranceRef}>
+      <div className={styles.intro} data-v2-reveal="heading">
         <h3>The road so far.</h3>
         <p>Choose a stop to explore.</p>
       </div>
@@ -57,7 +59,7 @@ export function V2CareerRoadmap({ reduceMotion, staticLayout }: RoadmapProps) {
         </ol>
         <p className={styles.branchLabel}>Freelance continues <span aria-hidden="true">↗</span></p>
       </div>
-      <div id="v2-career-details" className={styles.details} role="region" aria-labelledby="v2-career-role" style={{ "--stop-color": selected.color } as CSSProperties}>
+      <div id="v2-career-details" className={styles.details} data-v2-reveal="visual" role="region" aria-labelledby="v2-career-role" style={{ "--stop-color": selected.color } as CSSProperties}>
         <motion.div key={`role-${selectedId}`} className={styles.roleDetails} aria-live="polite" aria-atomic="true" initial={quiet ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: quiet ? 0 : 0.18 }}>
           <p className={styles.eyebrow}>Selected stop</p>
           <h4 id="v2-career-role">{selected.role}</h4>

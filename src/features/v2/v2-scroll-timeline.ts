@@ -15,6 +15,11 @@ export function getProjectSettleUnit(index: number) {
   return STAGE_SETTLE_UNITS + index * PROJECT_INTERVAL_UNITS;
 }
 
+export function getActiveProjectIndex(progress: number, projectCount: number, scrollUnits: number) {
+  const nearest = Math.round((progress * scrollUnits - STAGE_SETTLE_UNITS) / PROJECT_INTERVAL_UNITS);
+  return Math.max(0, Math.min(projectCount - 1, nearest));
+}
+
 export function getLastProjectSettleUnit(projectCount: number) {
   return getProjectSettleUnit(Math.max(0, projectCount - 1));
 }
@@ -56,6 +61,6 @@ export function getContactRevealUnit(projectCount: number) {
 }
 
 export function getProjectScrollUnits(projectCount: number) {
-  // The closing sections continue in normal page flow after the road has settled.
-  return getContactRevealUnit(projectCount);
+  // End the sticky sequence on the settled Glimpse, then scroll the page normally.
+  return getClosingSettleUnit(projectCount) + 0.9;
 }

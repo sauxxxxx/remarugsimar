@@ -1,0 +1,22 @@
+.rail {
+  position: absolute;
+  z-index: 6;
+  top: 31%;
+  right: calc(clamp(28px, 3.8vw, 68px) - 16px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+}
+
+.rail li { display: grid; justify-items: center; gap: 9px; }
+.rail button { position: relative; display: grid; width: 44px; height: 44px; place-items: center; margin-block: -12px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.rail button:focus-visible { outline: 2px solid #8bdbc9; outline-offset: 1px; }
+.rail i { width: 1px; height: clamp(24px, 4vh, 42px); background: rgba(245, 245, 239, 0.38); }
+.tooltip { position: absolute; top: 50%; right: calc(100% + 8px); padding: 7px 10px; border-radius: 6px; background: #000; color: #f5f5ef; font-family: var(--font-geist-sans), Arial, sans-serif; font-size: 12px; line-height: 1.4; white-space: nowrap; opacity: 0; transform: translateY(-50%); transition: opacity 150ms ease; pointer-events: none; }
+.rail button:hover .tooltip, .rail button:focus-visible .tooltip { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip { transition: none; }
+}
