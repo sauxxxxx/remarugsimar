@@ -40,7 +40,7 @@ export function V2Hero({ active = true, onNavigate }: {
             ))}
           </nav>
           <a className={styles.availability} href="#v2-contact" onClick={(event) => navigate(event, "contact")}>
-            <span aria-hidden="true" /> Available for selected projects
+            <span aria-hidden="true" /> Limited availability
           </a>
           <PortfolioVersionSwitch className={styles.versionSwitch} currentVersion="v2" />
         </header>

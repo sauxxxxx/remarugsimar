@@ -4,9 +4,11 @@
   color: #f5f5ef;
 }
 
-.projects { padding: 40px 20px 0; }
+.projects { position: relative; isolation: isolate; padding: 40px 20px 0; }
 
 .header {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,6 +41,8 @@
 .header svg { color: var(--project-accent); }
 
 .project {
+  position: relative;
+  z-index: 1;
   padding: 36px 0 20px;
   border-bottom: 1px solid rgba(245, 245, 239, 0.15);
 }

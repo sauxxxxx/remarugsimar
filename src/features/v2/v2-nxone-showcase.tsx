@@ -4,8 +4,6 @@ import deviceStyles from "./v2-project-device.module.css";
 import { V2ProjectCopy } from "./v2-project-copy";
 import styles from "./v2-nxone-showcase.module.css";
 
-const projectTags = ["WordPress", "Elementor", "SEO"];
-
 type V2NxOneShowcaseProps = {
   copyRevealProgress: MotionValue<number>;
   copyStyle?: MotionStyle;
@@ -23,10 +21,9 @@ export function V2NxOneShowcase({
         className={styles.projectCopy}
         description="A focused corporate website presenting NxOne's data-center services, AI infrastructure direction, and path to expert contact."
         href="/projects/nxone-dc-inc"
-        number="03"
         revealProgress={copyRevealProgress}
         style={copyStyle}
-        tags={projectTags}
+        tags={["WordPress", "Elementor", "SEO"]}
         title="NxOne DC Inc."
         type="Corporate data center website"
       />

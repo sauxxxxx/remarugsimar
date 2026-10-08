@@ -4,8 +4,6 @@ import deviceStyles from "./v2-project-device.module.css";
 import { V2ProjectCopy } from "./v2-project-copy";
 import styles from "./v2-project-showcase.module.css";
 
-const projectTags = ["AI integration", "SaaS", "Web app"];
-
 type V2ProjectShowcaseProps = {
   copyRevealProgress: MotionValue<number>;
   copyStyle?: MotionStyle;
@@ -23,10 +21,9 @@ export function V2ProjectShowcase({
         className={styles.projectCopy}
         description="An AI-powered animation studio that helps users generate polished animated stories in minutes."
         href="/projects/roarly-ai"
-        number="01"
         revealProgress={copyRevealProgress}
         style={copyStyle}
-        tags={projectTags}
+        tags={["AI integration", "SaaS", "Web app"]}
         title="Roarly AI"
         type="AI animation studio"
       />

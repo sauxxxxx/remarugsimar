@@ -20,7 +20,6 @@ export function V2ProjectShowcase({
         className={styles.copy}
         description={project.description}
         href={v2ProjectHref(project.slug)}
-        number={String(index + 1).padStart(2, "0")}
         revealProgress={copyRevealProgress}
         style={copyStyle}
         tags={project.highlights}

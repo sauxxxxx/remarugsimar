@@ -9,14 +9,6 @@
   will-change: transform, opacity;
 }
 
-.projectNumber {
-  margin: 0 0 10px;
-  color: var(--project-accent);
-  font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
-  font-size: clamp(42px, 4.4vw, 68px);
-  line-height: 1;
-}
-
 .projectCopy h2 {
   margin: 0;
   font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
@@ -81,6 +73,11 @@
 .caseStudyLink:hover svg,
 .caseStudyLink:focus-visible svg {
   transform: translateX(5px);
+}
+
+.caseStudyLink:focus-visible {
+  outline: 2px solid var(--project-accent);
+  outline-offset: 5px;
 }
 
 @media (max-width: 980px) {

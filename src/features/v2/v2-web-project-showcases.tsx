@@ -77,7 +77,6 @@ function RasterProjectShowcase({
         className={project.copyClassName}
         description={project.description}
         href={project.href}
-        number={project.number}
         revealProgress={copyRevealProgress}
         style={copyStyle}
         tags={project.tags}

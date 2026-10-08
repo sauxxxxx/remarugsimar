@@ -10,7 +10,6 @@ export type V2ProjectCopyProps = {
   className?: string;
   description: string;
   href: string;
-  number: string;
   revealProgress: MotionValue<number>;
   style?: MotionStyle;
   tags: string[];
@@ -22,7 +21,6 @@ export function V2ProjectCopy({
   className,
   description,
   href,
-  number,
   revealProgress,
   style,
   tags,
@@ -40,10 +38,6 @@ export function V2ProjectCopy({
       inert={!interactive}
       style={{ ...style, pointerEvents: interactive ? "auto" : "none" }}
     >
-      <ScrollAnimatedContent end={0.2} progress={revealProgress} start={0}>
-        <p className={styles.projectNumber}>{number}</p>
-      </ScrollAnimatedContent>
-
       <ScrollBlurText end={0.58} progress={revealProgress} start={0.12} text={title} />
 
       <ScrollAnimatedContent end={0.64} progress={revealProgress} start={0.34}>

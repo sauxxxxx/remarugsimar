@@ -8,6 +8,7 @@ import {
   getLastProjectSettleUnit,
 } from "./v2-scroll-timeline";
 import { V2ProjectRail } from "./v2-project-rail";
+import { V2WorkParticles } from "./projects/v2-work-particles";
 import styles from "./v2-project-stage.module.css";
 
 type V2ProjectStageProps = {
@@ -40,6 +41,7 @@ export function V2ProjectStage({
 
   return (
     <section aria-label="Selected work" className={styles.section} id="v2-projects">
+      <V2WorkParticles />
       <motion.header className={styles.sectionHeader} style={{ opacity: chromeOpacity, y: chromeY }}>
         <p><span>02</span> Selected work</p>
         <i aria-hidden="true" />
