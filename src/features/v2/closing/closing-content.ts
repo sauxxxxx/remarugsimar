@@ -2,20 +2,19 @@ import { siteConfig } from "@/lib/site-config";
 
 export const processSteps = [
   {
-    id: "understand", title: "Understand the workflow", summary: "Goals, users, and the current process.",
-    detail: "We identify what takes time, where information gets lost, and what the solution needs to help people do.",
+    id: "plan", label: "Plan", title: "Start with how you work.",
+    detail: "We look at your current process, agree on the essential features, and review the interface before development starts.",
+    outcome: "A defined scope, priorities, and a design to review.",
   },
   {
-    id: "design", title: "Design the solution", summary: "A clear interface and system structure.",
-    detail: "I map the essential features, data, and user flows so we can review the direction before development.",
+    id: "build", label: "Build", title: "Try it as it takes shape.",
+    detail: "I build in practical stages, test the core workflows, and share progress so your feedback shapes the next iteration.",
+    outcome: "Working software you can test and give feedback on.",
   },
   {
-    id: "build", title: "Build and validate", summary: "Develop, test, and refine with feedback.",
-    detail: "I build the solution in practical stages, check the core workflows, and refine the work with your feedback.",
-  },
-  {
-    id: "launch", title: "Launch and support", summary: "Deploy and prepare for everyday use.",
-    detail: "I prepare the release and handover. Documentation, maintenance, and ongoing support are agreed within the project scope.",
+    id: "launch", label: "Launch", title: "Put it to work.",
+    detail: "I prepare deployment, check the release, and hand over the system. Documentation and ongoing support are agreed within the project scope.",
+    outcome: "A live release and an agreed handover and support plan.",
   },
 ] as const;
 

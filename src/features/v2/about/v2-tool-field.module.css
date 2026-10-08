@@ -1,0 +1,87 @@
+.field {
+  --tool-accent: #8bdbc9;
+  --tool-width: 112px;
+  --tool-gap: 24px;
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.heading { margin: 0; color: #aab4b0; font-size: 12px; font-weight: 400; line-height: 1.5; }
+
+.row {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: toolsLoop 48s linear infinite;
+  animation-play-state: paused;
+  will-change: transform;
+}
+.field[data-active="true"] .track { animation-play-state: running; }
+
+.group {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--tool-gap);
+  margin: 0;
+  padding: 0 var(--tool-gap) 0 0;
+  list-style: none;
+}
+
+.tool {
+  position: relative;
+  display: grid;
+  width: var(--tool-width);
+  height: 56px;
+  flex-shrink: 0;
+  align-items: start;
+  justify-items: center;
+  padding-top: 6px;
+  opacity: 0.7;
+  transition: opacity 180ms ease;
+}
+.tool:is(:hover, :focus-visible) { opacity: 1; }
+.logo { width: 28px; height: 28px; filter: grayscale(1) brightness(1.6); }
+.tool:focus-visible { outline: 2px solid var(--tool-accent); outline-offset: -2px; }
+.monochrome { filter: brightness(0) invert(1); }
+
+.name {
+  position: absolute;
+  right: -12px;
+  bottom: 2px;
+  left: -12px;
+  color: #f2f1ed;
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+.tool:is(:hover, :focus-visible) .name { opacity: 1; }
+
+/* Keep keyboard-focused logos visible, including those outside the moving viewport. */
+.row:focus-within { overflow-x: auto; mask-image: none; }
+.row:focus-within .track { animation: none; transform: none; }
+.row:focus-within .duplicate { display: none; }
+
+@keyframes toolsLoop { to { transform: translateX(-50%); } }
+
+@media (max-width: 560px) {
+  .field { --tool-width: 72px; --tool-gap: 20px; }
+  .row { mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field .track { animation: none; transform: none; will-change: auto; }
+  .duplicate { display: none; }
+  .row { overflow-x: auto; mask-image: none; }
+  .tool, .name { transition: none; }
+}

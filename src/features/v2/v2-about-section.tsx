@@ -7,6 +7,7 @@ import { motion, type MotionValue, useMotionValueEvent, useTransform } from "mot
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { V2ToolField } from "./about/v2-tool-field";
 import { useSectionEntrance } from "./scroll/use-section-entrance";
 import {
   getAboutRevealUnit,
@@ -119,6 +120,7 @@ export function V2AboutSection({
           </nav>
         </motion.div>
       </div>
+      {staticLayout && <div className={styles.tools}><V2ToolField /></div>}
     </motion.section>
   );
 }
