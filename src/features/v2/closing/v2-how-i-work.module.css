@@ -4,10 +4,21 @@
 }
 
 .content {
+  width: 100%;
   max-width: 1220px;
   margin-inline: auto;
   padding-bottom: clamp(32px, 4vw, 52px);
   border-bottom: 1px solid rgba(242, 241, 237, 0.16);
+}
+
+.runway[data-process-mode="pinned"] { height: var(--process-runway-height); }
+.runway[data-process-mode="pinned"] .scene {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: var(--process-viewport-height);
+  align-items: center;
+  overflow: clip;
 }
 
 .heading {
@@ -45,10 +56,13 @@
 .tabs button:hover { color: var(--contact-accent); }
 .tabs button:focus-visible, .panel:focus-visible { outline: 2px solid var(--contact-accent); outline-offset: 6px; }
 
-.panels { max-width: 760px; margin-inline: auto; }
+.panels { display: grid; max-width: 760px; margin-inline: auto; isolation: isolate; }
 .panel {
+  --process-base-opacity: 0;
   display: grid;
+  z-index: var(--process-layer);
   min-height: 184px;
+  grid-area: 1 / 1;
   grid-template-columns: 64px minmax(0, 1fr) 6px;
   align-items: start;
   gap: 24px;
@@ -56,9 +70,13 @@
   border: 1px solid rgba(242, 241, 237, 0.12);
   border-radius: 16px;
   background: #090909;
-  animation: panelReveal 220ms ease-out;
+  opacity: var(--process-opacity, var(--process-base-opacity));
+  transform: translateY(var(--process-y, 0px)) scale(var(--process-scale, 1));
+  transform-origin: center top;
 }
-.panel[hidden] { display: none; }
+.panel[aria-hidden="false"] { --process-base-opacity: 1; }
+.panel[aria-hidden="true"] { pointer-events: none; }
+.runway[data-process-mode="pinned"] .panel { will-change: transform; box-shadow: 0 -12px 24px rgba(0, 0, 0, 0.3); }
 .symbol { display: grid; width: 64px; height: 64px; place-items: center; color: var(--contact-accent); }
 .panelCopy h3 { margin: 0; font-size: 22px; font-weight: 400; letter-spacing: -0.025em; line-height: 1.3; }
 .panelCopy p { margin: 12px 0 0; color: #aab4b0; font-size: 14px; line-height: 1.6; }
@@ -66,8 +84,6 @@
 .dots { display: grid; gap: 6px; padding-top: 4px; }
 .dots span { width: 5px; height: 5px; border: 1px solid #525252; border-radius: 50%; }
 .dots span[data-active="true"] { border-color: var(--contact-accent); background: var(--contact-accent); }
-
-@keyframes panelReveal { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 560px) {
   .process { padding-top: 48px; }
@@ -82,5 +98,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .tabs button { transition: none; }
-  .panel { animation: none; }
+  .panel { transform: none; }
 }

@@ -122,7 +122,7 @@ export function V2DesktopScrollExperience() {
           </motion.div>
         </div>
       </div>
-      <V2FollowingSections />
+      <V2FollowingSections onNavigate={scrollTo} />
     </>
   );
 }
