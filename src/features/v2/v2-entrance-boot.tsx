@@ -1,7 +1,7 @@
 const entranceBootScript = `
   (function () {
     var root = document.documentElement;
-    var storageKey = "portfolio-v2-intro-seen-v1";
+    var storageKey = "portfolio-v2-intro-seen-v2";
     var query = new URLSearchParams(window.location.search);
     var forceReplay = query.has("intro");
     var prefersReducedMotion = window.matchMedia(

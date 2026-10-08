@@ -461,6 +461,8 @@ html[data-v2-smooth-scroll="enabled"] {
 }
 
 html[data-v2-entrance="pending"],
-html[data-v2-entrance="pending"] body {
+html[data-v2-entrance="pending"] body,
+html[data-v2-entrance="revealing"],
+html[data-v2-entrance="revealing"] body {
   overflow: hidden !important;
 }
