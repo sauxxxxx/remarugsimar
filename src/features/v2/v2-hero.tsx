@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { MouseEvent } from "react";
 import { PortfolioVersionSwitch } from "@/components/portfolio-version-switch";
 import { RuMark } from "./brand/ru-mark";
+import { V2HeroRibbons } from "./hero/v2-hero-ribbons";
 import { V2ProjectMarquee } from "./hero/v2-project-marquee";
 import styles from "./v2-hero.module.css";
 
@@ -32,6 +33,7 @@ export function V2Hero({ active = true, onNavigate }: {
     <main className={`${styles.page} v2-portfolio-page`} id="v2-main">
       <a className={styles.skipLink} href="#v2-hero-copy">Skip to introduction</a>
       <section aria-labelledby="v2-title" className={styles.hero}>
+        <V2HeroRibbons active={active} />
         <header className={styles.header}>
           <Link aria-label="Remar Ugsimar home" className={styles.brand} data-v2-brand-mark href="/"><RuMark /></Link>
           <nav aria-label="V2 navigation" className={styles.navigation}>

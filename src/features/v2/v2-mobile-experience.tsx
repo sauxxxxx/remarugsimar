@@ -7,7 +7,7 @@ import { V2FollowingSections } from "./v2-following-sections";
 import { V2FlowReveal } from "./v2-flow-reveal";
 import { V2Hero } from "./v2-hero";
 import { projectShowcases } from "./v2-project-showcases";
-import { V2WorkParticles } from "./projects/v2-work-particles";
+import { V2WorkRibbons } from "./projects/v2-work-ribbons";
 import styles from "./v2-mobile-experience.module.css";
 
 const copyStyle: MotionStyle = {
@@ -29,13 +29,13 @@ export function V2MobileExperience() {
     <div className={styles.page}>
       <V2Hero />
       <section aria-labelledby="v2-projects-heading" className={styles.projects} id="v2-projects">
-        <V2WorkParticles />
+        <V2WorkRibbons compact />
         <header className={styles.header}>
-          <h2 id="v2-projects-heading"><span>02</span> Selected work</h2>
+          <h2 id="v2-projects-heading">Selected work</h2>
           <Link href="/v2/projects">View all projects <ArrowRight aria-hidden="true" size={16} /></Link>
         </header>
         {projectShowcases.map((Showcase, index) => (
-          <V2FlowReveal className={styles.project} key={index}>
+          <V2FlowReveal className={`${styles.project} ${index % 2 ? styles.flipped : ""}`} key={index}>
             <Showcase copyRevealProgress={progress} copyStyle={copyStyle} visualStyle={visualStyle} />
           </V2FlowReveal>
         ))}

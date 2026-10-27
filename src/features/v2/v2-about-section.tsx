@@ -74,9 +74,7 @@ export function V2AboutSection({
       inert={!staticLayout && !interactive}
       style={staticLayout ? undefined : { opacity: sectionOpacity, pointerEvents, y: sectionY }}
     >
-      <header className={styles.header} data-v2-reveal="heading">
-        <h2 id="v2-about-heading"><span>04</span> About</h2>
-      </header>
+      <h2 className="sr-only" id="v2-about-heading">About</h2>
 
       <div className={styles.layout}>
         <motion.figure

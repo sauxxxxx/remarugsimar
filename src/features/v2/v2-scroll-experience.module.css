@@ -2,7 +2,7 @@
   position: relative;
   height: calc(var(--v2-scroll-units, 5) * 100vh);
   min-height: calc(var(--v2-scroll-units, 5) * 680px);
-  background: #000000;
+  background: var(--v2-bg);
 }
 
 .stickyViewport {
@@ -11,7 +11,7 @@
   width: 100%;
   height: 100dvh;
   overflow: hidden;
-  background: #000000;
+  background: var(--v2-bg);
   isolation: isolate;
 }
 
@@ -32,8 +32,26 @@
 
 .projectEntryLayer {
   z-index: 2;
-  background: #000000;
+  inset: var(--v2-frame-gap);
+  width: auto;
+  height: auto;
+  border-radius: var(--v2-frame-radius);
+  background: var(--v2-panel);
   transform-origin: center bottom;
+}
+
+/* Glass edge: a hairline rim, a brighter lip along the top, and a faint sheen beneath it. */
+.projectEntryLayer::after {
+  position: absolute;
+  z-index: 30;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, rgba(242, 241, 237, 0.035), transparent 16%);
+  box-shadow:
+    inset 0 0 0 1px rgba(242, 241, 237, 0.09),
+    inset 0 1px 0 rgba(242, 241, 237, 0.14);
+  content: "";
+  pointer-events: none;
 }
 
 .reducedMotion {
@@ -51,4 +69,10 @@
 .reducedMotion .projectEntryLayer {
   position: relative;
   height: 100dvh;
+}
+
+.reducedMotion .projectEntryLayer {
+  inset: auto;
+  height: calc(100dvh - 2 * var(--v2-frame-gap));
+  margin: var(--v2-frame-gap);
 }

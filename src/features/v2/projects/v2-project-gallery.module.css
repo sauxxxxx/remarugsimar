@@ -1,17 +1,17 @@
 .page {
   --work-accent: #8bdbc9;
   min-height: 100dvh;
-  background: #000;
+  background: var(--v2-bg);
   color: #f5f5ef;
   font-family: var(--font-geist-sans), Arial, sans-serif;
 }
 
 .container { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }
 .page a:focus-visible { outline: 2px solid var(--work-accent); outline-offset: 6px; }
-.skip { position: fixed; top: 12px; left: 12px; z-index: 40; padding: 12px 18px; background: #000; color: var(--work-accent); transform: translateY(-200%); }
+.skip { position: fixed; top: 12px; left: 12px; z-index: 40; padding: 12px 18px; background: var(--v2-bg); color: var(--work-accent); transform: translateY(-200%); }
 .skip:focus { transform: none; }
 .intro { padding-block: clamp(48px, 6vw, 88px) 48px; animation: arrive 420ms ease-out both; }
-.intro h1 { margin: 0; font-size: clamp(44px, 6.5vw, 88px); font-weight: 550; line-height: 1.1; letter-spacing: -0.055em; }
+.intro h1 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(44px, 6.5vw, 88px); font-weight: 300; line-height: 1.1; letter-spacing: -0.055em; }
 .summary { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; margin-top: 24px; }
 .summary p { margin: 0; color: #b5b9b7; font-size: clamp(16px, 1.5vw, 19px); }
 .summary > span { color: #919995; font-size: 13px; white-space: nowrap; }
@@ -22,14 +22,14 @@
 .preview { overflow: hidden; border-radius: 8px; }
 .preview img { display: block; width: 100%; height: auto; transition: transform 300ms ease; }
 .projectCaption { display: flex; align-items: start; justify-content: space-between; gap: 24px; padding-top: 20px; }
-.projectCaption h2 { margin: 0; font-size: clamp(22px, 2.3vw, 28px); font-weight: 550; line-height: 1.25; letter-spacing: -0.035em; transition: color 180ms ease; }
+.projectCaption h2 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(22px, 2.3vw, 28px); font-weight: 300; line-height: 1.25; letter-spacing: -0.035em; transition: color 180ms ease; }
 .projectCaption p { margin: 8px 0 0; color: #919995; font-size: 13px; line-height: 1.6; }
 .projectCaption svg { flex-shrink: 0; margin-top: 4px; color: var(--work-accent); transition: transform 180ms ease; }
 .projectLink:hover h2, .projectLink:focus-visible h2 { color: var(--work-accent); }
 .projectLink:hover .projectCaption svg, .projectLink:focus-visible .projectCaption svg { transform: translate(2px, -2px); }
 
 .contact { padding-block: clamp(80px, 10vw, 144px) 96px; text-align: center; }
-.contact h2 { margin: 0; font-size: clamp(32px, 4vw, 54px); font-weight: 550; line-height: 1.2; letter-spacing: -0.04em; text-wrap: balance; }
+.contact h2 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(32px, 4vw, 54px); font-weight: 300; line-height: 1.2; letter-spacing: -0.04em; text-wrap: balance; }
 .contact p { margin: 18px 0 28px; color: #b5b9b7; font-size: 17px; }
 .button { display: inline-flex; min-height: 54px; align-items: center; justify-content: center; gap: 24px; padding: 12px 24px; border-radius: 999px; background: var(--work-accent); color: #071410; font-size: 14px; font-weight: 550; transition: background 180ms ease, transform 180ms ease; }
 .button:hover { background: #a3e4d5; transform: translateY(-2px); }

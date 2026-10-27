@@ -11,28 +11,31 @@
 
 .projectCopy h2 {
   margin: 0;
-  font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
-  font-size: var(--project-title-size, clamp(58px, 6.4vw, 98px));
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 0.84;
-  text-transform: uppercase;
+  font-family: var(--font-geist-sans), sans-serif;
+  /* Per-project sizes were set for condensed caps; scale them for a normal-width face. */
+  font-size: calc(var(--project-title-size, clamp(58px, 6.4vw, 98px)) * 0.7);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 0.96;
+  text-transform: none;
+  overflow-wrap: break-word;
 }
 
 .projectType {
   margin: 14px 0 0;
   color: var(--project-accent);
-  font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif;
-  font-size: clamp(19px, 1.7vw, 27px);
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: clamp(14.8px, 1.3vw, 21.1px);
+  letter-spacing: -0.012em;
+  text-transform: none;
+  font-weight: 400;
 }
 
 .description {
   max-width: var(--project-description-width, 33ch);
   margin: clamp(20px, 3.2vh, 34px) 0 0;
-  color: rgba(245, 245, 239, 0.72);
-  font-size: clamp(12px, 0.9vw, 15px);
+  color: rgba(245, 245, 239, 0.84);
+  font-size: clamp(13px, 0.95vw, 16px);
   line-height: 1.62;
 }
 
@@ -49,7 +52,7 @@
   padding: 8px 12px;
   border: 1px solid rgba(245, 245, 239, 0.42);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 10px;
   text-transform: uppercase;
 }
 
@@ -94,7 +97,7 @@
   }
 
   .projectCopy h2 {
-    font-size: clamp(62px, 20vw, 92px);
+    font-size: clamp(43.4px, 14vw, 64.4px);
   }
 }
 

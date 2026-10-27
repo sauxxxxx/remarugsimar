@@ -22,8 +22,8 @@ type BlurWordProps = {
 };
 
 const headingLines = [
-  ["THAT’S", "A", "GLIMPSE", "OF"],
-  ["WHAT", "I", "BUILD."],
+  ["That’s", "a", "glimpse", "of"],
+  ["what", "I", "build."],
 ];
 
 function BlurWord({ end, progress, start, word }: BlurWordProps) {

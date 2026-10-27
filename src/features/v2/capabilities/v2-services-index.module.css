@@ -1,0 +1,213 @@
+.runway,
+.static {
+  --service-accent: #8bdbc9;
+  color: #f2f1ed;
+}
+
+/* Each service gets roughly three quarters of a screen of scroll. */
+.runway {
+  position: relative;
+  height: calc(100svh + var(--service-steps) * 75svh);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  display: grid;
+  height: 100svh;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(16px, 3vh, 32px);
+  padding: clamp(40px, 8vh, 88px) 0 clamp(28px, 5vh, 48px);
+}
+
+.intro h3 {
+  margin: 0;
+  font-size: clamp(30px, 3vw, 46px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.stage {
+  display: grid;
+  min-height: 0;
+  align-items: center;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 88px);
+}
+
+.index {
+  --line-step: clamp(54px, min(5.8vw, 10.5vh), 96px);
+  position: relative;
+  isolation: isolate;
+}
+
+.lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lines li {
+  display: flex;
+  height: var(--line-step);
+  align-items: center;
+}
+
+.line {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: calc(var(--line-step) * 0.6);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-align: left;
+  transform-origin: left center;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.line:hover { color: #ffffff; }
+
+.line:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--service-accent);
+  outline-offset: 8px;
+}
+
+/* A ribbon that glides beneath the active line. */
+.band {
+  position: absolute;
+  z-index: -1;
+  right: -12%;
+  left: -6%;
+  height: calc(var(--line-step) * 0.8);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 72%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 72%, transparent);
+}
+
+.bandCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.details {
+  min-height: 340px;
+  align-self: center;
+}
+
+.detailBody {
+  display: grid;
+  gap: 20px;
+}
+
+.promise {
+  margin: 0;
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.description {
+  max-width: 42ch;
+  margin: 0;
+  color: #aab4b0;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.label {
+  display: block;
+  margin: 0 0 10px;
+  color: #7a7a7a;
+  font-size: 12px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 6px 11px;
+  border: 1px solid rgba(242, 241, 237, 0.18);
+  border-radius: 999px;
+  color: #d6d6d6;
+  font-size: 12px;
+}
+
+.goodFor {
+  max-width: 42ch;
+  margin: 0;
+  color: #d0d0d0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #8a8a8a;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress {
+  position: relative;
+  height: 1px;
+  flex: 1;
+  overflow: hidden;
+  background: rgba(242, 241, 237, 0.14);
+}
+
+.progress span {
+  position: absolute;
+  inset: 0;
+  background: var(--service-accent);
+  transform-origin: left center;
+}
+
+/* Phones, tablets and reduced motion: every service in a plain list. */
+.static {
+  display: grid;
+  gap: 24px;
+}
+
+.staticList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.staticList > li {
+  display: grid;
+  gap: 14px;
+  padding: 26px 0;
+  border-top: 1px solid rgba(242, 241, 237, 0.14);
+}
+
+.count {
+  color: var(--service-accent);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.staticName {
+  margin: 0;
+  font-size: clamp(30px, 7vw, 44px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}

@@ -6,11 +6,9 @@ import {
   getContactRevealUnit,
   getWhatIDoRevealUnit,
 } from "./v2-scroll-timeline";
-import { V2Capabilities } from "./capabilities/v2-capabilities";
-import capabilityStyles from "./capabilities/v2-capabilities.module.css";
+import { V2ServicesIndex } from "./capabilities/v2-services-index";
 import { useSectionEntrance } from "./scroll/use-section-entrance";
-import { V2CareerRoadmap } from "./experience/v2-career-roadmap";
-import roadStyles from "./experience/v2-career-roadmap.module.css";
+import { V2CareerTimeline } from "./experience/v2-career-timeline";
 import styles from "./v2-rest-section.module.css";
 
 type V2RestSectionProps = {
@@ -25,12 +23,9 @@ type V2RestSectionProps = {
 type PanelShellProps = {
   children: ReactNode;
   className?: string;
-  headerAction?: ReactNode;
   hideUnit: number;
   id: string;
   label: string;
-  number: string;
-  panelPosition: string;
   progress: MotionValue<number>;
   revealUnit: number;
   scrollUnits: number;
@@ -40,12 +35,9 @@ type PanelShellProps = {
 function PanelShell({
   children,
   className = "",
-  headerAction,
   hideUnit,
   id,
   label,
-  number,
-  panelPosition,
   progress,
   revealUnit,
   scrollUnits,
@@ -73,10 +65,8 @@ function PanelShell({
       style={staticLayout ? undefined : { clipPath, pointerEvents: interactive ? "auto" : "none" }}
     >
       <div aria-hidden="true" className={styles.noise} />
-      <header className={styles.header} data-v2-reveal="heading">
-        <h2 id={`${id}-heading`}><span>{number}</span> {label}</h2>
-        {headerAction ?? <p>The rest <i>{panelPosition}</i></p>}
-      </header>
+      {/* The visible headline lives in the content; this names the section for assistive tech. */}
+      <h2 className="sr-only" id={`${id}-heading`}>{label}</h2>
       {children}
     </motion.section>
   );
@@ -102,35 +92,29 @@ export function V2RestSection({
       id={`v2-rest-${section}`}
     >
       {section !== "experience" && <PanelShell
-        className={`${styles.whatPanel} ${capabilityStyles.panel}`}
-        headerAction={<span />}
+        className={styles.whatPanel}
         id="v2-what-i-do"
         hideUnit={getAboutRevealUnit(projectCount) + 0.5}
         label="Services"
-        number="03"
-        panelPosition="01 / 02"
         progress={progress}
         revealUnit={whatRevealUnit}
         scrollUnits={scrollUnits}
         staticLayout={staticLayout}
       >
-        <V2Capabilities staticLayout={staticLayout} />
+        <V2ServicesIndex staticLayout={staticLayout} />
       </PanelShell>}
 
       {section !== "capabilities" && <PanelShell
-        className={`${styles.experiencePanel} ${roadStyles.panel}`}
-        headerAction={<span />}
+        className={styles.experiencePanel}
         id="v2-experience"
         hideUnit={getContactRevealUnit(projectCount) + 0.58}
         label="Experience"
-        number="05"
-        panelPosition="02 / 02"
         progress={progress}
         revealUnit={experienceRevealUnit}
         scrollUnits={scrollUnits}
         staticLayout={staticLayout}
       >
-        <V2CareerRoadmap reduceMotion={reduceMotion} staticLayout={staticLayout} />
+        <V2CareerTimeline staticLayout={staticLayout} />
       </PanelShell>}
     </div>
   );

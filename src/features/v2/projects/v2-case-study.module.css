@@ -1,6 +1,6 @@
 .page {
   --work-accent: #8bdbc9;
-  background: #000;
+  background: var(--v2-bg);
   color: #f5f5ef;
   min-height: 100dvh;
   font-family: var(--font-geist-sans), Arial, sans-serif;
@@ -10,12 +10,12 @@
 .visualContainer { width: min(1392px, calc(100% - 48px)); margin-inline: auto; }
 .page a:focus-visible { outline: 2px solid var(--work-accent); outline-offset: 6px; }
 .page a { transition: color 180ms ease; }
-.skip { position: fixed; z-index: 40; top: 12px; left: 12px; padding: 12px 18px; background: #000; color: var(--work-accent); transform: translateY(-200%); }
+.skip { position: fixed; z-index: 40; top: 12px; left: 12px; padding: 12px 18px; background: var(--v2-bg); color: var(--work-accent); transform: translateY(-200%); }
 .skip:focus { transform: none; }
 
 .intro { padding-block: clamp(48px, 7vw, 100px) 40px; animation: arrive 420ms ease-out both; }
 .introCopy { display: grid; grid-template-columns: 1.1fr 1fr; align-items: start; gap: 64px; }
-.intro h1 { margin: 0; font-size: clamp(40px, 5.7vw, 80px); font-weight: 550; line-height: 1.08; letter-spacing: -0.055em; text-wrap: balance; }
+.intro h1 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(40px, 5.7vw, 80px); font-weight: 300; line-height: 1.08; letter-spacing: -0.055em; text-wrap: balance; }
 .introCopy p { max-width: 46ch; margin: 4px 0 24px; color: #b5b9b7; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.65; }
 .textLink { display: inline-flex; min-height: 44px; align-items: center; gap: 10px; color: var(--work-accent); font-size: 14px; }
 .textLink svg { transition: transform 180ms ease; }
@@ -33,7 +33,7 @@
 
 .story, .delivery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 7vw, 100px); }
 .story { padding-block: clamp(64px, 9vw, 128px); scroll-margin-top: 32px; }
-.page h2 { margin: 0; font-size: clamp(28px, 3vw, 40px); font-weight: 550; line-height: 1.2; letter-spacing: -0.04em; text-wrap: balance; }
+.page h2 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(28px, 3vw, 40px); font-weight: 300; line-height: 1.2; letter-spacing: -0.04em; text-wrap: balance; }
 .story p, .delivery p, .feature p { margin: 20px 0 0; color: #b5b9b7; font-size: 16px; line-height: 1.85; }
 .features { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr); align-items: center; gap: 64px; }
 .featuresTextOnly { display: block; }

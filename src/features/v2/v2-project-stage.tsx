@@ -8,7 +8,7 @@ import {
   getLastProjectSettleUnit,
 } from "./v2-scroll-timeline";
 import { V2ProjectRail } from "./v2-project-rail";
-import { V2WorkParticles } from "./projects/v2-work-particles";
+import { V2WorkRibbons } from "./projects/v2-work-ribbons";
 import styles from "./v2-project-stage.module.css";
 
 type V2ProjectStageProps = {
@@ -41,9 +41,9 @@ export function V2ProjectStage({
 
   return (
     <section aria-label="Selected work" className={styles.section} id="v2-projects">
-      <V2WorkParticles />
+      <V2WorkRibbons progress={progress} scrollUnits={scrollUnits} />
       <motion.header className={styles.sectionHeader} style={{ opacity: chromeOpacity, y: chromeY }}>
-        <p><span>02</span> Selected work</p>
+        <p>Selected work</p>
         <i aria-hidden="true" />
         <Link href="/v2/projects">
           View all projects
@@ -60,7 +60,7 @@ export function V2ProjectStage({
         fill
         priority
         sizes="100vw"
-        src="/v2/roarly-volcanic-rock-v2.webp"
+        src="/v2/roarly-volcanic-rock-v2-cutout.webp"
       />
 
       <V2ProjectRail

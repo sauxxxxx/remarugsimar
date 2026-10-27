@@ -45,7 +45,7 @@ export function V2DesktopScrollExperience() {
   );
   const projectScale = useTransform(progress, [at(0.5), at(1.5), at(2.4)], [0.86, 0.9, 1]);
   const projectOpacity = useTransform(progress, [at(0.4), at(0.9), at(1.5)], [0, 0.35, 1]);
-  const projectRadius = useTransform(progress, [at(1.2), at(2.4)], ["18px", "0px"]);
+  // The panel keeps its rounded frame once settled; see .projectEntryLayer.
   const projectShadow = useTransform(
     progress,
     [at(1), at(2.4)],
@@ -61,7 +61,6 @@ export function V2DesktopScrollExperience() {
         scale: projectScale,
         y: projectY,
         opacity: projectOpacity,
-        borderRadius: projectRadius,
         boxShadow: projectShadow,
       };
   const trackStyle = { "--v2-scroll-units": scrollUnits } as CSSProperties;

@@ -1,7 +1,7 @@
 .page {
   --work-accent: #b5df08;
   min-height: 100dvh;
-  background: #000000;
+  background: var(--v2-bg);
   color: #f5f5ef;
 }
 
@@ -20,18 +20,18 @@
 .page a:focus-visible { outline: 2px solid var(--work-accent); outline-offset: 5px; }
 .page a:hover { color: var(--work-accent); }
 .page svg { flex-shrink: 0; color: var(--work-accent); }
-.skip { position: fixed; z-index: 30; top: 12px; left: 12px; padding: 12px; background: #000000; transform: translateY(-200%); }
+.skip { position: fixed; z-index: 30; top: 12px; left: 12px; padding: 12px; background: var(--v2-bg); transform: translateY(-200%); }
 .skip:focus { transform: none; }
 .intro { padding: 80px 0 64px; }
 .eyebrow { margin: 0 0 24px; color: var(--work-accent); font-family: var(--font-geist-mono), monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
 .intro h1,
-.caseIntro h1 { margin: 0; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(60px, 9vw, 126px); font-weight: 400; line-height: 0.92; text-transform: uppercase; }
+.caseIntro h1 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(48px, 7.2vw, 100.8px); font-weight: 300; line-height: 0.96; text-transform: none; letter-spacing: -0.04em; }
 .intro h1 em { color: var(--work-accent); font-family: var(--font-instrument-serif), Georgia, serif; font-weight: 400; text-transform: none; }
 .intro > p:last-child { max-width: 54ch; margin: 28px 0 0; color: #f5f5efad; font-size: 16px; line-height: 1.7; }
 .projectRow { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: center; gap: 32px; padding: 48px 0; border-top: 1px solid #ffffff26; }
 .projectCopy h2,
 .chapter h2,
-.contributions h2 { margin: 0; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(36px, 4.5vw, 64px); font-weight: 400; line-height: 1; text-transform: uppercase; }
+.contributions h2 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(28.8px, 3.6vw, 51.2px); font-weight: 300; line-height: 1; text-transform: none; letter-spacing: -0.04em; }
 .projectCopy > p:not(.eyebrow) { color: #f5f5efad; font-size: 15px; line-height: 1.7; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 24px 0; list-style: none; }
 .tags li { padding: 7px 10px; border: 1px solid #ffffff30; font-family: var(--font-geist-mono), monospace; font-size: 10px; }
@@ -48,17 +48,17 @@
 .chapters { margin-top: 32px; }
 .chapter { display: grid; grid-template-columns: 48px minmax(150px, 0.7fr) minmax(0, 1.3fr); gap: 32px; padding: 44px 0; border-top: 1px solid #ffffff26; }
 .chapter .eyebrow { padding-top: 8px; }
-.chapter h2 { font-size: 36px; }
+.chapter h2 { font-size: 28.8px; }
 .chapter p { margin: 0; color: #f5f5efad; font-size: 16px; line-height: 1.8; }
 .contributions { padding: 44px 0; border-top: 1px solid #ffffff26; }
-.contributions h2 { font-size: 36px; }
+.contributions h2 { font-size: 28.8px; }
 .contributions > ul:not(.tags) { padding-left: 20px; color: #f5f5efad; line-height: 2; }
 .screenshot { margin: 0; }
 .screenshot img { display: block; width: 100%; height: auto; border: 1px solid #ffffff26; }
 .screenshot figcaption { padding: 16px 0; color: #f5f5ef80; font-family: var(--font-geist-mono), monospace; font-size: 11px; }
 .caseActions { display: flex; flex-wrap: wrap; gap: 24px; padding: 24px 0 44px; }
 .nextProject { padding: 44px 0; border-top: 1px solid #ffffff26; }
-.nextProject a { display: flex; align-items: center; justify-content: space-between; gap: 24px; font-family: var(--font-bebas-neue), "Arial Narrow", sans-serif; font-size: clamp(36px, 6vw, 80px); line-height: 1.1; }
+.nextProject a { display: flex; align-items: center; justify-content: space-between; gap: 24px; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(28.8px, 4.8vw, 64px); line-height: 1.1; font-weight: 300; letter-spacing: -0.04em; text-transform: none; }
 
 @media (max-width: 760px) {
   .container { width: calc(100% - 40px); }
@@ -67,9 +67,9 @@
   .header nav a { font-size: 10px; gap: 6px; }
   .intro { padding: 48px 0; }
   .projectRow { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 36px 0; }
-  .projectCopy h2 { font-size: 48px; }
+  .projectCopy h2 { font-size: 38.4px; }
   .caseIntro { padding-top: 44px; }
-  .caseIntro h1 { font-size: clamp(48px, 14vw, 90px); overflow-wrap: anywhere; }
+  .caseIntro h1 { font-size: clamp(38.4px, 11.2vw, 72px); overflow-wrap: anywhere; }
   .meta { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .chapter { grid-template-columns: 28px minmax(0, 1fr); gap: 16px; padding: 32px 0; }
   .chapter p { grid-column: 2; font-size: 15px; }
