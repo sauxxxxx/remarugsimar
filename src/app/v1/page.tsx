@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AboutPanel } from "@/components/about-panel";
+import { EntranceTransition } from "@/components/entrance-transition";
 import { FocusModeShell } from "@/components/focus-mode-shell";
 import { ProfilePanel } from "@/components/profile-panel";
 import { TranslatedText } from "@/features/translation/translation-provider";
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
 export default function PortfolioV1Page() {
   return (
     <>
+      <EntranceTransition />
       <a className="skip-link" href="#about">
         <TranslatedText text="Skip to about" />
       </a>

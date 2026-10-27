@@ -6,6 +6,7 @@ import {
   Instrument_Serif,
 } from "next/font/google";
 import { GeistPixelSquare } from "geist/font/pixel";
+import { EntranceScript } from "@/components/entrance-script";
 import { StructuredData } from "@/components/structured-data";
 import { ThemeScript } from "@/components/theme-script";
 import { TranslationProvider } from "@/features/translation/translation-provider";
@@ -79,6 +80,10 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [socialImage.url],
   },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: "/icon.svg",
+  },
 };
 
 export const viewport: Viewport = {
@@ -94,6 +99,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <EntranceScript />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${instrumentSerif.variable} ${GeistPixelSquare.variable}`}
