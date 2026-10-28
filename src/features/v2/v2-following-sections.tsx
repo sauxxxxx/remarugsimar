@@ -3,7 +3,9 @@
 import { useMotionValue, useReducedMotion } from "motion/react";
 import { V2ClosingSection } from "./closing/v2-closing-section";
 import type { ProcessNavigation } from "./closing/use-process-scroll";
+import { V2AmbientBackdrop } from "./ribbons/v2-ambient-backdrop";
 import { V2AboutSection } from "./v2-about-section";
+import styles from "./v2-following-sections.module.css";
 import { projectShowcases } from "./v2-project-showcases";
 import { V2RestSection } from "./v2-rest-section";
 
@@ -16,11 +18,12 @@ export function V2FollowingSections({ onNavigate }: { onNavigate?: ProcessNaviga
   };
 
   return (
-    <>
+    <div className={styles.following}>
+      <V2AmbientBackdrop />
       <V2RestSection {...sectionProps} section="capabilities" />
       <V2AboutSection {...sectionProps} />
       <V2RestSection {...sectionProps} section="experience" />
       <V2ClosingSection onNavigate={onNavigate} />
-    </>
+    </div>
   );
 }

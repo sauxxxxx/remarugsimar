@@ -1,5 +1,5 @@
 .field {
-  --tool-width: 44px;
+  --tool-width: clamp(44px, 2.4vw, 60px);
   --tool-gap: 20px;
   display: grid;
   width: 100%;
@@ -13,14 +13,14 @@
   max-width: 52ch;
   margin: 0;
   color: #a3a3a3;
-  font-size: 14px;
+  font-size: var(--v2-text-small);
   font-weight: 400;
   line-height: 1.5;
   text-align: center;
 }
 
 .viewport {
-  width: min(100%, 512px);
+  width: min(100%, clamp(512px, 30vw, 760px));
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, #000 56px, #000 calc(100% - 56px), transparent);
 }
@@ -53,8 +53,8 @@
 }
 
 .logo {
-  width: 24px;
-  height: 24px;
+  width: clamp(24px, 1.25vw, 32px);
+  height: clamp(24px, 1.25vw, 32px);
   object-fit: contain;
   filter: brightness(0) invert(1);
   opacity: 0.6;
@@ -69,7 +69,7 @@
   border-radius: 4px;
   background: #000;
   color: #e5e5e5;
-  font-size: 11px;
+  font-size: var(--v2-text-caption);
   line-height: 1.4;
   text-align: center;
   white-space: nowrap;

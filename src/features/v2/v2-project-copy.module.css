@@ -14,7 +14,7 @@
   font-family: var(--font-geist-sans), sans-serif;
   /* Per-project sizes were set for condensed caps; scale them for a normal-width face. */
   font-size: calc(var(--project-title-size, clamp(58px, 6.4vw, 98px)) * 0.7);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 0.96;
   text-transform: none;
@@ -25,7 +25,7 @@
   margin: 14px 0 0;
   color: var(--project-accent);
   font-family: var(--font-geist-sans), sans-serif;
-  font-size: clamp(14.8px, 1.3vw, 21.1px);
+  font-size: clamp(15px, 1.3vw, 28px);
   letter-spacing: -0.012em;
   text-transform: none;
   font-weight: 400;
@@ -35,7 +35,7 @@
   max-width: var(--project-description-width, 33ch);
   margin: clamp(20px, 3.2vh, 34px) 0 0;
   color: rgba(245, 245, 239, 0.84);
-  font-size: clamp(13px, 0.95vw, 16px);
+  font-size: var(--v2-text-body);
   line-height: 1.62;
 }
 
@@ -49,23 +49,21 @@
 }
 
 .tags li {
-  padding: 8px 12px;
-  border: 1px solid rgba(245, 245, 239, 0.42);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  text-transform: uppercase;
+  padding: 0.42em 0.85em;
+  border: 1px solid rgba(245, 245, 239, 0.18);
+  border-radius: 999px;
+  color: #d6d6d6;
+  font-size: var(--v2-text-small);
 }
 
 .caseStudyLink {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-top: clamp(18px, 3vh, 30px);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  font-weight: 650;
-  text-transform: uppercase;
+  font-size: var(--v2-text-small);
+  font-weight: 500;
 }
 
 .caseStudyLink svg {

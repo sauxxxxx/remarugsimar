@@ -32,10 +32,8 @@
   align-items: center;
   grid-template-columns: auto minmax(40px, 1fr) auto;
   gap: 22px;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  font-weight: 650;
-  text-transform: uppercase;
+  font-size: var(--v2-text-small);
+  font-weight: 500;
 }
 
 .sectionHeader p {
@@ -44,7 +42,7 @@
   gap: 28px;
   margin: 0;
   font-family: var(--font-geist-sans), sans-serif;
-  font-size: clamp(15.8px, 1.2vw, 21.1px);
+  font-size: clamp(16px, 1.2vw, 28px);
   font-weight: 400;
   letter-spacing: -0.012em;
   text-transform: none;
@@ -100,9 +98,8 @@
   align-items: center;
   gap: 11px;
   margin: 0;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
-  text-transform: uppercase;
+  color: #a7a7a7;
+  font-size: var(--v2-text-caption);
   transform: translateX(-50%);
 }
 

@@ -1,39 +1,32 @@
-.section { padding: 0 var(--closing-gutter); }
+.section { padding: 0; }
 
 .questions {
-  max-width: 760px;
+  max-width: calc(var(--v2-container) + 2 * var(--closing-gutter));
   margin-inline: auto;
-  padding-block: 28px 36px;
-}
-
-.questions h2 {
-  margin: 0 0 12px;
-  color: #aab4b0;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
+  padding: 28px var(--closing-gutter) 36px;
 }
 
 .footer {
   display: flex;
-  max-width: 1220px;
+  max-width: calc(var(--v2-container) + 2 * var(--closing-gutter));
   min-height: 90px;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   margin-inline: auto;
-  padding-block: 16px;
-  border-top: 1px solid rgba(242, 241, 237, 0.16);
-  scroll-margin-top: 24px;
+  padding: 16px var(--closing-gutter);
 }
 
 .identity { display: flex; min-width: 0; align-items: center; gap: 16px; }
-.identity h2 { margin: 0; font-size: 16px; font-weight: 400; line-height: 1.5; }
 .brand { display: grid; width: 44px; height: 44px; flex-shrink: 0; place-items: center; }
 .brand svg { width: 28px; height: 28px; }
 .socials { display: flex; gap: 2px; }
 .socials a { display: grid; width: 44px; height: 44px; place-items: center; color: #aab4b0; transition: color 180ms ease; }
 .socials a:hover { color: var(--contact-accent); }
+
+.footerLinks { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0 clamp(14px, 1.8vw, 28px); }
+.footerLinks a { display: inline-flex; min-height: 44px; align-items: center; color: #aab4b0; font-size: var(--v2-text-small); transition: color 180ms ease; }
+.footerLinks a:hover { color: var(--contact-accent); }
 
 .email {
   display: flex;
@@ -42,7 +35,7 @@
   align-items: center;
   gap: 14px;
   color: var(--contact-accent);
-  font-size: 15px;
+  font-size: var(--v2-text-body);
   line-height: 1.6;
 }
 
@@ -60,7 +53,7 @@
 @media (max-width: 640px) {
   .footer { flex-wrap: wrap; gap: 8px 20px; }
   .identity { width: 100%; gap: 8px; }
-  .identity h2 { margin-left: auto; font-size: 15px; }
+  .footerLinks { width: 100%; justify-content: flex-start; order: 3; }
   .email { margin-left: auto; font-size: 14px; }
   .questions { padding-block: 24px 28px; }
 }
@@ -71,5 +64,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .emailWindow > span, .socials a { transition: none; }
+  .emailWindow > span, .socials a, .footerLinks a { transition: none; }
 }

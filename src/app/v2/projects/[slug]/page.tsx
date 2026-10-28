@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { V2CaseStudy } from "@/features/v2/projects/v2-case-study";
 import { v2ProjectHref } from "@/features/v2/projects/v2-project-data";
 import { v2ProjectCatalogue } from "@/features/v2/projects/v2-project-catalogue";
+import { siteConfig } from "@/lib/site-config";
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -15,17 +16,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = v2ProjectCatalogue.find((item) => item.slug === slug);
   if (!project) return {};
+  const title = `${project.name} case study — ${siteConfig.name}`;
+  const image = { url: project.thumbnailUrl, alt: `${project.name} interface preview` };
   return {
-    title: `${project.name} — V2 case study`,
+    title: `${project.name} case study`,
     description: project.description,
     alternates: { canonical: v2ProjectHref(slug) },
     openGraph: {
       type: "article",
-      title: project.name,
+      locale: "en_US",
+      siteName: `${siteConfig.name} Portfolio`,
+      title,
       description: project.description,
       url: v2ProjectHref(slug),
-      images: [{ url: project.thumbnailUrl, alt: project.name }],
+      images: [image],
     },
+    twitter: { card: "summary_large_image", title, description: project.description, images: [image.url] },
   };
 }
 

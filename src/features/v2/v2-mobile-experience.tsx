@@ -3,6 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { type MotionStyle, useMotionValue } from "motion/react";
 import Link from "next/link";
+import { V2HomeNav } from "./nav/v2-home-nav";
 import { V2FollowingSections } from "./v2-following-sections";
 import { V2FlowReveal } from "./v2-flow-reveal";
 import { V2Hero } from "./v2-hero";
@@ -27,6 +28,7 @@ export function V2MobileExperience() {
 
   return (
     <div className={styles.page}>
+      <V2HomeNav />
       <V2Hero />
       <section aria-labelledby="v2-projects-heading" className={styles.projects} id="v2-projects">
         <V2WorkRibbons compact />

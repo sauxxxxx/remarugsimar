@@ -31,3 +31,19 @@
 @media (prefers-reduced-motion: reduce) {
   [data-v2-reveal] { opacity: 1; transform: none; animation: none; }
 }
+
+/* Headings sharpen into focus as they arrive. */
+[data-v2-reveal="heading"][data-v2-reveal-state="pending"] { filter: blur(12px); }
+[data-v2-reveal="heading"][data-v2-reveal-state="visible"] {
+  animation-name: v2-heading-enter;
+  animation-duration: 760ms;
+}
+
+@keyframes v2-heading-enter {
+  from { opacity: 0; filter: blur(12px); transform: translateY(var(--v2-reveal-distance)); }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-v2-reveal="heading"] { filter: none; }
+}

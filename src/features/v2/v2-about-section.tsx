@@ -86,8 +86,8 @@ export function V2AboutSection({
             alt="Remar Ugsimar"
             className={styles.portrait}
             fill
-            sizes="(max-width: 760px) 360px, (max-width: 1024px) 40vw, 430px"
-            src="/v2/remar-editorial-portrait.webp"
+            sizes="(max-width: 760px) 360px, (max-width: 1024px) 40vw, 640px"
+            src="/v2/remar-studio-portrait.webp"
           />
         </motion.figure>
 

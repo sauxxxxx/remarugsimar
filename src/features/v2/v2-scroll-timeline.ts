@@ -1,8 +1,10 @@
-export const STAGE_SETTLE_UNITS = 2.4;
-export const PROJECT_INTERVAL_UNITS = 1.5;
+// One unit is one screen of scroll. The first project lands after about a screen,
+// and each later project is one ordinary scroll gesture away.
+export const STAGE_SETTLE_UNITS = 1.1;
+export const PROJECT_INTERVAL_UNITS = 0.85;
 
-const CLOSING_REVEAL_OFFSET_UNITS = 0.42;
-const CLOSING_SETTLE_OFFSET_UNITS = 1.28;
+const CLOSING_REVEAL_OFFSET_UNITS = 0.3;
+const CLOSING_SETTLE_OFFSET_UNITS = 0.9;
 const WHAT_I_DO_REVEAL_OFFSET_UNITS = 0.72;
 const WHAT_I_DO_SETTLE_OFFSET_UNITS = 1.95;
 const ABOUT_REVEAL_OFFSET_UNITS = 0.9;
@@ -62,5 +64,5 @@ export function getContactRevealUnit(projectCount: number) {
 
 export function getProjectScrollUnits(projectCount: number) {
   // End the sticky sequence on the settled Glimpse, then scroll the page normally.
-  return getClosingSettleUnit(projectCount) + 0.9;
+  return getClosingSettleUnit(projectCount) + 0.5;
 }

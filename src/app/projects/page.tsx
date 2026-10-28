@@ -12,7 +12,7 @@ const projectsDescription =
 export const metadata: Metadata = {
   title: "Projects",
   description: projectsDescription,
-  alternates: { canonical: "/projects" },
+  alternates: { canonical: "/v2/projects" },
   openGraph: {
     type: "website",
     locale: "en_US",

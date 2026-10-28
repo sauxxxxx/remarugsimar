@@ -25,13 +25,13 @@
 .intro { padding: 80px 0 64px; }
 .eyebrow { margin: 0 0 24px; color: var(--work-accent); font-family: var(--font-geist-mono), monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
 .intro h1,
-.caseIntro h1 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(48px, 7.2vw, 100.8px); font-weight: 300; line-height: 0.96; text-transform: none; letter-spacing: -0.04em; }
+.caseIntro h1 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(48px, 7.2vw, 100.8px); font-weight: 400; line-height: 0.96; text-transform: none; letter-spacing: -0.04em; }
 .intro h1 em { color: var(--work-accent); font-family: var(--font-instrument-serif), Georgia, serif; font-weight: 400; text-transform: none; }
 .intro > p:last-child { max-width: 54ch; margin: 28px 0 0; color: #f5f5efad; font-size: 16px; line-height: 1.7; }
 .projectRow { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: center; gap: 32px; padding: 48px 0; border-top: 1px solid #ffffff26; }
 .projectCopy h2,
 .chapter h2,
-.contributions h2 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(28.8px, 3.6vw, 51.2px); font-weight: 300; line-height: 1; text-transform: none; letter-spacing: -0.04em; }
+.contributions h2 { margin: 0; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(28.8px, 3.6vw, 51.2px); font-weight: 400; line-height: 1; text-transform: none; letter-spacing: -0.04em; }
 .projectCopy > p:not(.eyebrow) { color: #f5f5efad; font-size: 15px; line-height: 1.7; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 24px 0; list-style: none; }
 .tags li { padding: 7px 10px; border: 1px solid #ffffff30; font-family: var(--font-geist-mono), monospace; font-size: 10px; }
@@ -58,7 +58,7 @@
 .screenshot figcaption { padding: 16px 0; color: #f5f5ef80; font-family: var(--font-geist-mono), monospace; font-size: 11px; }
 .caseActions { display: flex; flex-wrap: wrap; gap: 24px; padding: 24px 0 44px; }
 .nextProject { padding: 44px 0; border-top: 1px solid #ffffff26; }
-.nextProject a { display: flex; align-items: center; justify-content: space-between; gap: 24px; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(28.8px, 4.8vw, 64px); line-height: 1.1; font-weight: 300; letter-spacing: -0.04em; text-transform: none; }
+.nextProject a { display: flex; align-items: center; justify-content: space-between; gap: 24px; font-family: var(--font-geist-sans), sans-serif; font-size: clamp(28.8px, 4.8vw, 64px); line-height: 1.1; font-weight: 400; letter-spacing: -0.04em; text-transform: none; }
 
 @media (max-width: 760px) {
   .container { width: calc(100% - 40px); }

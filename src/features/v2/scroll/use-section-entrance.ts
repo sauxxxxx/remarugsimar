@@ -55,7 +55,8 @@ export function useSectionEntrance<T extends HTMLElement = HTMLDivElement>(enabl
 
     const onAnimationEnd = (event: AnimationEvent) => {
       const group = event.target as HTMLElement;
-      if (event.animationName === "v2-content-enter" && groups.includes(group)) {
+      const entrance = event.animationName === "v2-content-enter" || event.animationName === "v2-heading-enter";
+      if (entrance && groups.includes(group)) {
         group.dataset.v2RevealState = "complete";
       }
     };

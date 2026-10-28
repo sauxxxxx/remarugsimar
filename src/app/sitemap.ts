@@ -5,7 +5,8 @@ import { writingEntries } from "@/lib/content-data";
 import { v2ProjectHref } from "@/features/v2/projects/v2-project-data";
 import { v2ProjectCatalogue } from "@/features/v2/projects/v2-project-catalogue";
 
-const siteUpdatedAt = new Date("2026-10-07T00:00:00.000Z");
+const siteUpdatedAt = new Date("2026-10-28T00:00:00.000Z");
+const v2Slugs = new Set(v2ProjectCatalogue.map((project) => project.slug));
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -28,18 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
     {
-      url: absoluteUrl("/projects"),
-      lastModified: siteUpdatedAt,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
       url: absoluteUrl("/resume"),
       lastModified: siteUpdatedAt,
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    ...projects.map((project) => ({
+    // Only original project pages without a V2 case study; the rest point at V2.
+    ...projects.filter((project) => !v2Slugs.has(project.slug)).map((project) => ({
       url: absoluteUrl(`/projects/${project.slug}`),
       lastModified: siteUpdatedAt,
       changeFrequency: "monthly" as const,

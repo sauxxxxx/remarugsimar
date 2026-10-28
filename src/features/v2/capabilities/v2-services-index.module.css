@@ -14,19 +14,15 @@
   position: sticky;
   top: 0;
   display: grid;
+  width: min(100%, var(--v2-container));
   height: 100svh;
+  margin-inline: auto;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: clamp(16px, 3vh, 32px);
   padding: clamp(40px, 8vh, 88px) 0 clamp(28px, 5vh, 48px);
 }
 
-.intro h3 {
-  margin: 0;
-  font-size: clamp(30px, 3vw, 46px);
-  font-weight: 300;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-}
+.sticky > :first-child { margin-bottom: 0; }
 
 .stage {
   display: grid;
@@ -37,7 +33,7 @@
 }
 
 .index {
-  --line-step: clamp(54px, min(5.8vw, 10.5vh), 96px);
+  --line-step: clamp(54px, min(5.8vw, 10.5vh), 136px);
   position: relative;
   isolation: isolate;
 }
@@ -62,7 +58,7 @@
   cursor: pointer;
   font: inherit;
   font-size: calc(var(--line-step) * 0.6);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1;
   text-align: left;
@@ -109,7 +105,7 @@
 
 .promise {
   margin: 0;
-  font-size: clamp(22px, 2vw, 30px);
+  font-size: calc(var(--v2-text-lead) * 1.14);
   font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.2;
@@ -119,15 +115,15 @@
   max-width: 42ch;
   margin: 0;
   color: #aab4b0;
-  font-size: 15px;
+  font-size: var(--v2-text-body);
   line-height: 1.65;
 }
 
 .label {
   display: block;
   margin: 0 0 10px;
-  color: #7a7a7a;
-  font-size: 12px;
+  color: #8f8f8f;
+  font-size: var(--v2-text-caption);
 }
 
 .tags {
@@ -140,18 +136,18 @@
 }
 
 .tags li {
-  padding: 6px 11px;
+  padding: 0.45em 0.9em;
   border: 1px solid rgba(242, 241, 237, 0.18);
   border-radius: 999px;
   color: #d6d6d6;
-  font-size: 12px;
+  font-size: var(--v2-text-small);
 }
 
 .goodFor {
   max-width: 42ch;
   margin: 0;
   color: #d0d0d0;
-  font-size: 14px;
+  font-size: var(--v2-text-body);
   line-height: 1.6;
 }
 
@@ -160,7 +156,7 @@
   align-items: center;
   gap: 18px;
   color: #8a8a8a;
-  font-size: 12px;
+  font-size: var(--v2-text-caption);
   font-variant-numeric: tabular-nums;
 }
 
@@ -200,14 +196,14 @@
 
 .count {
   color: var(--service-accent);
-  font-size: 12px;
+  font-size: var(--v2-text-caption);
   font-variant-numeric: tabular-nums;
 }
 
 .staticName {
   margin: 0;
-  font-size: clamp(30px, 7vw, 44px);
-  font-weight: 300;
+  font-size: var(--v2-text-headline);
+  font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.05;
 }

@@ -73,7 +73,7 @@ export function V2ProjectStage({
 
       <motion.p className={styles.scrollHint} style={{ opacity: chromeOpacity }}>
         <span><ArrowDown aria-hidden="true" size={15} strokeWidth={1.5} /></span>
-        Scroll to view next project
+        Scroll for the next project
       </motion.p>
     </section>
   );

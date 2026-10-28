@@ -7,6 +7,7 @@ import { v2ProjectHref, v2Projects } from "../projects/v2-project-data";
 import { useSectionEntrance } from "../scroll/use-section-entrance";
 import { v2CareerStops } from "../v2-experience-data";
 import styles from "./v2-career-timeline.module.css";
+import introStyles from "../scroll/v2-section-intro.module.css";
 
 // Newest role first; the stages are defined oldest first.
 const entries = [...v2CareerStops].reverse();
@@ -19,9 +20,9 @@ export function V2CareerTimeline({ staticLayout }: { staticLayout: boolean }) {
 
   return (
     <div className={styles.timeline} data-v2-reveal-root ref={entranceRef}>
-      <div className={styles.intro} data-v2-reveal="heading">
-        <h3>The road so far.</h3>
-        <p>Where I&apos;ve worked, newest first.</p>
+      <div className={introStyles.intro} data-v2-reveal="heading">
+        <h3 className={introStyles.headline}>The road so far.</h3>
+        <p className={introStyles.lede}>Where I&apos;ve worked, newest first.</p>
       </div>
 
       <ol className={styles.list}>

@@ -48,6 +48,33 @@
 
 .preview:hover { border-color: var(--hero-accent); }
 
+/* With a mouse, the screenshots rest in dark black and white so the headline leads; the one
+   you point at comes back in full colour. Touch screens keep full colour, since they have no
+   hover. The veil evens out light and dark screenshots so the row reads as one band. */
+@media (hover: hover) and (pointer: fine) {
+  .preview img {
+    filter: grayscale(1) brightness(0.58) contrast(1.08);
+    transition: filter 450ms ease, transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .preview::after {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.42));
+    content: "";
+    pointer-events: none;
+    transition: opacity 450ms ease;
+  }
+
+  .preview:is(:hover, :focus-visible) img {
+    filter: none;
+    transform: scale(1.02);
+  }
+
+  .preview:is(:hover, :focus-visible)::after { opacity: 0; }
+}
+
 .preview:focus-visible {
   outline: 2px solid var(--hero-accent);
   outline-offset: 3px;
@@ -84,5 +111,6 @@
 @media (prefers-reduced-motion: reduce) {
   .duplicate,
   .pause { display: none; }
-  .preview { transition: none; }
+  .preview, .preview img, .preview::after { transition: none; }
+  .preview:is(:hover, :focus-visible) img { transform: none; }
 }

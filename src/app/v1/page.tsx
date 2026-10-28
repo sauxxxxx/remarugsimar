@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: { absolute: `${siteConfig.name} — Portfolio V1` },
   description: siteConfig.description,
   alternates: { canonical: "/v1" },
+  robots: { index: false, follow: true },
   openGraph: {
     type: "website",
     locale: "en_US",

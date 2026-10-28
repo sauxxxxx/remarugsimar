@@ -9,6 +9,8 @@ import { ProjectStructuredData } from "@/components/structured-data";
 import { TranslatedText } from "@/features/translation/translation-provider";
 import { projects } from "@/lib/portfolio-data";
 import { siteConfig, socialImage } from "@/lib/site-config";
+import { v2ProjectHref } from "@/features/v2/projects/v2-project-data";
+import { v2ProjectCatalogue } from "@/features/v2/projects/v2-project-catalogue";
 
 type ProjectPageProps = { params: Promise<{ slug: string }> };
 
@@ -26,7 +28,11 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   return {
     title: project.name,
     description: project.description,
-    alternates: { canonical: `/projects/${project.slug}` },
+    alternates: {
+      canonical: v2ProjectCatalogue.some((item) => item.slug === project.slug)
+        ? v2ProjectHref(project.slug)
+        : `/projects/${project.slug}`,
+    },
     openGraph: {
       type: "article",
       locale: "en_US",

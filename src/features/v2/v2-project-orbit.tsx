@@ -6,9 +6,10 @@ import {
 } from "motion/react";
 import { getProjectSettleUnit } from "./v2-scroll-timeline";
 
-const ORBIT_DURATION_UNITS = 1;
-const LAST_PROJECT_EXIT_DELAY_UNITS = 0.25;
-const LAST_PROJECT_EXIT_DURATION_UNITS = 1;
+// Transitions fill most of each project step, leaving a short rest on every project.
+const ORBIT_DURATION_UNITS = 0.6;
+const LAST_PROJECT_EXIT_DELAY_UNITS = 0.15;
+const LAST_PROJECT_EXIT_DURATION_UNITS = 0.6;
 
 type ShowcaseProps = {
   copyRevealProgress: MotionValue<number>;
@@ -74,8 +75,8 @@ function createOrbitFrames(index: number, projectCount: number, scrollUnits: num
     const entryStart = settleUnit - ORBIT_DURATION_UNITS;
     frames.push(createFrame(0, incomingFrames[0]));
     frames.push(createFrame(toProgress(entryStart), incomingFrames[0]));
-    frames.push(createFrame(toProgress(entryStart + 0.35), incomingFrames[1]));
-    frames.push(createFrame(toProgress(entryStart + 0.72), incomingFrames[2]));
+    frames.push(createFrame(toProgress(entryStart + ORBIT_DURATION_UNITS * 0.35), incomingFrames[1]));
+    frames.push(createFrame(toProgress(entryStart + ORBIT_DURATION_UNITS * 0.72), incomingFrames[2]));
     frames.push(createFrame(toProgress(settleUnit), centeredFrame));
   }
 
@@ -83,16 +84,16 @@ function createOrbitFrames(index: number, projectCount: number, scrollUnits: num
     const nextSettleUnit = getProjectSettleUnit(index + 1);
     const exitStart = nextSettleUnit - ORBIT_DURATION_UNITS;
     frames.push(createFrame(toProgress(exitStart), centeredFrame));
-    frames.push(createFrame(toProgress(exitStart + 0.35), outgoingFrames[0]));
-    frames.push(createFrame(toProgress(exitStart + 0.72), outgoingFrames[1]));
+    frames.push(createFrame(toProgress(exitStart + ORBIT_DURATION_UNITS * 0.35), outgoingFrames[0]));
+    frames.push(createFrame(toProgress(exitStart + ORBIT_DURATION_UNITS * 0.72), outgoingFrames[1]));
     frames.push(createFrame(toProgress(nextSettleUnit), outgoingFrames[2]));
     frames.push(createFrame(1, outgoingFrames[2]));
   } else {
     const exitStart = settleUnit + LAST_PROJECT_EXIT_DELAY_UNITS;
     const exitEnd = exitStart + LAST_PROJECT_EXIT_DURATION_UNITS;
     frames.push(createFrame(toProgress(exitStart), centeredFrame));
-    frames.push(createFrame(toProgress(exitStart + 0.35), outgoingFrames[0]));
-    frames.push(createFrame(toProgress(exitStart + 0.72), outgoingFrames[1]));
+    frames.push(createFrame(toProgress(exitStart + LAST_PROJECT_EXIT_DURATION_UNITS * 0.35), outgoingFrames[0]));
+    frames.push(createFrame(toProgress(exitStart + LAST_PROJECT_EXIT_DURATION_UNITS * 0.72), outgoingFrames[1]));
     frames.push(createFrame(toProgress(exitEnd), outgoingFrames[2]));
     frames.push(createFrame(1, outgoingFrames[2]));
   }
@@ -106,18 +107,18 @@ function createCopyRevealFrames(index: number, projectCount: number, scrollUnits
   const entryStart = settleUnit - ORBIT_DURATION_UNITS;
   const times = index === 0
     ? [0]
-    : [0, toProgress(entryStart), toProgress(entryStart + 0.26), toProgress(settleUnit)];
+    : [0, toProgress(entryStart), toProgress(entryStart + ORBIT_DURATION_UNITS * 0.26), toProgress(settleUnit)];
   const values = index === 0 ? [1] : [0, 0, 0, 1];
 
   if (index < projectCount - 1) {
     const nextSettleUnit = getProjectSettleUnit(index + 1);
     const exitStart = nextSettleUnit - ORBIT_DURATION_UNITS;
-    times.push(toProgress(exitStart), toProgress(exitStart + 0.38), toProgress(nextSettleUnit), 1);
+    times.push(toProgress(exitStart), toProgress(exitStart + ORBIT_DURATION_UNITS * 0.38), toProgress(nextSettleUnit), 1);
     values.push(1, 0, 0, 0);
   } else {
     const exitStart = settleUnit + LAST_PROJECT_EXIT_DELAY_UNITS;
     const exitEnd = exitStart + LAST_PROJECT_EXIT_DURATION_UNITS;
-    times.push(toProgress(exitStart), toProgress(exitStart + 0.38), toProgress(exitEnd), 1);
+    times.push(toProgress(exitStart), toProgress(exitStart + LAST_PROJECT_EXIT_DURATION_UNITS * 0.38), toProgress(exitEnd), 1);
     values.push(1, 0, 0, 0);
   }
 

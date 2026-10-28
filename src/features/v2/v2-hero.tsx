@@ -55,7 +55,7 @@ export function V2Hero({ active = true, onNavigate }: {
             Built around how you work, from the first idea to launch.
           </p>
           <a className={styles.primaryAction} href="#v2-contact" onClick={(event) => navigate(event, "contact")}>
-            <Image alt="" className={styles.avatar} height={36} src="/v2/remar-editorial-portrait.webp" width={36} />
+            <Image alt="" className={styles.avatar} height={36} src="/v2/remar-studio-avatar.webp" width={36} />
             Discuss your project <ArrowUpRight aria-hidden="true" size={18} />
           </a>
         </div>

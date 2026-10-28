@@ -53,6 +53,7 @@
 .staticLayout .panel {
   position: relative;
   inset: auto;
+  background: transparent;
   /* clip, not hidden, so the Services index can stay pinned while it scrolls. */
   overflow: clip;
   padding: 40px 20px;
@@ -63,4 +64,34 @@
 
 @media (min-width: 1025px) {
   .staticLayout .panel { padding: 64px clamp(42px, 5vw, 76px); scroll-margin-top: 24px; }
+}
+
+/* Services and Experience sit in the same glass frame as Selected Work, translucent so the ambient ribbons show through. */
+.staticLayout .whatPanel,
+.staticLayout .experiencePanel {
+  margin: var(--v2-frame-gap);
+  border-radius: var(--v2-frame-radius);
+  background: rgba(7, 7, 7, 0.62);
+}
+
+.staticLayout .whatPanel::after,
+.staticLayout .experiencePanel::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, rgba(242, 241, 237, 0.035), transparent 220px);
+  box-shadow:
+    inset 0 0 0 1px rgba(242, 241, 237, 0.09),
+    inset 0 1px 0 rgba(242, 241, 237, 0.14);
+  content: "";
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .staticLayout .whatPanel,
+  .staticLayout .experiencePanel {
+    margin: clamp(10px, 2vw, 16px);
+    border-radius: 18px;
+  }
 }

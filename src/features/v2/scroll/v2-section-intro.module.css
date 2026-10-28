@@ -1,0 +1,24 @@
+/* The one way every lower section opens: same column, same light headline. */
+.intro {
+  width: min(100%, var(--v2-container));
+  margin: 0 auto clamp(28px, 5vh, 56px);
+  text-align: left;
+}
+
+.headline {
+  margin: 0;
+  color: #f2f1ed;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: var(--v2-text-headline);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+}
+
+.lede {
+  max-width: 52ch;
+  margin: 14px 0 0;
+  color: #a7a7a7;
+  font-size: var(--v2-text-body);
+  line-height: 1.6;
+}

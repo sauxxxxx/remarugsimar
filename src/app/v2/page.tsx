@@ -7,8 +7,8 @@ import { V2ScrollExperience } from "@/features/v2/v2-scroll-experience";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: { absolute: "Remar Ugsimar — Portfolio V2" },
-  description: `${siteConfig.name}'s experimental, motion-led portfolio.`,
+  title: { absolute: siteConfig.title },
+  description: siteConfig.description,
   alternates: { canonical: "/" },
 };
 

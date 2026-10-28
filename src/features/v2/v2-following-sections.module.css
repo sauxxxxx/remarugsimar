@@ -1,0 +1,11 @@
+.following {
+  position: relative;
+  isolation: isolate;
+  background: var(--v2-bg);
+}
+
+/* Every section sits above the shared ambient backdrop. */
+.following > :not(:first-child) {
+  position: relative;
+  z-index: 1;
+}

@@ -1,0 +1,99 @@
+/* The same glass frame as Selected Work, with ribbons behind the rock horizon. */
+.finale {
+  --finale-accent: #8bdbc9;
+  position: relative;
+  display: grid;
+  min-height: min(86svh, 780px);
+  margin: var(--v2-frame-gap);
+  overflow: clip;
+  padding: clamp(56px, 10vh, 112px) 24px;
+  border-radius: var(--v2-frame-radius);
+  background: var(--v2-panel);
+  color: #f2f1ed;
+  isolation: isolate;
+  place-items: start center;
+  scroll-margin-top: 24px;
+  text-align: center;
+}
+
+.finale::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, rgba(242, 241, 237, 0.035), transparent 16%);
+  box-shadow:
+    inset 0 0 0 1px rgba(242, 241, 237, 0.09),
+    inset 0 1px 0 rgba(242, 241, 237, 0.14);
+  content: "";
+  pointer-events: none;
+}
+
+.ribbons {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 42% 30% at 50% 30%, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 45%, #000 100%);
+  mask-image: radial-gradient(ellipse 42% 30% at 50% 30%, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 45%, #000 100%);
+}
+
+.canvas { display: block; width: 100%; height: 100%; }
+
+.rock {
+  z-index: 1;
+  object-fit: cover;
+  object-position: center bottom;
+  pointer-events: none;
+}
+
+.copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+}
+
+.headline {
+  margin: 0;
+  font-size: clamp(56px, 8vw, 176px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.lede {
+  max-width: 44ch;
+  margin: 0;
+  color: #b9b9b9;
+  font-size: var(--v2-text-body);
+  line-height: 1.6;
+}
+
+.action {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 8px 22px;
+  border-radius: 40px;
+  background: var(--finale-accent);
+  color: #0c211c;
+  font-size: var(--v2-text-small);
+  font-weight: 600;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.action:hover { background: #a6e6d8; transform: translateY(-2px); }
+
+.action:focus-visible {
+  outline: 2px solid var(--finale-accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action { transition: none; }
+}

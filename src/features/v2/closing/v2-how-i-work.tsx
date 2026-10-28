@@ -6,6 +6,7 @@ import { useSectionEntrance } from "../scroll/use-section-entrance";
 import { processSteps } from "./closing-content";
 import { useProcessScroll, type ProcessNavigation } from "./use-process-scroll";
 import styles from "./v2-how-i-work.module.css";
+import introStyles from "../scroll/v2-section-intro.module.css";
 
 const icons = { plan: MessagesSquare, build: Code2, launch: Rocket };
 
@@ -31,7 +32,9 @@ export function V2HowIWork({ onNavigate }: { onNavigate?: ProcessNavigation }) {
       <div className={styles.runway} data-process-mode="static" ref={runwayRef}>
         <div className={styles.scene}>
           <div className={styles.content} ref={contentRef}>
-            <h2 className={styles.heading} data-v2-reveal="heading" id="v2-process-heading">How I work</h2>
+            <div className={introStyles.intro} data-v2-reveal="heading">
+              <h2 className={introStyles.headline} id="v2-process-heading">How I work.</h2>
+            </div>
             <div aria-label="Process stages" className={styles.tabs} data-v2-reveal="copy" role="tablist">
               {processSteps.map((step, index) => (
                 <button

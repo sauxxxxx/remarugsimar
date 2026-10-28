@@ -38,6 +38,15 @@
   --v2-panel: #070707;
   --v2-frame-gap: clamp(12px, 2vw, 32px);
   --v2-frame-radius: 24px;
+
+  /* Fluid type: steady on phones, as designed at 1440px, about 1.25x on a 2560px monitor. */
+  --v2-text-caption: clamp(12px, 9.14px + 0.268vw, 16px);
+  --v2-text-small: clamp(13px, 10.14px + 0.268vw, 17px);
+  --v2-text-body: clamp(15px, 11.86px + 0.357vw, 21px);
+  --v2-text-lead: clamp(22px, 12.57px + 1.071vw, 40px);
+  --v2-text-headline: clamp(36px, 22.86px + 2.857vw, 96px);
+  /* Content column: 1160px up to about 1770px wide, then grows to 1680px on big monitors. */
+  --v2-container: clamp(1160px, 65.6vw, 1680px);
 }
 
 @theme inline {
@@ -473,4 +482,29 @@ html[data-v2-entrance="pending"] body,
 html[data-v2-entrance="revealing"],
 html[data-v2-entrance="revealing"] body {
   overflow: hidden !important;
+}
+
+/* Project screenshot morph between the gallery and case studies (see v2-shared-image.tsx). */
+::view-transition-group(v2-project-hero) {
+  z-index: 50;
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(v2-project-hero),
+::view-transition-new(v2-project-hero) {
+  height: 100%;
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
 }

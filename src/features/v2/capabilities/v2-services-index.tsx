@@ -14,6 +14,7 @@ import { V2RibbonCanvas } from "../ribbons/v2-ribbon-canvas";
 import { useSectionEntrance } from "../scroll/use-section-entrance";
 import { services, type Service } from "./service-data";
 import styles from "./v2-services-index.module.css";
+import introStyles from "../scroll/v2-section-intro.module.css";
 
 const pinnedQuery = "(min-width: 1025px) and (min-height: 561px) and (prefers-reduced-motion: no-preference)";
 const last = services.length - 1;
@@ -68,8 +69,8 @@ function PinnedIndex() {
   return (
     <div className={styles.runway} ref={runwayRef} style={{ "--service-steps": last } as CSSProperties}>
       <div className={styles.sticky} data-v2-reveal-root ref={entranceRef}>
-        <div className={styles.intro} data-v2-reveal="heading">
-          <h3>What I can build for you.</h3>
+        <div className={introStyles.intro} data-v2-reveal="heading">
+          <h3 className={introStyles.headline}>What I can build for you.</h3>
         </div>
 
         <div className={styles.stage}>
@@ -164,8 +165,8 @@ function StaticIndex({ staticLayout }: { staticLayout: boolean }) {
   const entranceRef = useSectionEntrance(staticLayout);
   return (
     <div className={styles.static} data-v2-reveal-root ref={entranceRef}>
-      <div className={styles.intro} data-v2-reveal="heading">
-        <h3>What I can build for you.</h3>
+      <div className={introStyles.intro} data-v2-reveal="heading">
+        <h3 className={introStyles.headline}>What I can build for you.</h3>
       </div>
       <ol className={styles.staticList}>
         {services.map((service, index) => (

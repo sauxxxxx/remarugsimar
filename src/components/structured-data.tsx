@@ -41,7 +41,8 @@ export function StructuredData() {
         name: siteConfig.name,
         url: siteConfig.url.toString(),
         email: `mailto:${siteConfig.email}`,
-        jobTitle: "CRM, Lead Generation & SaaS Developer",
+        jobTitle: siteConfig.jobTitle,
+        image: absoluteUrl(siteConfig.portrait),
         description: siteConfig.description,
         sameAs: profileLinks
           .filter((link) => link.external && link.href.startsWith("http"))
@@ -53,6 +54,8 @@ export function StructuredData() {
         },
         knowsAbout: [
           ...selectedTechnologies,
+          "Custom software development",
+          "Website development",
           "SaaS products",
           "CRM systems",
           "B2B lead generation",

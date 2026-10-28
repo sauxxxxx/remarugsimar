@@ -1,0 +1,225 @@
+/* The contact form: a glass panel over a dimmed page, in the site's black and mint. */
+.dialog {
+  --contact-accent: #8bdbc9;
+  width: min(calc(100% - 24px), 620px);
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 22px;
+  background: transparent;
+  color: #f2f1ed;
+  font-family: var(--font-geist-sans), sans-serif;
+  overscroll-behavior: contain;
+  text-align: left; /* It sits inside the centred finale. */
+}
+
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.66);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.dialog[open] { animation: dialogIn 380ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.dialog[open]::backdrop { animation: backdropIn 280ms ease both; }
+
+.panel {
+  position: relative;
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid rgba(242, 241, 237, 0.12);
+  border-radius: inherit;
+  background:
+    linear-gradient(to bottom, rgba(242, 241, 237, 0.05), transparent 30%),
+    rgba(10, 10, 10, 0.94);
+  box-shadow: inset 0 1px 0 rgba(242, 241, 237, 0.12), 0 40px 120px rgba(0, 0, 0, 0.6);
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #aab4b0;
+  cursor: pointer;
+  place-items: center;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.close:hover { background: rgba(242, 241, 237, 0.08); color: #f2f1ed; }
+
+.title,
+.done h2 {
+  margin: 0;
+  padding-right: 44px;
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.intro {
+  margin: 14px 0 0;
+  color: #b9b9b9;
+  font-size: var(--v2-text-small);
+  line-height: 1.6;
+}
+
+.intro strong,
+.done strong { color: #f2f1ed; font-weight: 500; }
+
+.form { display: grid; gap: 18px; margin-top: 28px; }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+.field { display: grid; gap: 8px; }
+
+.field > span:first-child {
+  color: #c3c6c4;
+  font-size: var(--v2-text-caption);
+  font-weight: 500;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgba(242, 241, 237, 0.14);
+  border-radius: 12px;
+  background: rgba(242, 241, 237, 0.04);
+  color: #f2f1ed;
+  font: inherit;
+  font-size: 16px; /* 16px stops phones zooming in on focus. */
+  line-height: 1.5;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.field textarea { min-height: 128px; resize: vertical; }
+.field ::placeholder { color: #6f7472; }
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--contact-accent);
+  background: rgba(139, 219, 201, 0.05);
+  outline: none;
+}
+
+.field [aria-invalid="true"] { border-color: #f0a39a; }
+
+.fieldError { color: #f0a39a; font-size: var(--v2-text-caption); }
+
+.formError {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(240, 163, 154, 0.3);
+  border-radius: 12px;
+  background: rgba(240, 163, 154, 0.06);
+  color: #f6c7c1;
+  font-size: var(--v2-text-small);
+  line-height: 1.5;
+}
+
+/* Kept in the form for bots, out of sight and reach for people. */
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.submit {
+  display: inline-flex;
+  min-height: 54px;
+  justify-self: start;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 24px;
+  border: 0;
+  border-radius: 40px;
+  background: var(--contact-accent);
+  color: #0c211c;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--v2-text-small);
+  font-weight: 600;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.submit:hover:not(:disabled) { background: #a6e6d8; transform: translateY(-2px); }
+.submit:disabled { cursor: progress; opacity: 0.7; }
+
+.alternatives {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 18px;
+  margin: 26px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(242, 241, 237, 0.1);
+  color: #8e9592;
+  font-size: var(--v2-text-caption);
+}
+
+.alternatives a,
+.alternatives button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #c3c6c4;
+  cursor: pointer;
+  font: inherit;
+  transition: color 180ms ease;
+}
+
+.alternatives a:hover,
+.alternatives button:hover { color: var(--contact-accent); }
+
+.done { display: grid; justify-items: start; gap: 16px; }
+.done p { margin: 0 0 8px; color: #b9b9b9; font-size: var(--v2-text-body); line-height: 1.6; }
+
+.doneMark {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(139, 219, 201, 0.14);
+  color: var(--contact-accent);
+  place-items: center;
+}
+
+.dialog :is(a, button):focus-visible {
+  outline: 2px solid var(--contact-accent);
+  outline-offset: 3px;
+}
+
+@keyframes dialogIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .submit { justify-self: stretch; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open], .dialog[open]::backdrop { animation: none; }
+  .close, .submit, .field input, .field textarea, .alternatives a, .alternatives button { transition: none; }
+}
