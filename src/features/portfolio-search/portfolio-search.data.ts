@@ -30,6 +30,16 @@ export type PortfolioSearchItem = {
 
 const navigationItems: PortfolioSearchItem[] = [
   {
+    id: "career-cv",
+    label: "Curriculum vitae",
+    description: "Detailed experience, project contributions, education, and PDF download",
+    group: "Navigate",
+    href: "/cv",
+    icon: "experience",
+    keywords: ["cv", "curriculum vitae", "career", "education", "download"],
+    showByDefault: false,
+  },
+  {
     id: "home",
     label: "Home",
     description: "Return to the portfolio introduction",

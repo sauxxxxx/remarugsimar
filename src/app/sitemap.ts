@@ -30,9 +30,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: absoluteUrl("/resume"),
-      lastModified: siteUpdatedAt,
+      lastModified: new Date("2026-10-30T00:00:00.000Z"),
       changeFrequency: "monthly",
       priority: 0.7,
+    },
+    {
+      url: absoluteUrl("/cv"),
+      lastModified: new Date("2026-10-30T00:00:00.000Z"),
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     // Only original project pages without a V2 case study; the rest point at V2.
     ...projects.filter((project) => !v2Slugs.has(project.slug)).map((project) => ({

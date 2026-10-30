@@ -109,6 +109,9 @@ export function V2AboutSection({
             <Link className={styles.resume} href={resume.href} prefetch={false} rel="noreferrer" target="_blank">
               View résumé <ArrowUpRight aria-hidden="true" size={17} />
             </Link>
+            <Link href="/cv" prefetch={false}>
+              View CV <ArrowUpRight aria-hidden="true" size={17} />
+            </Link>
             <a href={github.href} rel="noreferrer" target="_blank">
               <Github aria-hidden="true" size={17} /> GitHub <ArrowUpRight aria-hidden="true" size={14} />
             </a>

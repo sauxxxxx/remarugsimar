@@ -19,7 +19,7 @@
 .resume__section > h2,
 .resume__entry-meta,
 .resume__entry-stack,
-.resume__work-grid span,
+.resume__project-meta,
 .resume__section--skills p {
   font-family: var(--font-geist-mono), monospace;
 }
@@ -27,7 +27,7 @@
 .resume__eyebrow,
 .resume__section > h2,
 .resume__entry-meta,
-.resume__work-grid span {
+.resume__project-meta {
   color: var(--subtle-foreground);
   font-size: 10px;
 }
@@ -78,6 +78,7 @@
 
 .resume__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   padding-block: 24px;
   border-bottom: 1px solid var(--border);
@@ -175,7 +176,7 @@
   color: var(--accent);
 }
 
-.resume__work-grid span {
+.resume__work-grid .resume__project-meta {
   display: block;
   margin-top: 5px;
 }
@@ -185,6 +186,42 @@
   color: var(--muted-foreground);
   font-size: 11px;
   line-height: 1.9;
+}
+
+.resume__actions .resume__download {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--background);
+}
+
+.resume__actions a:focus-visible,
+.resume-print:focus-visible,
+.resume__contact a:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.resume__project-list { display: grid; gap: 32px; }
+.resume__project-list .resume__project + .resume__project { padding-top: 28px; border-top: 1px solid var(--border); }
+.resume__project h3 { margin: 0; font-size: 16px; font-weight: 600; }
+.resume__project p { margin: 10px 0 0; color: var(--muted-foreground); font-size: 13px; line-height: 1.7; }
+.resume__project .resume__project-meta { font-size: 11px; }
+.resume__project .resume__entry-stack { font-size: 11px; }
+.resume__bullets { margin: 12px 0 0; padding-left: 18px; list-style: disc; color: var(--muted-foreground); font-size: 13px; line-height: 1.7; }
+.resume__bullets li + li { margin-top: 6px; }
+.resume__skills { display: grid; gap: 18px; margin: 0; }
+.resume__skills dt { font-size: 12px; font-weight: 600; }
+.resume__skills dd { margin: 6px 0 0; color: var(--muted-foreground); font-size: 13px; line-height: 1.7; }
+.resume__footer { margin-top: 24px; color: var(--subtle-foreground); font-size: 11px; line-height: 1.8; }
+.resume__contact a { overflow-wrap: anywhere; }
+
+@media print {
+  .resume--cv .resume__section { break-inside: auto; }
+  .resume__project, .resume__skills > div { break-inside: avoid; }
+  .resume__bullets, .resume__skills dd, .resume__project p { font-size: 10px; line-height: 1.5; }
+  .resume__skills { gap: 10px; }
+  .resume__bullets li + li { margin-top: 3px; }
+  .resume__footer { display: none; }
 }
 
 @media (max-width: 767px) {

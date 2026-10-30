@@ -3,7 +3,7 @@
 export function ResumePrintButton() {
   return (
     <button className="resume-print" onClick={() => window.print()} type="button">
-      save as PDF
+      Print
       <span aria-hidden="true">↓</span>
     </button>
   );
