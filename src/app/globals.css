@@ -17,6 +17,7 @@
 @import "../styles/homepage-sections.css";
 @import "../styles/focus-mode.css";
 @import "../styles/content-pages.css";
+@import "../styles/readability.css";
 
 :root {
   --background: #f7f7f5;
@@ -40,9 +41,9 @@
   --v2-frame-radius: 24px;
 
   /* Fluid type: steady on phones, as designed at 1440px, about 1.25x on a 2560px monitor. */
-  --v2-text-caption: clamp(12px, 9.14px + 0.268vw, 16px);
-  --v2-text-small: clamp(13px, 10.14px + 0.268vw, 17px);
-  --v2-text-body: clamp(15px, 11.86px + 0.357vw, 21px);
+  --v2-text-caption: clamp(14px, 11.5px + 0.2vw, 18px);
+  --v2-text-small: clamp(15px, 12.5px + 0.2vw, 19px);
+  --v2-text-body: clamp(17px, 14px + 0.3vw, 23px);
   --v2-text-lead: clamp(22px, 12.57px + 1.071vw, 40px);
   --v2-text-headline: clamp(36px, 22.86px + 2.857vw, 96px);
   /* Content column: 1160px up to about 1770px wide, then grows to 1680px on big monitors. */

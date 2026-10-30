@@ -1,0 +1,7 @@
+/* Keep prose justified throughout the portfolio, including sections outside its main. */
+.content-page p,
+body:has(.v2-portfolio-page) p {
+  text-align: justify;
+  text-align-last: start;
+  hyphens: auto;
+}

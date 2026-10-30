@@ -43,27 +43,26 @@ def project(entry, style, detailed=False, include_outcome=True):
             block.append(para("Result: " + entry["outcome"], style["body"]))
         if entry["technologies"]:
             block.append(para("Technologies: " + ", ".join(entry["technologies"]), style["small"]))
-    block.append(Spacer(1, 4 if detailed else 2))
+    block.append(Spacer(1, 2))
     return KeepTogether(block)
 
 
 def generate(kind, data):
     detailed = kind == "cv"
-    style = styles(compact=not detailed)
+    style = styles()
     label = "Curriculum vitae" if detailed else "Resume"
     flow = header(data["profile"], label, style)
     flow.append(para(data["profile"]["summary"], style["body"]))
     flow += experience(data, style, detailed)
     flow += education(data, style)
     if detailed:
-        flow += skills(data, style)
-        flow += [PageBreak(), section("Product and application projects", style)]
+        flow += [PageBreak()] + skills(data, style)
+        flow += [section("Product and application projects", style)]
         flow += [project(entry, style, True) for entry in data["projects"][:4]]
-        website_style = styles(compact=True)
-        flow += [PageBreak(), section("Websites and client projects", website_style)]
-        flow += [project(entry, website_style, True, include_outcome=False) for entry in data["projects"][4:]]
+        flow += [section("Websites and client projects", style)]
+        flow += [project(entry, style, True, include_outcome=False) for entry in data["projects"][4:]]
     else:
-        flow += [section("Selected projects", style)]
+        flow += [PageBreak(), section("Selected projects", style)]
         flow += [project(entry, style) for entry in data["projects"]]
         flow += skills(data, style)
 

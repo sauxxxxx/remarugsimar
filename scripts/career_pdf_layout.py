@@ -2,6 +2,7 @@
 from html import escape
 
 from reportlab.lib import colors
+from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph, Spacer
 
@@ -16,27 +17,17 @@ def clean(text):
     return text.replace("\u2019", "'").replace("\u2018", "'").replace("\u00b7", "|")
 
 
-def styles(compact=False):
-    size = 9 if compact else 10
+def styles():
+    size = 11
     result = {
-        "name": ParagraphStyle("name", fontName="Helvetica-Bold", fontSize=27, leading=31, textColor=INK, spaceAfter=5),
-        "role": ParagraphStyle("role", fontName="Helvetica", fontSize=12, leading=16, textColor=ACCENT, spaceAfter=8),
-        "body": ParagraphStyle("body", fontName="Helvetica", fontSize=size, leading=size * 1.42, textColor=INK, spaceAfter=5),
-        "small": ParagraphStyle("small", fontName="Helvetica", fontSize=8, leading=11, textColor=MUTED, spaceAfter=5),
-        "section": ParagraphStyle("section", fontName="Helvetica-Bold", fontSize=10, leading=14, textColor=ACCENT, spaceBefore=12, spaceAfter=7, keepWithNext=True),
-        "entry": ParagraphStyle("entry", fontName="Helvetica-Bold", fontSize=size + 1, leading=size * 1.5, textColor=INK, spaceBefore=5, spaceAfter=3, keepWithNext=True),
-        "bullet": ParagraphStyle("bullet", fontName="Helvetica", fontSize=size, leading=size * 1.4, textColor=INK, leftIndent=10, firstLineIndent=-8, spaceAfter=3),
+        "name": ParagraphStyle("name", fontName="Helvetica-Bold", fontSize=29, leading=34, textColor=INK, spaceAfter=5),
+        "role": ParagraphStyle("role", fontName="Helvetica", fontSize=14, leading=19, textColor=ACCENT, spaceAfter=8),
+        "body": ParagraphStyle("body", fontName="Helvetica", fontSize=size, leading=16, textColor=INK, spaceAfter=4, alignment=TA_JUSTIFY, splitLongWords=False),
+        "small": ParagraphStyle("small", fontName="Helvetica", fontSize=10, leading=14, textColor=MUTED, spaceAfter=3),
+        "section": ParagraphStyle("section", fontName="Helvetica-Bold", fontSize=12, leading=17, textColor=ACCENT, spaceBefore=14, spaceAfter=8, keepWithNext=True),
+        "entry": ParagraphStyle("entry", fontName="Helvetica-Bold", fontSize=size + 1, leading=size * 1.5, textColor=INK, spaceBefore=3, spaceAfter=2, keepWithNext=True),
+        "bullet": ParagraphStyle("bullet", fontName="Helvetica", fontSize=size, leading=16, textColor=INK, leftIndent=10, firstLineIndent=-8, spaceAfter=2, alignment=TA_JUSTIFY),
     }
-    if compact:
-        result["name"].fontSize = 25
-        result["name"].leading = 29
-        result["body"].spaceAfter = 3
-        result["small"].spaceAfter = 3
-        result["section"].spaceBefore = 8
-        result["section"].spaceAfter = 5
-        result["section"].leading = 12
-        result["entry"].spaceBefore = 3
-        result["bullet"].spaceAfter = 2
     return result
 
 
@@ -53,7 +44,8 @@ def header(profile, label, style):
              f'<link href="{profile["website"]}">remarugsimar.com</link>']
     links += [f'<link href="{link["href"]}">{link["label"].title()}</link>' for link in profile["links"]]
     return [para(profile["name"], style["name"]), para(profile["title"], style["role"]),
-            para(profile["location"] + " | " + " | ".join(links), style["small"], True),
+            para(profile["location"], style["small"]),
+            para(" | ".join(links), style["small"], True),
             para(label + " | " + profile["updatedLabel"], style["small"]), Spacer(1, 5)]
 
 
@@ -63,7 +55,7 @@ def footer(profile, label):
         width, _ = document.pagesize
         canvas.setStrokeColor(colors.HexColor("#dce4df"))
         canvas.line(42, 34, width - 42, 34)
-        canvas.setFont("Helvetica", 8)
+        canvas.setFont("Helvetica", 10)
         canvas.setFillColor(MUTED)
         canvas.drawString(42, 22, clean(f'{profile["name"]} | {label} | {profile["updatedLabel"]}'))
         canvas.drawRightString(width - 42, 22, str(document.page))

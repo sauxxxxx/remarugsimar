@@ -85,7 +85,7 @@
   .symbol { width: 32px; height: 36px; }
   .symbol svg { width: 26px; height: 26px; }
   .panelCopy h3 { font-size: 19px; }
-  .panelCopy p { font-size: 13px; }
+  .panelCopy p { font-size: var(--v2-text-body); }
 }
 
 @media (prefers-reduced-motion: reduce) {
